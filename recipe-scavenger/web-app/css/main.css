@@ -1,0 +1,72 @@
+/* FONT STACK */
+body,
+input, select, textarea {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1.1;
+}
+
+/* BASE LAYOUT */
+
+html {
+	background-color: #fff;
+	background-image: -moz-linear-gradient(center top, #aaa, #ddd);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));
+	background-image: linear-gradient(top, #aaa, #ddd);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#aaaaaa', EndColorStr = '#dddddd');
+	background-repeat: no-repeat;
+	height: 100%;
+}
+
+html * {
+	margin: 0;
+}
+
+#header-background {
+	position: fixed;
+	background-color: #7F7F7F;
+	width: 100%;
+	height: 50px;
+	overflow: hidden;
+	z-index:100;
+}
+
+#header-divider {
+	position: fixed;
+	background-color: #606060;
+	width: 100%;
+	height: 5px;
+	z-index:100;
+}
+
+#header-user-info {
+	position: fixed;
+	margin-left:75%;
+	background-color: #7F7F7F;
+	color: #fff
+}
+
+#header-login {
+	top: 10px;
+	position: fixed;
+	margin-left:90%;
+	background-color: #7F7F7F;
+	color: #fff
+}
+
+#header-image {
+	position: fixed;
+	margin-left: 10%;
+	height: 50px;
+}
+
+#content {
+	margin-top: 60px;
+}
+
+body {
+	background: #ffffff;
+	height: 100%;
+}
