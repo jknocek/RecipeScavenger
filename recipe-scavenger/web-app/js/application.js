@@ -1,9 +1,6 @@
-if (typeof jQuery !== 'undefined') {
-	(function($) {
-		$('#spinner').ajaxStart(function() {
-			$(this).fadeIn();
-		}).ajaxStop(function() {
-			$(this).fadeOut();
-		});
-	})(jQuery);
-}
+$(document).ready(function() {
+	$('.header-highlight').hover( 
+			 function(){ $(this).css('background-color','#969696') }, 
+			 function(){ $(this).css('background-color','#7F7F7F') } 
+	);
+});

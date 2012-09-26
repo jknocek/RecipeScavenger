@@ -22,7 +22,6 @@
 				</table>
 				<div id="login-box">
 					<div class="login-top">
-						<p style="color: #fff; margin-left: 10px;"> Login:</p>
 					</div>
 					<br/>
 					<br/>
@@ -30,10 +29,10 @@
 			            <table>
 							<tr class='prop'>
 								<td valign='top' style='text-align:left;' width='20%'>
-									<label for='email'>Email:</label>
+									<label for='email'>Username or Email:</label>
 								</td>
 								<td valign='top' style='text-align:left;' width='80%'>
-									<input id="email" type='text' name='email' value='${user?.email}' />
+									<input id="emailOrUsername" type='text' name='emailOrUsername' value='${user?.email}' />
 								</td>
 							</tr>
 							<tr class='prop'>
@@ -50,7 +49,7 @@
 					<div class="login-bottom">
 						<div class="login-button-container">
 							<div class="login-button">
-								<g:actionSubmit value="Login" class="login-button" action="doLogin"/>
+								<g:actionSubmit value="Sign In" class="login-button" action="doLogin"/>
 							</div>
 						</div>
 					</div>

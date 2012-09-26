@@ -17,16 +17,26 @@ class UserController {
 		loginFailed = false
 	}
 	
+	def createAccount() {	
+		errorMessage = ""
+	}
+	
+	def accountSettings() {
+		errorMessage = ""
+	}
+	
 	def doLogin = {
 		def user
-		def curEmail = params.email
+		def name = params.emailOrUsername
 		def curPassword = params.password
 		
-		user = User.findWhere(email:curEmail, password:curPassword)
+		user = User.findWhere(email:name, password:curPassword)
+		
+		if(!user) {
+			user = User.findWhere(username:name, password:curPassword)
+		}
 		
 		session.user = user
-		
-		
 		
 		if (user) {
 			errorMessage = ""
@@ -36,5 +46,23 @@ class UserController {
 			loginFailed = true
 			redirect(action:'login')
 		}
+	}
+	
+	def doCreateAccount = {
+		def newUser = new User();
+		
+		newUser.username = params.username
+		newUser.email = params.email
+		newUser.password = params.password
+
+		if (!newUser.save(flush:true)) {
+			newUser.errors.each {
+				errorMessage = it
+			}
+			redirect(action:'createAccount')
+		} else {
+			redirect(action:'login')
+		}
+		
 	}
 }

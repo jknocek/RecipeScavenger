@@ -24,6 +24,11 @@ html * {
 	margin: 0;
 }
 
+body {
+	background: #ffffff;
+	height: 100%;
+}
+
 #header-background {
 	position: fixed;
 	background-color: #7F7F7F;
@@ -43,18 +48,23 @@ html * {
 
 #header-user-info {
 	position: fixed;
-	margin-left:75%;
+	margin-left:960px;
 	background-color: #7F7F7F;
-	color: #fff
+	min-width: 400px;
 }
+#header-user-info a:link {color: #fff; text-decoration: none;}
+#header-user-info a:visited {color: #fff;}
+#header-user-info a:hover {color: #FFCC00; text-decoration: none;}
 
 #header-login {
 	top: 10px;
 	position: fixed;
-	margin-left:90%;
+	margin-left:1000px;
 	background-color: #7F7F7F;
-	color: #fff
 }
+#header-login a:link {color: #fff; text-decoration: none;}
+#header-login a:visited {color: #fff;}
+#header-login a:hover {color: #FFCC00; text-decoration: none;}
 
 #header-image {
 	position: fixed;
@@ -66,7 +76,13 @@ html * {
 	margin-top: 60px;
 }
 
-body {
-	background: #ffffff;
-	height: 100%;
+#create-account {
+	border-style: solid;
+	border-width: 1px;
+	background-color: #D0D4D9;
+	width: 400px;
+	height:500px;
+	margin-left:auto;
+	margin-right:auto;
 }
+

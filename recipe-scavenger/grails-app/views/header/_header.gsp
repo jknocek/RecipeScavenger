@@ -7,7 +7,18 @@
 	</div>
 	<g:if test="${!session.user}">
 		<div id="header-login">
-			<g:link controller="user" action="login" style="color: #fff;">Log in</g:link>
+			<table>
+				<tr>
+					<td>
+						<g:link controller="user" action="login" class="header-highlight"
+								style="color: #fff; font-size: .8em; padding: 3px 3px 3px 3px;">Sign In</g:link>
+					</td>
+					<td>
+						<g:link controller="user" action="createAccount" class="header-highlight"
+								style="color: #fff; font-size: .7em; padding: 3px 3px 3px 3px;">Create an Account</g:link>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</g:if>
 	<g:if test="${session.user}">
@@ -15,15 +26,20 @@
 			<table>
 				<tr>
 					<td>
-						<h5 style="font-size: .7em;">Logged in: ${session.user.email}</h5>
+						<g:link controller="user" action="accountSettings" 
+							style="font-size: .7em; color: #fff; padding: 3px 3px 3px 3px;" 
+							class="header-highlight"><b>Account Settings</b></g:link>
 					</td>
 					<td>
-						<a href="" style="font-size: .7em; color: #fff;"><b>Account Settings</b></a>
+						<g:link controller="header" action="logout" 
+								style="font-size: .7em; color: #fff; padding: 3px 3px 3px 3px;" 
+								class="header-highlight">Sign Out</g:link>
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<g:link controller="header" action="logout" style="font-size: .7em; color: #fff;">log out</g:link>
+					<td colspan="2">
+						<h5 style="font-size: .7em; color: #fff; padding-left: 3px;
+							">Logged in: ${session.user.username}</h5>
 					</td>
 				</tr>
 			</table>

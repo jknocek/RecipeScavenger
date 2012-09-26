@@ -18,6 +18,9 @@
         <r:layoutResources />
 	</head>
 	<body>
+		<g:javascript src="jquery/jquery-1.7.1.min.js" />
+		<g:javascript src="application.js" />
+		<g:javascript src="mask.js" />
 		<g:selectHeader/>
 		<div id="content">
 			<g:layoutBody/>
