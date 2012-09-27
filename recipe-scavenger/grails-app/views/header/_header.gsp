@@ -2,8 +2,10 @@
 <div id="header-divider" style="top:0px;"></div>
 <div id="header-background" style="top:5px;">
 	<div id="header-image">
-		<img style="top: 5px;" src="${resource(dir: 'images', file: 'icon_small.png')}"/>
-		<img src="${resource(dir: 'images', file: 'title_50x125.png')}"/>
+		<g:link controller="home" action="home">
+			<img style="top: 5px;" src="${resource(dir: 'images', file: 'icon_small.png')}"/>
+			<img src="${resource(dir: 'images', file: 'title_50x125.png')}"/>
+		</g:link>
 	</div>
 	<g:if test="${!session.user}">
 		<div id="header-login">

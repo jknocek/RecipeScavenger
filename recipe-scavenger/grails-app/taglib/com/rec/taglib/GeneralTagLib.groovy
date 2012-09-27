@@ -9,7 +9,11 @@ class GeneralTagLib {
 		out<<render(template:"/user/createAccountForm")
 	}
 	
-	def selecAccountSettingsForm = {attrs,body ->
+	def selectAccountSettingsForm = {attrs,body ->
 		out<<render(template:"/user/accountSettingsForm")
+	}
+	
+	def selectLeftSideBar = {attrs,body ->
+		out<<render(template:"/home/leftSideBar")
 	}
 }

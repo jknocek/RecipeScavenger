@@ -1,13 +1,13 @@
 package com.rec.user
 
-import com.rec.user.User;
+import com.rec.user.User
+import com.rec.validation.UserValidation
 
 class UserController {
 	def static scope = "session"
 	def errorMessage
 	boolean loginFailed = false
-	
-
+	boolean createFailed = false
 	
 	def login() {
 		if(!loginFailed) {
@@ -18,7 +18,11 @@ class UserController {
 	}
 	
 	def createAccount() {	
-		errorMessage = ""
+		if(!createFailed) {
+			errorMessage = ""
+		}
+		
+		createFailed = false
 	}
 	
 	def accountSettings() {
@@ -40,7 +44,7 @@ class UserController {
 		
 		if (user) {
 			errorMessage = ""
-			redirect(controller:'plant',action:'list')
+			redirect(controller:'home',action:'home')
 		} else {
 			errorMessage = "Invalid email or password."
 			loginFailed = true
@@ -50,18 +54,30 @@ class UserController {
 	
 	def doCreateAccount = {
 		def newUser = new User();
+		def result
+		
+		def confPassword = params.confPassword
 		
 		newUser.username = params.username
 		newUser.email = params.email
 		newUser.password = params.password
-
-		if (!newUser.save(flush:true)) {
-			newUser.errors.each {
-				errorMessage = it
+		
+		result = UserValidation.validateAccountInfo(newUser.username, newUser.email, newUser.password, confPassword)
+		
+		if(result.success) {
+			if (!newUser.save(flush:true)) {
+				newUser.errors.each {
+					errorMessage = it
+				}
+				createFailed = true				
+				redirect(action:'createAccount')
+			} else {
+				redirect(action:'login')
 			}
-			redirect(action:'createAccount')
 		} else {
-			redirect(action:'login')
+			createFailed = true
+			errorMessage = result.errorMessage
+			redirect(action:'createAccount')
 		}
 		
 	}

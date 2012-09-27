@@ -7,12 +7,13 @@
     </head>
 	<body>
 		<div class="body">
+			<g:selectLeftSideBar/>
 			<g:form action="doLogin" method="post">
 				<table style="margin:0 auto;">
 					<tr>
 						<td>
 							<g:if test="${errorMessage?.size() > 0}">
-								<div class="error-message">
+								<div class="error-message" style="margin-left: 300px;">
 									<h4>${errorMessage}</h4>
 								</div>
 								<br/>

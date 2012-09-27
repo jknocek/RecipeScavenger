@@ -25,8 +25,14 @@ html * {
 }
 
 body {
-	background: #ffffff;
+	background-image:url('../images/kitchen-close-up.jpg');
+	background-color: #ffffff;
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
 	height: 100%;
+	min-width: 1200px;
+	min-height: 720px;
 }
 
 #header-background {
@@ -61,6 +67,7 @@ body {
 	position: fixed;
 	margin-left:1000px;
 	background-color: #7F7F7F;
+	min-width: 400px;
 }
 #header-login a:link {color: #fff; text-decoration: none;}
 #header-login a:visited {color: #fff;}
@@ -76,13 +83,19 @@ body {
 	margin-top: 60px;
 }
 
-#create-account {
-	border-style: solid;
-	border-width: 1px;
-	background-color: #D0D4D9;
-	width: 400px;
-	height:500px;
-	margin-left:auto;
-	margin-right:auto;
+#bottom-footer {
+	bottom: 0;
+    position: fixed;
+    width: 100%; 
+    height: 30px;
+    background-color: #7F7F7F;
 }
 
+#footer-divider {
+	position: fixed;
+	background-color: #606060;
+	width: 100%;
+	bottom: 30px;
+	height: 5px;
+	z-index:100;
+}

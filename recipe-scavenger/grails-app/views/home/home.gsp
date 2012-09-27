@@ -5,6 +5,7 @@
 		<title>Recipe Scavenger</title>
 	</head>
 	<body>
+		<g:selectLeftSideBar/>
 		<div>
 			<h1>Home</h1>
 		</div>

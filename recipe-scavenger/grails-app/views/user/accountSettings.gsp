@@ -20,7 +20,7 @@
 				</tr>
 			</table>
 			<div id="create-account">
-				<g:selecAccountSettingsForm/>
+				<g:selectAccountSettingsForm/>
 			</div>
 		</div>
 	</body>

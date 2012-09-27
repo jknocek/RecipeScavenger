@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'login.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'errors.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'left-side-bar.css')}" type="text/css">
 		<g:layoutHead/>
         <r:layoutResources />
 	</head>
@@ -25,6 +26,8 @@
 		<div id="content">
 			<g:layoutBody/>
 		</div>
+		<div id="footer-divider"></div>
+		<div id="bottom-footer"></div>
 		<g:javascript library="application"/>
         <r:layoutResources />
 	</body>
