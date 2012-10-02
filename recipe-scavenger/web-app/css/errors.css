@@ -1,15 +1,15 @@
 info, .success-message, .warning-message, .error-message {
+	position:relative;
     border: 1px solid;
-    padding:15px 15px 15px 15px;
-    width: 500px;	
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right:15px;
     font: bold 12px verdana;
     -moz-box-shadow: 0 0 5px #888;
     -webkit-box-shadow: 0 0 5px#888;
     box-shadow: 0 0 5px #888;
     text-shadow: 2px 2px 2px #ccc;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
 }
 .info-message {
     color: #00529B;

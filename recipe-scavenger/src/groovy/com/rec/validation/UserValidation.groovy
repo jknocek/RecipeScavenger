@@ -7,8 +7,11 @@ class UserValidation {
 	public static ValidationResult validateAccountInfo(def userName, def email, def password, def confPassword) { 
 		def user
 		def result
+		def errors = []
 		
 		result = new ValidationResult()
+		result.success = true
+		result.errorMessage = ""
 		
 		user = User.findWhere(email:email)
 		if(user) {
@@ -17,8 +20,7 @@ class UserValidation {
 			return result
 		} else if(email?.size() < 1) {
 			result.success = false
-			result.errorMessage = "Invalid Email!"
-			return result
+			errors.add("Invalid Email")
 		}
 		
 		user = User.findWhere(username:userName)
@@ -28,14 +30,12 @@ class UserValidation {
 			return result
 		}else if(userName?.size() < 1) {
 			result.success = false
-			result.errorMessage = "Invalid Username!"
-			return result
+			errors.add("Invalid Username")
 		}
 		
 		if(password == null || password?.size() < 1) {
 			result.success = false
-			result.errorMessage = "Invalid Password"
-			return result
+			errors.add("Invalid Password")
 		}
 		
 		if(password != confPassword) {
@@ -44,7 +44,20 @@ class UserValidation {
 			return result
 		}
 		
-		result.success = true
+		if(!result.success) {
+			if(errors.size() == 1) {
+				result.errorMessage = errors.get(0)
+				return result
+			}
+			
+			for(error in errors) {
+				if(error == errors.get(errors.size() - 1)) {
+					result.errorMessage += " " + error + "."
+				} else {
+					result.errorMessage += " " + error + ","
+				}
+			}
+		}
 		
 		return result
 	}

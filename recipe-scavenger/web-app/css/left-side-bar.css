@@ -1,17 +1,23 @@
 #left-side-bar {
-	float: left;
 	position:fixed;
-
 	height:100%;
 	width:150px;
+	z-index: 90;
 }
 
 #left-side-bar-content {
 	padding: 10px 0px 0px 10px;
-	
-	height: 100%;
-	
+	height:100%;
 	border-style: solid;
 	border-width: 1px;
 	background-color: #D0D4D9;
 }
+
+.sidebar-hightlight {
+	padding: 3px 3px 3px 3px;
+	width: 100%;
+}
+
+#left-side-bar-content a:link {color: #4F4F4F; text-decoration: none;}
+#left-side-bar-content a:visited {color: #4F4F4F;}
+#left-side-bar-content a:hover {color: #FFCC00; text-decoration: none;}

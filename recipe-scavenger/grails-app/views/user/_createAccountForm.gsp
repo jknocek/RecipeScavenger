@@ -1,11 +1,12 @@
 <div>
-	<g:form action="doCreateAccount" method="post">
+	<g:form controller="user" action="doCreateAccount">
 		<div class="create-account-values">
 			<br/>
-			<table cellpadding="5">
+			<table>
 				<tr>
-					<td colspan="2" style="text-align:center;">
-						<h3>Account Information</h3>
+					<td colspan="2">
+						<h3 style="text-align:center;">Account Information</h3>
+						<br/>
 						<br/>
 					</td>
 				</tr>
@@ -18,6 +19,11 @@
 					</td>
 				</tr>
 				<tr>
+					<td colspan="2">
+						<br/>
+					</td>
+				</tr>
+				<tr>
 					<td>
 						<h4>Email</h4>
 					</td>
@@ -27,7 +33,9 @@
 				</tr>
 				<tr>
 					<td colspan="2">
+						<br/>
 						<hr/>
+						<br/>
 					</td>
 				</tr>
 				<tr>
@@ -39,11 +47,21 @@
 					</td>
 				</tr>
 				<tr>
+					<td colspan="2">
+						<br/>
+					</td>
+				</tr>
+				<tr>
 					<td>
-						<h4>Confirm Password</h4>
+						<h4 style="width: 15em;">Confirm Password</h4>
 					</td>
 					<td>
 						<input 	id="confPassword" type='password' name='confPassword'/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<br/>
 					</td>
 				</tr>
 				<tr>
@@ -56,21 +74,22 @@
 		</div>
 		<div class="create-account-info">
 			<br/>
-			<table style="text-align: center;">
+			<table>
 				<tr>
 					<td>
-						<h3><b>Welcome</b> to Recipe Scavenger!</h3>
+						<br/><br/><br/>
+						<h3 style="text-align: center;"><b>Welcome</b> to Recipe Scavenger!</h3>
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<td style="text-align: center;">
 						<br/>
 						<b>Recipe Scavenger</b> is a great way to find recipes you can make, with what you have. Enter ingredients and quantities that you own 
 						into your Recipe Scavenger refrigerator so we can keep tack of what you have.
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<td style="text-align: center;">
 						<br/>
 						Feel free to view any of our recipes, and even <b>add some of your own</b>! 
 					</td>

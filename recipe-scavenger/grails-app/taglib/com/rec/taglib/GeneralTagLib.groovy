@@ -16,4 +16,16 @@ class GeneralTagLib {
 	def selectLeftSideBar = {attrs,body ->
 		out<<render(template:"/home/leftSideBar")
 	}
+	
+	def selectLogin = {attrs,body ->
+		out<<render(template:"/user/login")
+	}
+	
+	def selectTerms = {attrs,body ->
+		out<<render(template:"/user/termsAndConditions")
+	}
+	
+	def errorDisplay = {attrs,body ->
+		out<<render(template:"/error/userError")
+	}
 }

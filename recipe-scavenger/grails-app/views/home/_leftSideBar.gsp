@@ -3,7 +3,7 @@
 		<table>
 			<tr>
 				<td>
-					Some Kind of Links
+					<h2>General</h2>
 				</td>
 			</tr>
 			<tr>
@@ -11,17 +11,17 @@
 					<table>
 						<tr>
 							<td>
-								Home
+								<g:link controller="home" action="home" class="sidebar-highlight">Home</g:link>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								something else
+								<g:link class="sidebar-highlight">Find Recipes</g:link>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								some more junk
+								Quick Search
 							</td>
 						</tr>
 					</table>
@@ -29,7 +29,7 @@
 			</tr>
 			<tr>
 				<td>
-					Some Other Kind of Links
+					<h2>Account</h2>
 				</td>
 			</tr>
 			<tr>
@@ -37,17 +37,33 @@
 					<table>
 						<tr>
 							<td>
-								stuff
+								My Refrigerator
 							</td>
 						</tr>
 						<tr>
 							<td>
-								something else
+								My Recipes
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h2>Premium</h2>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-left:10px;">
+					<table>
+						<tr>
+							<td>
+								Add Ingredients
 							</td>
 						</tr>
 						<tr>
 							<td>
-								some more junk
+								Add Recipes 
 							</td>
 						</tr>
 					</table>

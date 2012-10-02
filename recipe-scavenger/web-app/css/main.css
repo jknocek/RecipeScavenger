@@ -1,86 +1,21 @@
-/* FONT STACK */
-body,
-input, select, textarea {
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+html {
+	height: 100%;
+	background-color: #FFFFCC;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	line-height: 1.1;
 }
 
-/* BASE LAYOUT */
-
-html {
-	background-color: #fff;
-	background-image: -moz-linear-gradient(center top, #aaa, #ddd);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));
-	background-image: linear-gradient(top, #aaa, #ddd);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#aaaaaa', EndColorStr = '#dddddd');
-	background-repeat: no-repeat;
-	height: 100%;
-}
-
-html * {
-	margin: 0;
-}
-
 body {
-	background-image:url('../images/kitchen-close-up.jpg');
-	background-color: #ffffff;
-	background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment:fixed;
+    overflow: auto;
+    height:100%;
+}
+
+#center {
+	margin: 0 auto;
+	width: 1260px;
 	height: 100%;
-	min-width: 1200px;
-	min-height: 720px;
-}
-
-#header-background {
-	position: fixed;
-	background-color: #7F7F7F;
-	width: 100%;
-	height: 50px;
-	overflow: hidden;
-	z-index:100;
-}
-
-#header-divider {
-	position: fixed;
-	background-color: #606060;
-	width: 100%;
-	height: 5px;
-	z-index:100;
-}
-
-#header-user-info {
-	position: fixed;
-	margin-left:960px;
-	background-color: #7F7F7F;
-	min-width: 400px;
-}
-#header-user-info a:link {color: #fff; text-decoration: none;}
-#header-user-info a:visited {color: #fff;}
-#header-user-info a:hover {color: #FFCC00; text-decoration: none;}
-
-#header-login {
-	top: 10px;
-	position: fixed;
-	margin-left:1000px;
-	background-color: #7F7F7F;
-	min-width: 400px;
-}
-#header-login a:link {color: #fff; text-decoration: none;}
-#header-login a:visited {color: #fff;}
-#header-login a:hover {color: #FFCC00; text-decoration: none;}
-
-#header-image {
-	position: fixed;
-	margin-left: 10%;
-	height: 50px;
-}
-
-#content {
-	margin-top: 60px;
 }
 
 #bottom-footer {
@@ -89,6 +24,7 @@ body {
     width: 100%; 
     height: 30px;
     background-color: #7F7F7F;
+    z-index:100;
 }
 
 #footer-divider {
@@ -98,4 +34,31 @@ body {
 	bottom: 30px;
 	height: 5px;
 	z-index:100;
+}
+
+#content {
+	position:relative;
+	left:150px;
+	height:100%;
+	width: 1110px;
+	min-width: 1110px;
+	background-color: #fff;
+	border-style: solid;
+	border-width: 1px;
+}
+
+#content-form {
+	position:relative;
+	border-top:30px solid #7F7F7F;
+	border-bottom:30px solid #7F7F7F;
+	border-left:2px solid #7F7F7F;
+	border-right:2px solid #7F7F7F;
+	background-color: #D0D4D9;
+	top:0px; bottom:0; left:0; right:0;
+	width: 800px;
+	height:300px;
+	margin-top: 30px;
+	margin-left:auto;
+	margin-right:auto;
+	padding: 10px 10px 10px 10px;
 }

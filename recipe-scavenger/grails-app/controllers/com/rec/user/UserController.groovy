@@ -5,34 +5,52 @@ import com.rec.validation.UserValidation
 
 class UserController {
 	def static scope = "session"
-	def errorMessage
-	boolean loginFailed = false
-	boolean createFailed = false
 	
-	def login() {
-		if(!loginFailed) {
-			errorMessage = ""
+	/*
+	 * Redirects the user to the create account page.
+	 */
+	def createAccount() {
+		if(!session.user) {
+			if(session.foundError?.size() > 0) {
+				
+				session.error = session.foundError
+				session.foundError = ""
+			} else {
+				session.error = ""
+			}
+		} else {
+			redirect(controller: 'home', action: 'home')
 		}
-		
-		loginFailed = false
 	}
 	
-	def createAccount() {	
-		if(!createFailed) {
-			errorMessage = ""
-		}
-		
-		createFailed = false
-	}
-	
+	/*
+	 * Redirects the user to the account settings page.
+	 */
 	def accountSettings() {
-		errorMessage = ""
+		if(session.user) {
+			if(session.foundError?.size() > 0) {
+				
+				session.error = session.foundError
+				session.foundError = ""
+			} else {
+				session.error = ""
+			}
+		} else {
+		redirect(controller: 'home', action: 'home')
+		}
 	}
 	
+	/*
+	 * Handles the sign-in process, then redirects the the last visited page. 
+	 * Currently all non-persisted user information on that last page will be lost.
+	 * 
+	 * This function has no corresponding action as its view is contained in a JQuery UI dialog.
+	 */
 	def doLogin = {
 		def user
 		def name = params.emailOrUsername
 		def curPassword = params.password
+		def targetUrl = request.getHeader('referer')
 		
 		user = User.findWhere(email:name, password:curPassword)
 		
@@ -43,15 +61,19 @@ class UserController {
 		session.user = user
 		
 		if (user) {
-			errorMessage = ""
-			redirect(controller:'home',action:'home')
+			session.foundError = ""
+			session.error = ""
 		} else {
-			errorMessage = "Invalid email or password."
-			loginFailed = true
-			redirect(action:'login')
+			session.foundError = "Invalid email or password."
 		}
+		
+		redirect(url: targetUrl)
 	}
 	
+	/*
+	 * Handles the create-user process, then redirects the user to the home page.
+	 * In the case of an error, the createAccount page is refreshed, and an error is displayed.
+	 */
 	def doCreateAccount = {
 		def newUser = new User();
 		def result
@@ -67,18 +89,16 @@ class UserController {
 		if(result.success) {
 			if (!newUser.save(flush:true)) {
 				newUser.errors.each {
-					errorMessage = it
-				}
-				createFailed = true				
+					session.foundError = it
+				}		
 				redirect(action:'createAccount')
 			} else {
-				redirect(action:'login')
+				session.foundError = ""
+				redirect(controller:'home', action:'home')
 			}
 		} else {
-			createFailed = true
-			errorMessage = result.errorMessage
+			session.foundError = result.errorMessage
 			redirect(action:'createAccount')
 		}
-		
 	}
 }

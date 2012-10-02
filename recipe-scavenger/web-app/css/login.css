@@ -29,7 +29,10 @@
 	bottom: 2px;
 	margin-left:300px;
 	position: absolute;
-}.login-button {
+}
+
+.login-button {
+	float: right;
 	width: 80px;
 	height: 20px;
 	background-color:#9f0000;
