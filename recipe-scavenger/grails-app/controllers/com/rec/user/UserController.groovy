@@ -80,9 +80,9 @@ class UserController {
 		
 		def confPassword = params.confPassword
 		
-		newUser.username = params.username
-		newUser.email = params.email
-		newUser.password = params.password
+		newUser.username = params.newUsername
+		newUser.email = params.newEmail
+		newUser.password = params.newPassword
 		
 		result = UserValidation.validateAccountInfo(newUser.username, newUser.email, newUser.password, confPassword)
 		

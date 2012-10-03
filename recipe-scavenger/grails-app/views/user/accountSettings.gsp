@@ -19,7 +19,7 @@
 					</td>
 				</tr>
 			</table>
-			<div id="content-form">
+			<div class="content-form">
 				<g:selectAccountSettingsForm/>
 			</div>
 		</div>

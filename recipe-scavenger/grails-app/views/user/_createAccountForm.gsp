@@ -15,7 +15,7 @@
 						<h4>Username</h4>
 					</td>
 					<td>
-						<g:textField name="username" id="username"/>
+						<g:textField name="newUsername" id="newUsername"/>
 					</td>
 				</tr>
 				<tr>
@@ -28,7 +28,7 @@
 						<h4>Email</h4>
 					</td>
 					<td>
-						<g:textField name="email" id="email"/>
+						<g:textField name="newEmail" id="newEmail"/>
 					</td>
 				</tr>
 				<tr>
@@ -43,7 +43,7 @@
 						<h4>Password</h4>
 					</td>
 					<td>
-						<input 	id="password" type='password' name='password'/>
+						<input 	id="newPassword" type='password' name='newPassword'/>
 					</td>
 				</tr>
 				<tr>

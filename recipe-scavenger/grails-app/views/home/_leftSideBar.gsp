@@ -3,7 +3,7 @@
 		<table>
 			<tr>
 				<td>
-					<h2>General</h2>
+					<h2 style="margin-top: 20px;">General</h2>
 				</td>
 			</tr>
 			<tr>
@@ -21,6 +21,11 @@
 						</tr>
 						<tr>
 							<td>
+								<g:link class="sidebar-highlight" controller="recipe" action="topRecipes">Top Recipes</g:link>
+							</td>
+						</tr>
+						<tr>
+							<td>
 								Quick Search
 							</td>
 						</tr>
@@ -29,7 +34,7 @@
 			</tr>
 			<tr>
 				<td>
-					<h2>Account</h2>
+					<h2 style="margin-top: 20px;">Account</h2>
 				</td>
 			</tr>
 			<tr>
@@ -50,7 +55,7 @@
 			</tr>
 			<tr>
 				<td>
-					<h2>Premium</h2>
+					<h2 style="margin-top: 20px;">Premium</h2>
 				</td>
 			</tr>
 			<tr>
@@ -71,7 +76,7 @@
 			</tr>
 			<tr>
 				<td>
-					<h2>Admin</h2>
+					<h2 style="margin-top: 20px;">Admin</h2>
 				</td>
 			</tr>
 			<tr>

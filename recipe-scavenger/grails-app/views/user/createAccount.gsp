@@ -9,7 +9,9 @@
 		<g:selectLeftSideBar/>
 		<div id="content">
 			<g:errorDisplay/>
-			<div id="content-form">
+			<h1 style="margin-left: 10px;">Create Account</h1>
+			<hr/>
+			<div class="content-form">
 				<g:selectCreateAccountForm/>
 			</div>
 		</div>

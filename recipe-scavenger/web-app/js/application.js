@@ -12,7 +12,11 @@ $(document).ready(function() {
 	);
 	
 	// Image slider jquery call
-	$('#features').jshowoff({speed:6000});
+	$('.features').jshowoff({
+		speed:6000,
+		cssClass: 'thumbFeatures',
+		effect: 'slideLeft'
+	});
 	
 	// login dialog
 	$("#login-dialog").dialog({ autoOpen: false, 
@@ -49,4 +53,14 @@ $(document).ready(function() {
 	
 	// Rich Text editor
 	$(".editor").jqte();
+	
+	// Tabs
+	$( "#tabs" ).tabs();
+	
+	// Accordion
+	$( "#accordion" ).accordion({
+		collapsible: true,
+		active: false,
+		autoHeight: false
+	});
 });

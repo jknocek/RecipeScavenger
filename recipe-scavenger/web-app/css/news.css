@@ -1,5 +1,18 @@
 .news-title {
-	
+	border-width: 1px;
+	border-style: solid;
+	width: 960px;
+	min-height: 10px;
+	margin: 20px auto 0 auto;
+	padding: 10px 10px 10px 10px;
+	background-color: #FFFFCC;
+}
+
+.news-info {
+	border-width: 1px;
+	border-style: solid;
+	width: 960px;
+	padding: 10px 10px 10px 10px;
 }
 
 .news-text {

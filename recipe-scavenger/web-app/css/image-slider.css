@@ -59,19 +59,6 @@ body {
 	overflow: hidden;
 	}
 
-#demo, #about {
-	width: 500px;
-	}
-
-#demo {
-	margin-left: 150px;
-	}
-
-#about {
-	padding: 0 50px 0 0;
-	_padding: 0 48px 0 0;
-	}
-
 a {
 	color: #2D6CBE;
 	}
@@ -91,7 +78,6 @@ h1 {
 
 h2 {
 	font-size: 2em;
-	margin: 1.6em 0 .4em;
 	}
 
 p, li {
@@ -309,7 +295,7 @@ a.submit {
 /*-- jShowOff module styles --*/
 
 
-#features, #slidingFeatures, #labelFeatures, #basicFeatures, #thumbFeatures {
+.features, #slidingFeatures, #labelFeatures, #basicFeatures, #thumbFeatures {
 	background: #efefef;
 	position: relative;
 	overflow: hidden;
@@ -322,7 +308,7 @@ a.submit {
 	}
 .jshowoff {
 	width: 500px;
-	margin: 10px 0;
+	margin: 0 auto;
 	}
 .jshowoff div {	
 	width: 500px;
@@ -425,21 +411,7 @@ p.jshowoff-controls {
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
 	}
-.thumbFeatures .jshowoff-slidelinks a.jshowoff-active {
-	border: 1px solid #fff;
-	}
-.thumbFeatures .jshowoff-slidelink-0 {
-	background-image: url(http://farm5.static.flickr.com/4065/4439060414_c11002d183_o_d.jpg);
-	}
-.thumbFeatures .jshowoff-slidelink-1 {
-	background-image: url(http://farm5.static.flickr.com/4049/4438283469_5ddf465356_o_d.jpg);
-	}
-.thumbFeatures .jshowoff-slidelink-2 {
-	background-image: url(http://farm5.static.flickr.com/4033/4439060472_02efbb3955_o_d.jpg);
-	}
-.thumbFeatures .jshowoff-slidelink-3 {
-	background-image: url(http://farm5.static.flickr.com/4041/4438283519_4f08cb4a57_o_d.jpg);
-	}
+
 .thumbFeatures p.jshowoff-controls {
 	background: none;
 	height: 38px;
