@@ -28,4 +28,8 @@ class GeneralTagLib {
 	def errorDisplay = {attrs,body ->
 		out<<render(template:"/error/userError")
 	}
+	
+	def selectHome = {attrs,body ->
+		out<<render(template:"/home/home")
+	}
 }

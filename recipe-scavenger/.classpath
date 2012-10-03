@@ -79,5 +79,6 @@
 	<classpathentry kind="con" path="com.springsource.sts.grails.core.CLASSPATH_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
 	<classpathentry kind="lib" path="lib/postgresql-9.0-802.jdbc3.jar"/>
+	<classpathentry kind="lib" path="lib/unit-api-0.6.1.jar"/>
 	<classpathentry kind="output" path="target-eclipse/classes"/>
 </classpath>

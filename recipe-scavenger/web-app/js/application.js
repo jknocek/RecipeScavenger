@@ -46,4 +46,7 @@ $(document).ready(function() {
 			return false;
 		}
 	);
+	
+	// Rich Text editor
+	$(".editor").jqte();
 });

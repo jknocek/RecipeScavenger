@@ -1,6 +1,10 @@
 package com.rec.user
 
+import com.rec.news.News
+
 class User {
+	static hasMany = [news: News]
+	
 	String username
 	String email
 	String password

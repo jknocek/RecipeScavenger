@@ -39,7 +39,7 @@ body {
 #content {
 	position:relative;
 	left:150px;
-	height:100%;
+	min-height:100%;
 	width: 1110px;
 	min-width: 1110px;
 	background-color: #fff;

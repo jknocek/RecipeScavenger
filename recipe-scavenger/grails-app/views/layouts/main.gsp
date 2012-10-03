@@ -24,6 +24,7 @@
 		<g:javascript src="jquery/ui/jquery.ui.widget.min.js" />
 		<g:javascript src="jquery/ui/jquery.ui.button.min.js" />
 		<g:javascript src="jquery/jshowoff/jquery.jshowoff.min.js" />
+		<g:javascript src="jquery/jquery-te/jquery-te-1.0.5.min.js" />
 		<g:javascript src="application.js" />
 		<g:javascript src="mask.js" />
 		<g:selectHeader/>

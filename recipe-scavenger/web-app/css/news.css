@@ -1,0 +1,28 @@
+.news-title {
+	
+}
+
+.news-text {
+	border-width: 1px;
+	border-style: solid;
+	width: 960px;
+	min-height: 100px;
+	margin: 0 auto;
+	padding: 10px 10px 10px 10px;
+}
+
+.news-image {
+	
+}
+
+.news-submit-button {
+	width: 80px;
+	height: 20px;
+	background-color:#9f0000;
+	color:#ffffff;
+	font-family:arial;
+	font-size:12px;
+	font-weight:bold;
+	padding:1px 1px 1px 1px;
+	text-decoration:none;
+}

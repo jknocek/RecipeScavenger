@@ -69,6 +69,22 @@
 					</table>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<h2>Admin</h2>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-left:10px;">
+					<table>
+						<tr>
+							<td>
+								<g:link controller="news" action="addNews" class="sidebar-highlight">Add News Article</g:link>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
 		</table>
 
 	</div>

@@ -1,6 +1,11 @@
 package com.rec.home
 
+import com.rec.news.News
+
 class HomeController {
+	static scope = "session"
+	
+	def news 
 	
 	def home() {
 		if(session.foundError?.size() > 0) {
@@ -10,6 +15,6 @@ class HomeController {
 			session.error = ""
 		}
 		
-		
+		news = News.findAll();
 	}
 }
