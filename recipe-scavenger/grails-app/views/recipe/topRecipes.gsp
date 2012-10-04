@@ -11,9 +11,9 @@
 			<g:errorDisplay/>
 			<div id="tabs">
 				<ul>
-					<li><a href="#tabs-1">All Time</a></li>
-					<li><a href="#tabs-2">This Month</a></li>
-					<li><a href="#tabs-3">This Week</a></li>
+					<li><h3><a href="#tabs-1">All Time</a></h3></li>
+					<li><h3><a href="#tabs-2">This Month</a></h3></li>
+					<li><h3><a href="#tabs-3">This Week</a></h3></li>
 				</ul>
 				<div id="tabs-1">
 					<h1 style="margin-left: 10px;">Top 5 of All Time</h1>

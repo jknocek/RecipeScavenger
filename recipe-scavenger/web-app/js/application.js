@@ -15,7 +15,7 @@ $(document).ready(function() {
 	$('.features').jshowoff({
 		speed:6000,
 		cssClass: 'thumbFeatures',
-		effect: 'slideLeft'
+		effect: 'slideLeft' 
 	});
 	
 	// login dialog
