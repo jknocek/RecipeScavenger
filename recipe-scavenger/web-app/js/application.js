@@ -58,9 +58,15 @@ $(document).ready(function() {
 	$( "#tabs" ).tabs();
 	
 	// Accordion
-	$( "#accordion" ).accordion({
+	$( ".accordion" ).accordion({
 		collapsible: true,
 		active: false,
+		autoHeight: false
+	});
+	
+	$( ".openAccordion" ).accordion({
+		collapsible: true,
+		active: 0,
 		autoHeight: false
 	});
 });

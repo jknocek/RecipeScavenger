@@ -93,6 +93,13 @@ class UserController {
 				}		
 				redirect(action:'createAccount')
 			} else {
+			
+				sendMail {
+					to newUser.email
+					subject "Welcome to Recipe Scavenger"
+					body 'Welcome ' + newUser.username + ', please bla bla bla'
+				  }
+			
 				session.foundError = ""
 				redirect(controller:'home', action:'home')
 			}

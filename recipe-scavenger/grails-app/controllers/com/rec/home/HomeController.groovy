@@ -1,12 +1,17 @@
 package com.rec.home
 
 import com.rec.news.News
-import java.text.SimpleDateFormat;
+import com.rec.util.DateUtil
+import java.text.SimpleDateFormat
 
 class HomeController {
 	static scope = "session"
 	
-	def news 
+	def news = []
+	def newsPostedToday = []
+	def newsPostedThisWeek = []
+	def newsRemaining = []
+	
 	SimpleDateFormat dateFormat
 	
 	def HomeController() {
@@ -22,5 +27,18 @@ class HomeController {
 		}
 		
 		news = News.findAll("from News as n order by n.createdDate desc");
+		newsPostedToday = []
+		newsPostedThisWeek = []
+		newsRemaining = []
+		
+		for(article in news) {
+			if(DateUtil.sameDay(article.createdDate, new Date())) {
+				newsPostedToday.add(article)
+			} else if(DateUtil.getDaysBetween(article.createdDate, new Date()) < 7) {
+				newsPostedThisWeek.add(article)
+			} else {
+				newsRemaining.add(article)
+			}
+		}
 	}
 }
