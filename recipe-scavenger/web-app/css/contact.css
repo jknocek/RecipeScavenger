@@ -1,0 +1,33 @@
+#contact-desc {
+	margin-bottom: 20px;
+	border: 1px solid #CAC4FF;
+	padding: 10px 10px 10px 10px;
+}
+
+#contact-type {
+	background-color: #CAC4FF;
+	border: 1px solid;
+	float: left;
+	width: 250px;
+	min-height: 300px;
+	padding: 10px 10px 10px 10px;
+}
+
+#contact-question {
+	background-color: #CAC4FF;
+	border: 1px solid;
+	margin-left: auto;
+	margin-right: auto;
+	width: 250px;
+	height: 300px;
+	padding: 10px 10px 10px 10px;
+}
+
+#contact-info {
+	background-color: #CAC4FF;
+	border: 1px solid;
+	float: right;
+	width: 250px;
+	height: 300px;
+	padding: 10px 10px 10px 10px;
+}

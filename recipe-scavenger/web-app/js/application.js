@@ -3,11 +3,6 @@ $(document).ready(function() {
 	// Highlight links on hover
 	$('.header-highlight').hover( 
 			 function(){ $(this).css('background-color','#969696') }, 
-			 function(){ $(this).css('background-color','#7F7F7F') } 
-	);
-	
-	$('.sidebar-highlight').hover( 
-			 function(){ $(this).css('background-color','#4F4F4F') }, 
 			 function(){ $(this).css('background-color','#D0D4D9') } 
 	);
 	
@@ -68,5 +63,18 @@ $(document).ready(function() {
 		collapsible: true,
 		active: 0,
 		autoHeight: false
+	});
+	
+	// Datepicker
+	$( ".datepicker" ).datepicker({
+	    showOn: "button",
+	    buttonImage: "images/calendar.png",
+	    buttonImageOnly: true,
+	    dateFormat:'mm-dd-yy',
+	    yearRange: "c-120:c",
+	    changeYear: true,
+	    changeMonth: true,
+	    showMonthAfterYear: true, //this is what you are looking for
+	    maxDate:0
 	});
 });

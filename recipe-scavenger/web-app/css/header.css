@@ -1,6 +1,8 @@
 #header-background-container {
+	border-top: 2px solid;
+	border-bottom: 2px solid;
 	position: fixed;
-	background-color: #7F7F7F;
+	background-color: #D0D4D9;
 	width: 100%;
 	height: 50px;
 	z-index:100;
@@ -8,7 +10,7 @@
 
 #header-background-extender {
 	position: fixed;
-	background-color: #606060;
+	background-color: #D0D4D9;
 	width: 100%;
 	height: 50px;
 	left:1260px;
@@ -23,7 +25,7 @@
 
 #header-divider {
 	position: fixed;
-	background-color: #606060;
+	background-color: #2646FF;
 	width: 100%;
 	height: 5px;
 	z-index:100;
@@ -32,23 +34,24 @@
 #header-user-info {
 	float: right;
 	margin-top: 5px;
-	background-color: #7F7F7F;
+	background-color: #D0D4D9;
+	color: #0073ea;
 	min-width: 300px;
-	height:50px;
+	height:40px;
 }
-#header-user-info a:link {color: #fff; text-decoration: none;}
-#header-user-info a:visited {color: #fff;}
-#header-user-info a:hover {color: #FFCC00; text-decoration: none;}
+#header-user-info a:link {color: #0073ea; text-decoration: none;}
+#header-user-info a:visited {color: #0073ea;}
+#header-user-info a:hover {color: #fff; text-decoration: none;}
 
 #header-login {
 	float: right;
 	margin-top: 5px;
-	background-color: #7F7F7F;
+	background-color: #D0D4D9;
 	min-width: 300px;
 }
-#header-login a:link {color: #fff; text-decoration: none;}
-#header-login a:visited {color: #fff;}
-#header-login a:hover {color: #FFCC00; text-decoration: none;}
+#header-login a:link {color: #0073ea; text-decoration: none;}
+#header-login a:visited {color: #0073ea;}
+#header-login a:hover {color: #fff; text-decoration: none;}
 
 #header-image {
 	float:left;

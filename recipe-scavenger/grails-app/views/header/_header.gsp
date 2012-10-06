@@ -1,6 +1,5 @@
 <%@ page import="com.rec.header.HeaderController" %>
-<div id="header-divider" style="top:0px;"></div>
-<div id="header-background-container" style="top:5px;">
+<div id="header-background-container" style="top:0px;">
 	<div id="header-content">
 		<div id="header-image">
 			<table>
@@ -61,7 +60,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<p style="font-size: 1em; color: #fff; padding: 3px 3px 3px 3px;">Logged in: ${session.user.username}</p>
+							<p style="font-size: 1em; padding: 3px 3px 3px 3px;">Logged in: ${session.user.username}</p>
 						</td>
 					</tr>
 				</table>
@@ -69,4 +68,3 @@
 		</g:if>
 	</div>
 </div>
-<div id="header-divider" style="top: 55px;"></div>

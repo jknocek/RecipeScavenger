@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'image-slider.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'create-account.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.8.24.custom.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.8.24.sidebar.css')}" type="text/css">
 		<g:layoutHead/>
         <r:layoutResources />
 	</head>
@@ -25,6 +26,7 @@
 		<g:javascript src="jquery/ui/jquery.ui.button.min.js" />
 		<g:javascript src="jquery/ui/jquery.ui.tabs.min.js"/>
 		<g:javascript src="jquery/ui/jquery.ui.accordion.min.js"/>
+		<g:javascript src="jquery/ui/jquery.ui.datepicker.min.js" />
 		<g:javascript src="jquery/jshowoff/jquery.jshowoff.min.js" />
 		<g:javascript src="jquery/jquery-te/jquery-te-1.0.5.min.js" />
 		<g:javascript src="application.js" />

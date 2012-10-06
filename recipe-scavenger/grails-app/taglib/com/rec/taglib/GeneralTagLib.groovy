@@ -44,4 +44,12 @@ class GeneralTagLib {
 	def selectRatedRecipesWeek = {attrs,body ->
 		out<<render(template:"/recipe/ratedRecipesWeek")
 	}
+	
+	def selectNews = {attrs,body ->
+		out<<render(template:"/home/news")
+	}
+	
+	def selectContact = {attrs,body ->
+		out<<render(template:"/home/contact")
+	}
 }
