@@ -62,3 +62,9 @@ body {
 	margin-right:auto;
 	padding: 10px 10px 10px 10px;
 }
+
+.content-header {
+	margin-bottom: 20px;
+	border: 1px solid #CAC4FF;
+	padding: 10px 10px 10px 10px;
+}

@@ -12,7 +12,7 @@
 			<g:selectContact/>
 		</div>
 		<div id="tabs-3">
-		
+			<g:selectAbout/>
 		</div>
 	</div>
 </div>

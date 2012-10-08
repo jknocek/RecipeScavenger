@@ -52,4 +52,8 @@ class GeneralTagLib {
 	def selectContact = {attrs,body ->
 		out<<render(template:"/home/contact")
 	}
+	
+	def selectAbout = {attrs,body ->
+		out<<render(template:"/home/about")
+	}
 }
