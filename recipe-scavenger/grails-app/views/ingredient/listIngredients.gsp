@@ -12,14 +12,22 @@
 		<div id="content">
 			<g:errorDisplay/>
 			<span>Ingredients:</span>
-			<ul>
-			<g:each in="${ ingredients }" var="ingredient">
-				<li>
-					<span>${ ingredient?.name }</span>
-					<span>${ ingredient?.baseOumName })</span>
-				</li>
-			</g:each> 
-			</ul>
+			<table style="width:100%">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Base UOM</th>
+					</tr>
+				</thead>
+				<tbody>
+				<g:each in="${ ingredients }" var="ingredient">
+					<tr>
+						<td>${ ingredient?.name }</td>
+						<td>${ ingredient?.baseUomName }</td>
+					</tr>
+				</g:each>
+				</tbody>
+			</table>
 		</div>
 	</body>
 </html>

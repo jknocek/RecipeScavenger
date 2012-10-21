@@ -4,7 +4,7 @@
 
 CREATE TABLE ingredient_type
 (
-  id bigint NOT NULL,
+  id serial NOT NULL,
   "name" text NOT NULL,
   base_uom character varying(25) NOT NULL,
   CONSTRAINT ingredient_type_pkey PRIMARY KEY (id)
