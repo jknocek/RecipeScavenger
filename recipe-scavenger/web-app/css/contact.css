@@ -1,5 +1,5 @@
 #contact-type {
-	background-color: #CAC4FF;
+	background-color: #7aabdc;
 	border: 1px solid;
 	float: left;
 	width: 250px;
@@ -8,7 +8,7 @@
 }
 
 #contact-question {
-	background-color: #CAC4FF;
+	background-color: #7aabdc;
 	border: 1px solid;
 	margin-left: auto;
 	margin-right: auto;
@@ -18,10 +18,15 @@
 }
 
 #contact-info {
-	background-color: #CAC4FF;
+	background-color: #7aabdc;
 	border: 1px solid;
 	float: right;
 	width: 250px;
 	height: 300px;
 	padding: 10px 10px 10px 10px;
+}
+
+.contact-title {
+	color: #fff;
+	text-align: center;
 }

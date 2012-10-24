@@ -14,7 +14,7 @@
 			</p>
 		</div>
 		<div id="contact-type">
-			<h2 style="text-align: center">Narrow it Down</h2>
+			<h2 class="contact-title">Narrow it Down</h2>
 			<div style="margin:20% auto 0 auto; border: 1px solid #969696;">
 				<g:each in="${contactOptions}">
 					<div style="background-color: #fff; height:40px; border: 1px solid #969696;">
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<div id="contact-info">
-			<h2 style="text-align: center">Who are you?</h2>
+			<h2 class="contact-title">Who are you?</h2>
 			<table style="margin-top: 40%; margin-left: auto; margin-right: auto;">
 				<col align="left">
 				<col align="left">
@@ -52,7 +52,7 @@
 			<g:actionSubmit value="Submit" action="doContact" style="position: absolute; bottom: 20px; right: 30px;"/>
 		</div>
 		<div id="contact-question">
-			<h2 style="text-align: center">What's up?</h2>
+			<h2 class="contact-title">What's up?</h2>
 			<g:textArea name="contactQuestion" maxlength="255"
 			style="height: 250px; width: 245px; resize: none; margin: 10px auto 0 auto;"></g:textArea>
 		</div>

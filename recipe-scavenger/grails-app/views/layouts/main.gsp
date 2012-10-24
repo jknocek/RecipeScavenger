@@ -11,7 +11,6 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'left-side-bar.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'image-slider.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'create-account.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.8.24.custom.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.8.24.sidebar.css')}" type="text/css">
 		<g:layoutHead/>
         <r:layoutResources />
@@ -29,15 +28,15 @@
 		<g:javascript src="jquery/ui/jquery.ui.datepicker.min.js" />
 		<g:javascript src="jquery/jshowoff/jquery.jshowoff.min.js" />
 		<g:javascript src="jquery/jquery-te/jquery-te-1.0.5.min.js" />
+		<g:javascript src="jquery/sticky-sidebar/sticky-sidebar.js" />
 		<g:javascript src="application.js" />
 		<g:javascript src="mask.js" />
 		<g:selectHeader/>
 		<div id="center">
-			<div style="margin-top: 60px; height:100%;">
+			<div style="margin-top: 53px; height:100%;">
 				<g:layoutBody/>
 			</div>
 		</div>
-		<div id="footer-divider"></div>
 		<div id="bottom-footer"></div>
         <r:layoutResources />
 	</body>

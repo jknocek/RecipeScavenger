@@ -2,20 +2,7 @@
 <div id="header-background-container" style="top:0px;">
 	<div id="header-content">
 		<div id="header-image">
-			<table>
-				<tr>
-					<td>
-						<g:link controller="home" action="home">
-							<img style="top: 5px;" src="${resource(dir: 'images', file: 'icon_small.png')}"/>
-						</g:link>
-					</td>
-					<td>
-						<g:link controller="home" action="home">
-							<img src="${resource(dir: 'images', file: 'title_50x125.png')}"/>
-						</g:link>
-					</td>
-				</tr>
-			</table>
+
 		</div>
 		<g:if test="${!session.user}">
 			<div id="header-login">

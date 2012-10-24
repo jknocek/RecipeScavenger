@@ -1,11 +1,5 @@
 $(document).ready(function() {
 	
-	// Highlight links on hover
-	$('.header-highlight').hover( 
-			 function(){ $(this).css('background-color','#969696') }, 
-			 function(){ $(this).css('background-color','#D0D4D9') } 
-	);
-	
 	// Image slider jquery call
 	$('.features').jshowoff({
 		speed:6000,
@@ -77,4 +71,7 @@ $(document).ready(function() {
 	    showMonthAfterYear: true, //this is what you are looking for
 	    maxDate:0
 	});
+	
+	// Sticky sidebar
+	$('.stickbox').stickySidebar({speed: 400, constrain: true, padding: 73});
 });
