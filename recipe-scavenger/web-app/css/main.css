@@ -61,3 +61,19 @@ body {
 	border: 1px solid #7F7F7F;
 	padding: 10px 10px 10px 10px;
 }
+
+.button {
+   border: 1px solid #7F7F7F;
+   background: #7aabdc;
+   padding: 4.5px 9px;
+   color: white;
+   font-weight: bold;
+   font-size: 13px;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.button:hover {
+   border: 1px solid #7F7F7F;
+   background: #d0d4d9;
+   color: #0071ea;
+   }

@@ -25,25 +25,6 @@
     display:block;
 }
 
-.login-button-container {
-	bottom: 2px;
-	margin-left:300px;
-	position: absolute;
-}
-
-.login-button {
-	float: right;
-	width: 80px;
-	height: 20px;
-	background-color:#9f0000;
-	color:#ffffff;
-	font-family:arial;
-	font-size:12px;
-	font-weight:bold;
-	padding:1px 1px 1px 1px;
-	text-decoration:none;
-}
-
 .userForm {
 	margin-left: 50px;
 }

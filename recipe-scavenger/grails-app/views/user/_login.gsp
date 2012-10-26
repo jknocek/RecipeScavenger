@@ -23,8 +23,8 @@
 		</div>
 		<br/>
 		
-		<div class="login-button">
-			<g:actionSubmit value="Sign In" class="login-button" controller="user" action="doLogin"/>
+		<div style="float: right;">
+			<g:actionSubmit value="Sign In" class="button" controller="user" action="doLogin"/>
 		</div>
 	</g:form>
 </div>

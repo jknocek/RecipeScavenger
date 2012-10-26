@@ -66,8 +66,7 @@
 				</tr>
 				<tr>
 					<td>
-						<g:actionSubmit value="Create Account" style="width: 100px;"
-										class="login-button" action="doCreateAccount"/>
+						<g:actionSubmit value="Create Account" class="button" action="doCreateAccount"/>
 					</td>
 				</tr>
 			</table>

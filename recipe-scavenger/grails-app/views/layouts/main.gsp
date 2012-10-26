@@ -33,7 +33,7 @@
 		<g:javascript src="mask.js" />
 		<g:selectHeader/>
 		<div id="center">
-			<div style="margin-top: 53px; height:100%;">
+			<div style="margin-top: 73px; height:100%;">
 				<g:layoutBody/>
 			</div>
 		</div>
