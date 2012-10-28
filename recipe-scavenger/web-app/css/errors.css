@@ -6,10 +6,7 @@ info, .success-message, .warning-message, .error-message {
     padding-left: 15px;
     padding-right:15px;
     font: bold 12px verdana;
-    -moz-box-shadow: 0 0 5px #888;
-    -webkit-box-shadow: 0 0 5px#888;
-    box-shadow: 0 0 5px #888;
-    text-shadow: 2px 2px 2px #ccc;
+    margin: 0 auto;
 }
 .info-message {
     color: #00529B;

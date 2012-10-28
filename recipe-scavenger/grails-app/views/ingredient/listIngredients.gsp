@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<g:selectLeftSideBar/>
-		<div id="content">
+		<div class="content">
 			<g:errorDisplay/>
 			<span>Ingredients:</span>
 			<table style="width:100%">

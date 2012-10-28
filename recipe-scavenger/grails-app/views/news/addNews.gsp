@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<g:selectLeftSideBar/>
-		<div id="content">
+		<div class="content">
 			<g:errorDisplay/>
 			<g:form controller="news" action="doAddNews">
 				<div id="" style="margin-bottom: 100px;">

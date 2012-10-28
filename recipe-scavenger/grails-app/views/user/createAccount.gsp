@@ -7,8 +7,7 @@
     </head>
 	<body>
 		<g:selectLeftSideBar/>
-		<div id="content">
-			<g:errorDisplay/>
+		<div class="content">
 			<h1 style="margin-left: 10px;">Create Account</h1>
 			<hr/>
 			<div class="content-form">

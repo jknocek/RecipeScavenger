@@ -1,11 +1,17 @@
 #left-side-bar {
 	top: 73px;
-	position:absolute;
+	float: left;
 	width:190px;
 	z-index: 90;
 	background: #7aabdc;
 	border-style: solid;
 	border-width: 1px;
+	padding: 2px 2px 2px 2px;
+	
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
 }
 
 #left-side-bar-content {

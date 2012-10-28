@@ -9,8 +9,7 @@
 	</head>
 	<body>
 		<g:selectLeftSideBar/>
-		<div id="content">
-			<g:errorDisplay/>
+		<div class="content">
 			<g:selectHome/>
 		</div>
 	</body>

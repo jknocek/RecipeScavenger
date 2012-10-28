@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<g:selectLeftSideBar/>
-		<div id="content">
+		<div class="content">
 			<g:errorDisplay/>
 			<div id="tabs">
 				<ul>

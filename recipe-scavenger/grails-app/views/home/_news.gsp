@@ -66,7 +66,7 @@
 		</div>
 	</g:if>
 	<g:if test="${newsRemaining}">
-		<div class="accordion">
+		<div class="openAccordion">
 			<h3 style="text-align: center;"><a href="#">Remaining</a></h3>
 			<div class="accordion" style="width:813px;">
 				<g:each in="${newsRemaining}">

@@ -34,10 +34,26 @@
 		<g:selectHeader/>
 		<div id="center">
 			<div style="margin-top: 73px; height:100%;">
+				<g:errorDisplay/>
 				<g:layoutBody/>
 			</div>
+			<div class="push"></div>
 		</div>
-		<div id="bottom-footer"></div>
+		
+		<div class="bottom-footer">
+			<table style="margin: 0 auto;">
+				<tr>
+					<td>
+						<p style="text-align: center;">Copyright (c) 2012</p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Authors: Jeremy Nocek, Alex Karabon, Steve McGranahan, Will Washkuhn
+					</td>
+				</tr>
+			</table>
+		</div>
         <r:layoutResources />
 	</body>
 </html>
