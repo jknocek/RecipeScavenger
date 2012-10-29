@@ -74,6 +74,9 @@
 										<td>
 											<g:link controller="news" action="addNews" class="sidebar-highlight">Add News Article</g:link>
 										</td>
+										<td>
+											<g:link controller="ingredient" action="" class="sidebar-highlight">Manage Ingredients</g:link>
+										</td>
 									</tr>
 								</table>
 							</td>

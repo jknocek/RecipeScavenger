@@ -44,7 +44,7 @@ class UserValidation {
 			return result
 		}
 		
-		if(!result.success) {
+		if(errors.size() > 0) {
 			if(errors.size() == 1) {
 				result.errorMessage = errors.get(0)
 				return result
