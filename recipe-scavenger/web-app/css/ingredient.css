@@ -1,0 +1,36 @@
+h1 {
+	margin: 4px 0;
+}
+
+.content {
+	padding: 6px;
+}
+
+
+table.ingredient-list {
+	margin: 8px;
+	width: 100%;
+	table-layout: fixed;
+}
+
+table.ingredient-list td {
+	padding: 2px 0;
+}
+
+table.ingredient-list th {
+	padding: 2px 0;
+	font-size: 12pt
+}
+
+.ingredient-form label {
+	font-size: 10pt;
+}
+
+input.ingredient-form, select.ingredient-form {
+	margin: 4px 0;
+}
+
+.validation-error {
+	color: red;
+	margin: 0 0 10px 0;
+}

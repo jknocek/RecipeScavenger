@@ -2,19 +2,20 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'news.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'contact.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css/jquery-te', file: 'jquery-te-Style.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'news.css')}" type="text/css" />
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'contact.css')}" type="text/css" />
+		<link rel="stylesheet" href="${resource(dir: 'css/jquery-te', file: 'jquery-te-Style.css')}" type="text/css" />
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'ingredient.css')}" type="text/css" />
 		<title>Recipe Scavenger - Ingredient Database</title>
 	</head>
 	<body>
 		<g:selectLeftSideBar/>
 		<div class="content">
 			<g:errorDisplay/>
-			<span>Ingredients:</span>
+			<h1>Ingredients:</h1>
 			<div><g:link controller="ingredient" action="add">Add Ingredient</g:link></div>
 			
-			<table style="width:100%; table-layout: fixed;">
+			<table class="ingredient-list">
 				<thead>
 					<tr>
 						<th>Name</th>
