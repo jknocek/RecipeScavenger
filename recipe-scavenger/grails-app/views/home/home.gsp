@@ -8,7 +8,6 @@
 		<title>Recipe Scavenger</title>
 	</head>
 	<body>
-		<g:selectLeftSideBar/>
 		<div class="content">
 			<g:selectHome/>
 		</div>

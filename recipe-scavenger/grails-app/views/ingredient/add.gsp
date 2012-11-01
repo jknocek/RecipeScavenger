@@ -9,7 +9,6 @@
 		<title>Recipe Scavenger - Add New Ingredient</title>
 	</head>
 	<body>
-		<g:selectLeftSideBar/>
 		<div class="content">
 			<g:errorDisplay/>
 			<h1>Add a new ingredient:</h1>

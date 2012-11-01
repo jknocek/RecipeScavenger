@@ -11,14 +11,14 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'left-side-bar.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'image-slider.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'create-account.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.8.24.sidebar.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.9.1.custom.min.css')}" type="text/css">
 		<g:layoutHead/>
         <r:layoutResources />
 	</head>
 	<body>
 		<g:javascript src="jquery/jquery-1.7.1.min.js" />
 		<g:javascript src="jquery/ui/jquery-1.8.2.min.js" />
-		<g:javascript src="jquery/ui/jquery-ui-1.8.24.custom.min.js" />
+		<g:javascript src="jquery/ui/jquery-ui-1.9.1.custom.min.js"/>
 		<g:javascript src="jquery/ui/jquery.ui.dialog.min.js" />
 		<g:javascript src="jquery/ui/jquery.ui.core.min.js" />
 		<g:javascript src="jquery/ui/jquery.ui.widget.min.js" />
@@ -33,7 +33,8 @@
 		<g:javascript src="mask.js" />
 		<g:selectHeader/>
 		<div id="center">
-			<div style="margin-top: 73px; height:100%;">
+			<div style="margin-top: 105px; height:100%;">
+				<g:selectLeftSideBar/>
 				<g:errorDisplay/>
 				<g:layoutBody/>
 			</div>

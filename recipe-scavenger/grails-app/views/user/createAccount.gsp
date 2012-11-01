@@ -6,7 +6,6 @@
 		<title>Create Account</title>
     </head>
 	<body>
-		<g:selectLeftSideBar/>
 		<div class="content">
 			<h1 style="margin-left: 10px;">Create Account</h1>
 			<hr/>

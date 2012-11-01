@@ -6,9 +6,7 @@
 		<title>Recipe Scavenger</title>
 	</head>
 	<body>
-		<g:selectLeftSideBar/>
 		<div class="content">
-			<g:errorDisplay/>
 			<div id="tabs">
 				<ul>
 					<li><h3><a href="#tabs-1">All Time</a></h3></li>

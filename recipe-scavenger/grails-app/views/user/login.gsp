@@ -7,8 +7,6 @@
     </head>
 	<body>
 		<g:form action="doLogin" method="post" >
-			
-			<g:selectLeftSideBar/>
 			<div id="login-box">
 				<div class="login-top">
 				</div>
