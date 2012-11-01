@@ -7,7 +7,6 @@
 		<title>Recipe Scavenger</title>
 	</head>
 	<body>
-		<g:selectLeftSideBar/>
 		<div class="content">
 			<g:errorDisplay/>
 			<g:form controller="news" action="doAddNews">

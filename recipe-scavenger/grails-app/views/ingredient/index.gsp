@@ -8,7 +8,6 @@
 		<title>Recipe Scavenger - Ingredient Database</title>
 	</head>
 	<body>
-		<g:selectLeftSideBar/>
 		<div class="content">
 			<g:errorDisplay/>
 			<span>Ingredients:</span>
