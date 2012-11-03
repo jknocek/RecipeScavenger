@@ -7,6 +7,8 @@ class IngredientController {
 		listIngredients: 'GET',
 		addIngredient: ['GET', 'POST']		
 	]
+	
+	def errorDictionary
 		
 	
 	def IngredientController() {
@@ -39,10 +41,12 @@ class IngredientController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
+		def errors = errorDictionary
+		errorDictionary = null 
 		return [
 			name: null,
 			uomType: null,
-			errors: [:]
+			errors: [errors]
 		]
 	}
 	
@@ -50,17 +54,14 @@ class IngredientController {
 		def validationResult = IngredientTypeValidator.Validate(params.name, params.uomType)
 			
 		if(!validationResult.success) {
-			return [
-				name: params.name,
-				uomType: params.uomType,
-				errors: validationResult.errorDictionary
-			]
-		}
+			errorDictionary = validationResult.errorDictionary
+			redirect(action: 'add', params: [name: params.name, uomType: params.uomType, errors: errorDictionary])
+		} else {
+			IngredientType newType = new IngredientType(name : params.name, baseUomType: params.uomType )
+			newType.save()
 			
-		IngredientType newType = new IngredientType(name : params.name, baseUomType: params.uomType )
-		newType.save()
-		
-		redirect(controller: 'ingredient', action: '')
+			redirect(controller: 'ingredient', action: '')
+		}
 	}
 	
 	

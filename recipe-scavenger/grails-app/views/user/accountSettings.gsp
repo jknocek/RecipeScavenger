@@ -9,7 +9,7 @@
 		<div class="content">
 			<div id="tabs">
 				<ul>
-					<li><h3><a href="#tabs-1">Create Account</a></h3></li>
+					<li><h3><a href="#tabs-1">Account Settings</a></h3></li>
 				</ul>
 				<div id="tabs-1">
 					<g:selectAccountSettingsForm/>
