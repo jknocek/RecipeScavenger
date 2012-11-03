@@ -11,6 +11,11 @@
 						<input id="emailOrUsername" type='text' name='emailOrUsername'/>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<br/>
+					</td>
+				</tr>
 				<tr> 
 					<td>
 						<label for='password'>Password:</label>

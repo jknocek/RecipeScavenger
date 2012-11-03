@@ -10,14 +10,20 @@
 	</head>
 	<body>
 		<div class="content">
-			<g:errorDisplay/>
-			<h1>Edit ingredient:</h1>
-			<form class="ingredient-form" action="${ id }" method="POST">
-				<g:render template="ingredientForm" model="['name': name, 'uomType': uomType, 'errors': errors]"></g:render>
-				
-				<input type="submit" value="Submit" />
-				<input type="reset" value="Reset" />
-			</form>
+			<div id="tabs">
+				<ul>
+					<li><h3><a href="#tabs-1">Edit Ingredient</a></h3></li>
+				</ul>
+				<div id="tabs-1">
+					<form class="ingredient-form" action="${ id }" method="POST">
+						<g:render template="ingredientForm" model="['name': name, 'uomType': uomType, 'errors': errors]"></g:render>
+						<br/>
+						<input type="submit" class="button" value="Submit" />
+						<input type="reset" class="button" value="Reset" />
+						<g:actionSubmit value="Back" class="button" controller="Ingredient" action="index"/>
+					</form>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

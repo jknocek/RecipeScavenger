@@ -39,29 +39,28 @@ class IngredientController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
-		if(request.method == 'GET') {
+		return [
+			name: null,
+			uomType: null,
+			errors: [:]
+		]
+	}
+	
+	def doAdd() {
+		def validationResult = IngredientTypeValidator.Validate(params.name, params.uomType)
+			
+		if(!validationResult.success) {
 			return [
-				name: null,
-				uomType: null,
-				errors: [:]
+				name: params.name,
+				uomType: params.uomType,
+				errors: validationResult.errorDictionary
 			]
 		}
-		else if(request.method == 'POST') {
-			def validationResult = IngredientTypeValidator.Validate(params.name, params.uomType)
-				
-			if(!validationResult.success) {
-				return [
-					name: params.name,
-					uomType: params.uomType,
-					errors: validationResult.errorDictionary
-				]
-			}
-				
-			IngredientType newType = new IngredientType(name : params.name, baseUomType: params.uomType )
-			newType.save()
 			
-			redirect(controller: 'ingredient', action: '')
-		}
+		IngredientType newType = new IngredientType(name : params.name, baseUomType: params.uomType )
+		newType.save()
+		
+		redirect(controller: 'ingredient', action: '')
 	}
 	
 	

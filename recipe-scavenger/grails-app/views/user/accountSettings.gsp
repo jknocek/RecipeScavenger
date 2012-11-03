@@ -7,7 +7,14 @@
     </head>
 	<body>
 		<div class="content">
-			<g:selectAccountSettingsForm/>
+			<div id="tabs">
+				<ul>
+					<li><h3><a href="#tabs-1">Create Account</a></h3></li>
+				</ul>
+				<div id="tabs-1">
+					<g:selectAccountSettingsForm/>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

@@ -7,10 +7,13 @@
     </head>
 	<body>
 		<div class="content">
-			<h1 style="margin-left: 10px;">Create Account</h1>
-			<hr/>
-			<div class="content-form">
-				<g:selectCreateAccountForm/>
+			<div id="tabs">
+				<ul>
+					<li><h3><a href="#tabs-1">Create Account</a></h3></li>
+				</ul>
+				<div id="tabs-1">
+					<g:selectCreateAccountForm/>
+				</div>
 			</div>
 		</div>
 	</body>

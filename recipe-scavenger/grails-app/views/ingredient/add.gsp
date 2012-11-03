@@ -10,13 +10,19 @@
 	</head>
 	<body>
 		<div class="content">
-			<g:errorDisplay/>
-			<h1>Add a new ingredient:</h1>
-			<form class="ingredient-form" action="add" method="POST">
-				<g:render template="ingredientForm" model="['name': name, 'uomType': uomType, 'errors': errors]"></g:render>
-				
-				<input type="submit" value="Add" />
-			</form>
+			<div id="tabs">
+				<ul>
+					<li><h3><a href="#tabs-1">Add Ingredient</a></h3></li>
+				</ul>
+				<div id="tabs-1">
+					<form class="ingredient-form">
+						<g:render template="ingredientForm" model="['name': name, 'uomType': uomType, 'errors': errors]"></g:render>
+						<br/>
+						<g:actionSubmit value="Add" class="button" controller="Ingredient" action="doAdd"/>
+						<g:actionSubmit value="Back" class="button" controller="Ingredient" action="index"/>
+					</form>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

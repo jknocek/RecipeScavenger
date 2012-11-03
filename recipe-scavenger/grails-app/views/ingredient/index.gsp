@@ -10,30 +10,33 @@
 	</head>
 	<body>
 		<div class="content">
-			<g:errorDisplay/>
-			<h1>Ingredients:</h1>
-			<div><g:link controller="ingredient" action="add">Add Ingredient</g:link></div>
-			
-			<table class="ingredient-list">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Usually measured by</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${ ingredients }" var="ingredient">
-					<tr>
-						<td>${ ingredient?.name }</td>
-						<td>${ ingredient?.baseUomType }</td>
-						<td><g:link controller="ingredient" action="edit" params="[id: ingredient?.id]" class="sidebar-highlight">[edit]</g:link> <g:link controller="ingredient" action="delete" params="[id: ingredient?.id]" class="sidebar-highlight">[delete]</g:link></td>
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			
-			<div><g:link controller="ingredient" action="add">Add Ingredient</g:link></div>
+			<div id="tabs">
+				<ul>
+					<li><h3><a href="#tabs-1">Ingredients</a></h3></li>
+				</ul>
+				<div id="tabs-1">
+					<div><g:link controller="ingredient" action="add">Add Ingredient</g:link></div>
+					<table class="ingredient-list">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Usually measured by</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+						<g:each in="${ ingredients }" var="ingredient">
+							<tr>
+								<td>${ ingredient?.name }</td>
+								<td>${ ingredient?.baseUomType }</td>
+								<td><g:link controller="ingredient" action="edit" params="[id: ingredient?.id]" class="sidebar-highlight">[edit]</g:link> <g:link controller="ingredient" action="delete" params="[id: ingredient?.id]" class="sidebar-highlight">[delete]</g:link></td>
+							</tr>
+						</g:each>
+						</tbody>
+					</table>
+					<div><g:link controller="ingredient" action="add">Add Ingredient</g:link></div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
