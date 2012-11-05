@@ -1,0 +1,17 @@
+.recipeContentRemove {
+   border: 1px solid #7F7F7F;
+   background: #7aabdc;
+   padding: 4.5px 9px;
+   color: white;
+   font-weight: bold;
+   font-size: 13px;
+   text-decoration: none;
+   vertical-align: middle;
+   cursor:default; 
+   width:42px; 
+   font-size: 1em
+   }
+.recipeContentRemove:hover {
+   border: 1px solid #7F7F7F;
+   background: #7F7F7F;
+   }

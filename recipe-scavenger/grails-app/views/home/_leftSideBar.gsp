@@ -11,7 +11,7 @@
 					</tr>
 					<tr>
 						<td>
-							<g:link class="sidebar-highlight">Find Recipes</g:link>
+							<g:link controller="recipe" action="recipeList">Recipes</g:link>
 						</td>
 					</tr>
 					<tr>

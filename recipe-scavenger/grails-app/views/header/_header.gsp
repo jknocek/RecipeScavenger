@@ -9,8 +9,6 @@
 				<table style="margin-top: 25px;">
 					<tr>
 						<td style="width: 45px;">
-							<!--<g:link controller="user" action="login" class="header-highlight" id="login-dialog-button"
-									style="padding: 3px 3px 3px 3px;">Sign In</g:link>-->
 							<a href="" id="login-dialog-button" class="header-highlight" style="padding: 3px 3px 3px 3px;" >Sign In</a>
 							<g:selectLogin/>
 						</td>

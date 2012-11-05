@@ -87,25 +87,58 @@ class UserController {
 		result = UserValidation.validateAccountInfo(newUser.username, newUser.email, newUser.password, confPassword)
 		
 		if(result.success) {
-			if (!newUser.save(flush:true)) {
-				newUser.errors.each {
-					session.foundError = it
-				}		
-				redirect(action:'createAccount')
-			} else {
-			
+			try {
 				sendMail {
 					to newUser.email
 					subject "Welcome to Recipe Scavenger"
 					body 'Welcome ' + newUser.username + ', please bla bla bla'
 				  }
-			
+				
 				session.foundError = ""
+				newUser.save(flush:true)
 				redirect(controller:'home', action:'home')
+			} catch(Exception e) {
+				session.foundError = "Not a valid email!"
+				redirect(action:'createAccount')
 			}
 		} else {
 			session.foundError = result.errorMessage
 			redirect(action:'createAccount')
+		}
+	}
+	
+	def doUpdateAccount = {
+		def user;
+		def result
+		
+		def confPassword = params.confPassword
+		def username = params.username
+		def email = params.email
+		def password = params.password
+		
+		result = UserValidation.validateUpdatedAccountInfo(session.user, username, email, password, confPassword)
+		
+		if(result.success) {
+			try {
+				sendMail {
+					to newUser.email
+					subject "Recipe Scavenger Account Update"
+					body 'Hello  ' + user.username + ', your account detail have been updated'
+				  }
+				
+				session.foundError = ""
+				session.user.username = username
+				session.user.email = email
+				session.user.password = password
+				session.user.save(flush:true)
+				redirect(controller:'home', action:'home')
+			} catch(Exception e) {
+				session.foundError = "Not a valid email!"
+				redirect(action:'accountSettings')
+			}
+		} else {
+			session.foundError = result.errorMessage
+			redirect(action:'accountSettings')
 		}
 	}
 }

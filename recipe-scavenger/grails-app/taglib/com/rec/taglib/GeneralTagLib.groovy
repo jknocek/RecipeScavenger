@@ -56,4 +56,12 @@ class GeneralTagLib {
 	def selectAbout = {attrs,body ->
 		out<<render(template:"/home/about")
 	}
+	
+	def addRecipe = {attrs,body ->
+		out<<render(template:"/recipe/addRecipeForm")
+	}
+	
+	def selectIngredient = {attrs,body ->
+		out<<render(template:"/recipe/selectIngredient")
+	}
 }

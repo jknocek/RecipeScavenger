@@ -40,6 +40,22 @@ $(document).ready(function() {
 		}
 	);
 	
+    // terms dialog
+    $("#ingredients-dialog").dialog({ autoOpen: false, 
+								modal:true, 
+								height: 600,
+								width: 800,
+								resizable: true
+	});
+	
+	// Ingredients dialog link
+	$("#ingredients-dialog-button").click(
+		function () {
+			$("#ingredients-dialog").dialog('open');
+			return false;
+		}
+	);
+	
 	// Rich Text editor
 	$(".editor").jqte();
 	
