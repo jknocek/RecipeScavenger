@@ -16,14 +16,16 @@
 						<thead>
 							<tr>
 								<th>Name</th>
+								<th>Description</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-						<g:each in="${ list }" var="recipe">
+						<g:each in="${ recipeList }" var="recipe">
 							<tr>
 								<td>${ recipe?.name }</td>
-								<td><g:link controller="ingredient" action="edit" params="[id: recipe?.id]">[edit]</g:link> <g:link controller="recipe" action="delete" params="[id: recipe?.id]">[delete]</g:link></td>
+								<td>${recipe?.description}</td>
+								<td><g:link controller="ingredient" action="edit" params="[id: recipe?.id]">[edit]</g:link> <g:link controller="recipe" action="deleteRecipe" params="[id: recipe?.id]">[delete]</g:link></td>
 							</tr>
 						</g:each>
 						</tbody>

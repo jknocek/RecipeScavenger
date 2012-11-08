@@ -9,6 +9,7 @@ class RecipeStep {
 	String instruction
 	IngredientType ingredient
 	double quantity
+	String uom
 	
 	static mapping = {
 		id generator: 'increment'

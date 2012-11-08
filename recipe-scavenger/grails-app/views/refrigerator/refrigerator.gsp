@@ -27,7 +27,7 @@
 						<tbody>
 							<g:each in="${ refrigeratorContent }" var="item">
 								<tr>
-									<td>${ item?.ingredient }</td>
+									<td>${ item?.ingredient.name }</td>
 									<td>${ item?.ingredientAmount }</td>
 									<td>
 										<g:link class="siberbar-highlight" controller="refrigerator" action="editIngredient" params="[id: item?.id]">[Change Amount]</g:link>

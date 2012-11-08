@@ -7,6 +7,7 @@ class RecipeContent {
 	Recipe recipe
 	IngredientType ingredient
 	double quantity
+	String uom
 	
 	static mapping = {
 		id generator: 'increment'
@@ -18,5 +19,8 @@ class RecipeContent {
 
     static constraints = {
 		recipe blank: false, nullable: false
+		ingredient blank: false, nullable: false
+		quantity blank: false, nullable: false
+		uom blank: false, nullable: false
     }
 }

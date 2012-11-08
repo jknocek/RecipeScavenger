@@ -7,38 +7,23 @@ class RecipeController {
 	
 	def newRecipeIngredients = []
 	def newRecipeSteps = []
+	def newRecipeTitle = ""
+	def newRecipeDescription = ""
 	def ingredients
-	
-	def topRecipes = [4]
-	
-	def RecipeController() {
-		ingredients = IngredientType.findAll()
-	}
-
-    def topRecipes() {
-		if(session.foundError?.size() > 0) {
-			session.error = session.foundError
-			session.foundError = ""
-		} else {
-			session.error = ""
-		}
-		topRecipes[0] = "Sandwich"
-		topRecipes[1] = "Pancakes" 
-		topRecipes[2] = "Bunch o' crap"
-		topRecipes[3] = "More crap"
-	}
+	def recipeList = []
 	
 	def recipeList() {
-		def list
+
+		recipeList = Recipe.findAll()
 		
-		list = Recipe.findAll()
-		
-		return list
+		return recipeList
 	}
 	
 	def toAddRecipe() {
 		newRecipeIngredients = []
 		newRecipeSteps = []
+		newRecipeTitle = ""
+		newRecipeDescription = ""
 		redirect(action: 'addRecipe')
 	}
 	
@@ -50,6 +35,32 @@ class RecipeController {
 		} else {
 			session.error = ""
 		}
+		
+		ingredients = IngredientType.findAll()
+	}
+	
+	def doAddRecipe() {
+		def temp = params
+		
+		Recipe recipe = new Recipe()
+		recipe.name = newRecipeTitle
+		recipe.description = newRecipeDescription
+		recipe.creator = session.user
+		
+		recipe.save(flush:true)
+		
+		for(rc in newRecipeIngredients) {
+			rc.recipe = recipe
+			rc.save(flush:true)
+		}
+		
+		for(rs in newRecipeIngredients) {
+			rs.recipe = recipe
+			rs.save(flush:true)
+		}
+		
+		
+		redirect(action: 'recipeList')
 	}
 	
 	def addRecipeContent() {
@@ -69,8 +80,10 @@ class RecipeController {
 				}
 			}
 			
-			if(valid)
+			if(valid) {
+				recipeContent.uom = "unit"
 				newRecipeIngredients.add(recipeContent)
+			}
 		}
 		redirect(action: 'addRecipe')
 	}
@@ -88,6 +101,7 @@ class RecipeController {
 	
 	def addStep() {
 		RecipeStep recipeStep = new RecipeStep()
+		recipeStep.instruction = "bla"
 		newRecipeSteps.add(recipeStep)
 		recipeStep.step = newRecipeSteps.size()
 		redirect(action: 'addRecipe')
@@ -107,11 +121,43 @@ class RecipeController {
 	def updateIngredientQuantities() {
 		for(ri in newRecipeIngredients) {
 			if(params.get(ri.ingredient.name))	{
-				ri.quantity = params.get(ri.ingredient.name)?.toLong()
+				ri.quantity = params.get(ri.ingredient.name)?.toDouble()
 				break
 			}
 		}
 		
 		redirect(action: 'addRecipe')
+	}
+	
+	def updateTitle = {
+		newRecipeTitle = params.title
+		redirect(action: 'addRecipe')
+	}
+	
+	def updateDescription() {
+		newRecipeDescription = params.description
+		redirect(action: 'addRecipe')
+	}
+	
+	def deleteRecipe() {
+		def id = params.id
+		def recipeId = id.toLong()
+		Recipe recipe = Recipe.findWhere(id: recipeId)
+		
+		def steps = RecipeStep.findWhere(recipe: recipe)
+		
+		for(s in steps) {
+			s.delete(flush:true)
+		}
+		
+		def contents = RecipeContent.findWhere(recipe: recipe)
+		
+		for(c in contents) {
+			c.delete(flush:true)
+		}
+		
+		recipe.delete(flush:true)
+		
+		redirect(action: 'recipeList')
 	}
 }
