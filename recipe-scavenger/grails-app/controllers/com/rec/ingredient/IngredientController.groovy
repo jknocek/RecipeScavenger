@@ -1,5 +1,7 @@
 package com.rec.ingredient
+
 import com.rec.validation.*
+import com.rec.refrigerator.Refrigerator
 
 class IngredientController {
 	static scope="session"
@@ -29,10 +31,24 @@ class IngredientController {
 		def displayIngredients = []
 		
 		ingredients.each {
-			displayIngredients.add([name: it.name, baseUomType: IngredientTypeValidator.getUserFriendlyUomType(it.baseUomType), id: it.id])
+			boolean inFrige
+			inFrige = isInFrige(it)
+			displayIngredients.add([name: it.name, baseUomType: IngredientTypeValidator.getUserFriendlyUomType(it.baseUomType), id: it.id, ingredientInFrige: inFrige])
 		}
 		
 		return [ingredients: displayIngredients]
+	}
+	
+	boolean isInFrige(IngredientType ingredient) {
+		if(session.user){
+			if(Refrigerator.findWhere(ingredient: ingredient)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 	
 	

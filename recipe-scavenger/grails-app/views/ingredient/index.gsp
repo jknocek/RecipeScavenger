@@ -32,7 +32,7 @@
 										<td>${ ingredient?.baseUomType }</td>
 										<td>
 											<g:if test="${session.user}">
-												<g:checkBox name="ing" value="${ingredient?.name}" onchange="submit()" checked="${ingredient in frige }"/> <!-- checked="${ingredient in frige }" -->
+												<g:checkBox name="ing" value="${ingredient?.name}" onchange="submit()" checked="${ingredient.ingredientInFrige}"/>
 											</g:if>
 										</td>
 										<td><g:link controller="ingredient" action="edit" params="[id: ingredient?.id]" class="sidebar-highlight">[edit]</g:link> <g:link controller="ingredient" action="delete" params="[id: ingredient?.id]" class="sidebar-highlight">[delete]</g:link></td>

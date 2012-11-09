@@ -16,7 +16,7 @@ class RefrigeratorController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
-		refrigeratorContent = Refrigerator.findWhere(user: session.user)
+		refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 		
 		def temp = ""
 	}
@@ -27,26 +27,36 @@ class RefrigeratorController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
-		Refrigerator frig = new Refrigerator()
+		refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 		
-		def ingredientList = params.ing
+		def ingredientList = params.ing		
 		
-		frig.ingredient = IngredientType.findWhere(name: params.ing)
-		frig.ingredientAmount = 0
-		frig.user = session.user
-		
-		/*
-		for(ingredient in ingredientList) {
-			if(ingredient not in frig, att to frig)
+		for(ingredientType in ingredientList) {
+			def ingredient = IngredientType.findWhere(name: ingredientType)
+			
+			if(!isInFrige(ingredient)) {
+				Refrigerator frig = new Refrigerator()
+				frig.ingredient = IngredientType.findWhere(name: ingredientType)
+				frig.ingredientAmount = 0
+				frig.user = session.user
+				frig.save(flush: true)				
+			}
+				
 		}
-
-		for(ingredient in frige) {
-			if(ingredient not in ingredientList, remove from frig)
-		}
-		*/
-		frig.save()
 		
 		redirect(controller: 'ingredient', action: 'index')
+	}
+	
+	boolean isInFrige(IngredientType ingredient) {
+		if(session.user){
+			if(Refrigerator.findWhere(ingredient: ingredient)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 		
 	def doRemoveIngredient() {

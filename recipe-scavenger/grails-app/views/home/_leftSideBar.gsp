@@ -37,7 +37,7 @@
 								<table>
 									<tr>
 										<td>
-											My Refrigerator
+											<g:link class="sidebar-highlight" controller="refrigerator" action="refrigerator">My Refrigerator</g:link>
 										</td>
 									</tr>
 									<tr>
