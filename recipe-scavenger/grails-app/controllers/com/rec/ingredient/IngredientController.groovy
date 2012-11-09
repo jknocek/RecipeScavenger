@@ -23,7 +23,7 @@ class IngredientController {
 
 	
 	def index() {
-		if(!IsUserAdmin()) {
+		if(!session.user) {
 			redirect(controller: 'home', action: 'home')
 		}
 

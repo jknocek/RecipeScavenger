@@ -39,9 +39,22 @@ class RefrigeratorController {
 				frig.ingredient = IngredientType.findWhere(name: ingredientType)
 				frig.ingredientAmount = 0
 				frig.user = session.user
-				frig.save(flush: true)				
+				frig.save(flush: true)
+				refrigeratorContent.add(frig)
 			}
-				
+		}
+		
+		for(frige in refrigeratorContent) {
+			boolean remove = true
+			for(ingredientType in ingredientList) {
+				if(frige.ingredient.name == ingredientType) {
+					remove = false
+				}
+			}
+			
+			if(remove) {
+				frige.delete()
+			}
 		}
 		
 		redirect(controller: 'ingredient', action: 'index')

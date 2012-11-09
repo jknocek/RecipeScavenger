@@ -43,6 +43,9 @@
 						</table>
 					</g:form>
 					<div><g:link controller="ingredient" action="add">Add Ingredient</g:link></div>
+					<g:form controller="refrigerator">
+						<g:actionSubmit value="My Refrigerator" style="margin-left: 85%;" class="button" controller="refrigerator" action="refrigerator"/>
+					</g:form>
 				</div>
 			</div>
 		</div>
