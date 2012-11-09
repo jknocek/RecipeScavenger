@@ -52,7 +52,7 @@
 									</tr>
 									<tr>
 										<td>
-											Add Recipes 
+											<g:link controller="recipe" action="toAddRecipe">Add Recipes</g:link>
 										</td>
 									</tr>
 								</table>
@@ -91,8 +91,35 @@
 			<div class="openAccordion" style="width: 180px;">
 				<h3 style="text-align: center;"><a href="#">Refrigerator Content</a></h3>
 				<div style="width: 130px; margin-left: 0;">
-					<table>
-						
+					<table style="width: 100%;">
+						<thead>
+							<tr>
+								<th>
+									<b>Ingredient</b>
+								</th>
+								<th>
+									
+								</th>
+								<th>
+									<b>UOM</b>
+								</th>	
+							</tr>
+						</thead>
+						<tbody>
+							<tr><td colspan="3"><hr/></td></tr>
+							<g:each in="${session.refrigeratorContent}">
+								<tr>
+									<td align="right">
+										${it.ingredient.name}
+									</td>
+									<td align="right">
+										${it.ingredientAmount}
+									</td>
+									<td>
+									</td>
+								</tr>
+							</g:each>
+						</tbody>
 					</table>
 				</div>
 			</div>

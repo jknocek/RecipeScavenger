@@ -2,9 +2,8 @@ package com.rec.refrigerator
 import com.rec.ingredient.IngredientType
 
 class RefrigeratorController {
-	def static scope = "session"
+	static scope = "session"
 	
-	def refrigeratorContent = []
 	def contents = []
 	
 	private def isLoggedIn() {
@@ -16,7 +15,7 @@ class RefrigeratorController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
-		refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
+		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 		
 		def temp = ""
 	}
@@ -27,7 +26,7 @@ class RefrigeratorController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
-		refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
+		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 		
 		def ingredientList = params.ing		
 		
@@ -40,11 +39,11 @@ class RefrigeratorController {
 				frig.ingredientAmount = 0
 				frig.user = session.user
 				frig.save(flush: true)
-				refrigeratorContent.add(frig)
+				session.refrigeratorContent.add(frig)
 			}
 		}
 		
-		for(frige in refrigeratorContent) {
+		for(frige in session.refrigeratorContent) {
 			boolean remove = true
 			for(ingredientType in ingredientList) {
 				if(frige.ingredient.name == ingredientType) {
@@ -53,9 +52,11 @@ class RefrigeratorController {
 			}
 			
 			if(remove) {
-				frige.delete()
+				frige.delete(flush: true)
 			}
 		}
+		
+		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 		
 		redirect(controller: 'ingredient', action: 'index')
 	}

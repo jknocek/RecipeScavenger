@@ -2,9 +2,11 @@ package com.rec.ingredient
 
 import com.rec.validation.*
 import com.rec.refrigerator.Refrigerator
+import com.rec.recipe.*
 
 class IngredientController {
-	static scope="session"
+	static scope = "session"
+	
 	static allowedMethods = [
 		listIngredients: 'GET',
 		addIngredient: ['GET', 'POST']		
@@ -23,9 +25,18 @@ class IngredientController {
 
 	
 	def index() {
+		if(session.foundError?.size() > 0) {
+			session.error = session.foundError
+			session.foundError = ""
+		} else {
+			session.error = ""
+		}
+		
 		if(!session.user) {
 			redirect(controller: 'home', action: 'home')
 		}
+		
+		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 
 		def ingredients = IngredientType.list(sort: "name", order: "asc")
 		def displayIngredients = []
@@ -53,6 +64,13 @@ class IngredientController {
 	
 	
 	def add() {
+		if(session.foundError?.size() > 0) {
+			session.error = session.foundError
+			session.foundError = ""
+		} else {
+			session.error = ""
+		}
+		
 		if(!IsUserAdmin()) {
 			redirect(controller: 'home', action: 'home')
 		}
@@ -82,6 +100,13 @@ class IngredientController {
 	
 	
 	def edit() {
+		if(session.foundError?.size() > 0) {
+			session.error = session.foundError
+			session.foundError = ""
+		} else {
+			session.error = ""
+		}
+		
 		if(!IsUserAdmin()) {
 			redirect(controller: 'home', action: 'home')
 		}
@@ -134,7 +159,23 @@ class IngredientController {
 			return
 		}
 		
-		type.delete()
+		try {
+			def frigeContents = Refrigerator.findAllWhere(ingredient: type)
+			if(frigeContents) {
+				for(content in frigeContents) {
+					content.delete(flush: true)
+				}
+				type.delete(flush: true)
+			} else {
+				def recipeContents = RecipeContent.findWhere(ingredient: type)
+				if(recipeContents) {
+					session.foundError = "Sorry, " + type.name + " is used in recipe '"+ recipeContents.recipe.name +"'. It can not be removed until '"+ recipeContents.recipe.name +"' is removed."
+				}
+			}
+		} catch(Exception e) {
+			session.foundError = "Error, unable to remove ingredient!"
+		}
+		
 		redirect(controller: 'ingredient', action: 'index')
 	}
 }

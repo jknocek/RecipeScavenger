@@ -25,7 +25,7 @@
 							</tr>
 						</thread>
 						<tbody>
-							<g:each in="${ refrigeratorContent }" var="item">
+							<g:each in="${ session.refrigeratorContent }" var="item">
 								<tr>
 									<td>${ item?.ingredient.name }</td>
 									<td>${ item?.ingredientAmount }</td>

@@ -13,7 +13,14 @@ class RecipeController {
 	def recipeList = []
 	
 	def recipeList() {
-
+		if(session.foundError?.size() > 0) {
+			
+			session.error = session.foundError
+			session.foundError = ""
+		} else {
+			session.error = ""
+		}
+		
 		recipeList = Recipe.findAll()
 		
 		return recipeList

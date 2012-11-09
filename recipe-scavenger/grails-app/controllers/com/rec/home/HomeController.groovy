@@ -5,6 +5,7 @@ import com.rec.contact.ContactType
 import com.rec.contact.ContactTypeSelection
 import com.rec.news.News
 import com.rec.util.DateUtil
+import com.rec.refrigerator.Refrigerator
 import java.text.SimpleDateFormat
 
 class HomeController {
@@ -53,6 +54,10 @@ class HomeController {
 			} else {
 				newsRemaining.add(article)
 			}
+		}
+		
+		if(session.user) {
+			session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 		}
 	}
 	
