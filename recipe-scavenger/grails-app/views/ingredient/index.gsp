@@ -20,8 +20,9 @@
 						<table class="ingredient-list">
 							<thead>
 								<tr>
-									<th>Name</th>
-									<th>Usually measured by</th>
+									<th><b>Name</b></th>
+									<th><b>Usually measured by</b></th>
+									<th style="text-align: center;"><b>In Refrigerator</b></th>
 									<th></th>
 								</tr>
 							</thead>
@@ -30,7 +31,7 @@
 									<tr>										
 										<td>${ ingredient?.name }</td>
 										<td>${ ingredient?.baseUomType }</td>
-										<td>
+										<td style="text-align: center;">
 											<g:if test="${session.user}">
 												<g:checkBox name="ing" value="${ingredient?.name}" onchange="submit()" checked="${ingredient.ingredientInFrige}"/>
 											</g:if>
