@@ -16,21 +16,23 @@
 				</ul>
 				<div id="tabs-1">
 					<div><g:link controller="ingredient" action="index">Add Item</g:link></div>
-					<table class="ingredient-list">
-						<thread>
+					<table class="ingredient-list" cellpadding=2>
+						<thead>
 							<tr>
-								<th>Name</th>
-								<th>Amount</th>
-								<th>	
+								<th><b>Name</b></th>
+								<th style="text-align: right;"><b>Amount</b></th>
+								<th></th>
+								<th></th>
 							</tr>
-						</thread>
+						</thead>
 						<tbody>
 							<g:each in="${ session.refrigeratorContent }" var="item">
 								<tr>
 									<td>${ item?.ingredient.name }</td>
-									<td>${ item?.ingredientAmount }</td>
+									<td style="text-align: right;">${ item?.ingredientAmount }</td>
+									<td>${ item?.uomName }</td>
 									<td>
-										<g:link class="siberbar-highlight" controller="refrigerator" action="editIngredient" params="[id: item?.id]">[Change Amount]</g:link>
+										<g:link class="siberbar-highlight" controller="refrigerator" action="editIngredient" params="[id: item?.id]">[Edit]</g:link>
 										<g:link class="siberbar-highlight" controller="refrigerator" action="doRemoveIngredient" params="[id: item?.id]">[Remove]</g:link> 
 									</td>
 								</tr>

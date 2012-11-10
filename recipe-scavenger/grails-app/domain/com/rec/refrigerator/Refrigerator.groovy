@@ -8,6 +8,9 @@ class Refrigerator {
 	User user
 	IngredientType ingredient
 	double ingredientAmount
+	char baseUomType
+	String uomName
+	String uomDisplay
 
 	static mapping = {
 		id generator: 'increment'
@@ -16,6 +19,9 @@ class Refrigerator {
 		user column: 'user_id'
 		ingredient column: 'ingredient_id'
 		ingredientAmount column: 'ingredient_amount'
+		baseUomType column: 'base_uom'
+		uomName column: 'uom_name'
+		uomDisplay column: 'display_uom'
 	}
 	
 	static constraints = {

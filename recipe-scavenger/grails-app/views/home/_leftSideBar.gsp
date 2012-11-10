@@ -97,29 +97,53 @@
 								<th>
 									<b>Ingredient</b>
 								</th>
-								<th>
-									
+								<th colspan=2>
+									<b>Quantity</b>
 								</th>
-								<th>
-									<b>UOM</b>
-								</th>	
 							</tr>
 						</thead>
 						<tbody>
 							<tr><td colspan="3"><hr/></td></tr>
-							<g:each in="${session.refrigeratorContent}">
-								<tr>
-									<td align="right">
-										${it.ingredient.name}
-									</td>
-									<td align="right">
-										${it.ingredientAmount}
-									</td>
-									<td>
-									</td>
-								</tr>
-							</g:each>
+							<g:if test="${session.refrigeratorContent?.size() > 5}">
+								<g:each in="${session.refrigeratorContent.subList(0, 5)}">
+									<tr>
+										<td>
+											${it.ingredient.name}
+										</td>
+										<td style="text-align: right;">
+											${it.ingredientAmount}
+										</td>
+										<td>
+											${it.uomDisplay}
+										</td>
+									</tr>
+								</g:each>
+							</g:if>
+							<g:else>
+								<g:each in="${session.refrigeratorContent}">
+									<tr>
+										<td>
+											${it.ingredient.name}
+										</td>
+										<td style="text-align: right;">
+											${it.ingredientAmount}
+										</td>
+										<td>
+											${it.uomDisplay}
+										</td>
+									</tr>
+								</g:each>
+							</g:else>
 						</tbody>
+					</table>
+					<table style="width: 100%;">
+						<g:if test="${session.refrigeratorContent?.size() > 5}">
+							<tr>
+								<td style="text-align: right">
+									<g:link controller="refrigerator" action="refrigerator">more...</g:link>
+								</td>
+							</tr>
+						</g:if>
 					</table>
 				</div>
 			</div>

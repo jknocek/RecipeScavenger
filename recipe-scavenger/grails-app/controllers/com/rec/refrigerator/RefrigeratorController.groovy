@@ -1,5 +1,7 @@
 package com.rec.refrigerator
+
 import com.rec.ingredient.IngredientType
+import com.rec.uom.UOM
 
 class RefrigeratorController {
 	static scope = "session"
@@ -28,31 +30,65 @@ class RefrigeratorController {
 		
 		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 		
-		def ingredientList = params.ing		
+		def ingredientList = []
+		ingredientList = params.ing
 		
-		for(ingredientType in ingredientList) {
-			def ingredient = IngredientType.findWhere(name: ingredientType)
+		def paramClass = params.ing.getClass()
+		
+		if(paramClass.name == "java.lang.String") {
+			IngredientType ingredient = IngredientType.findWhere(name: ingredientList)
 			
 			if(!isInFrige(ingredient)) {
 				Refrigerator frig = new Refrigerator()
-				frig.ingredient = IngredientType.findWhere(name: ingredientType)
+				frig.ingredient = ingredient
 				frig.ingredientAmount = 0
 				frig.user = session.user
+				frig.baseUomType = ingredient.baseUomType
+				frig.uomDisplay = UOM.getBaseUomDisplay(ingredient.baseUomType)
+				frig.uomName = UOM.getBaseUom(ingredient.baseUomType)
 				frig.save(flush: true)
 				session.refrigeratorContent.add(frig)
 			}
-		}
-		
-		for(frige in session.refrigeratorContent) {
-			boolean remove = true
-			for(ingredientType in ingredientList) {
-				if(frige.ingredient.name == ingredientType) {
+			
+			for(frige in session.refrigeratorContent) {
+				boolean remove = true
+
+				if(frige.ingredient.name == ingredientList) {
 					remove = false
+				}
+
+				if(remove) {
+					frige.delete(flush: true)
+				}
+			}
+		} else {			
+			for(ingredientType in ingredientList) {
+				IngredientType ingredient = IngredientType.findWhere(name: ingredientType)
+				
+				if(!isInFrige(ingredient)) {
+					Refrigerator frig = new Refrigerator()
+					frig.ingredient = ingredient
+					frig.ingredientAmount = 0
+					frig.user = session.user
+					frig.baseUomType = ingredient.baseUomType
+					frig.uomDisplay = UOM.getBaseUomDisplay(ingredient.baseUomType)
+					frig.uomName = UOM.getBaseUom(ingredient.baseUomType)
+					frig.save(flush: true)
+					session.refrigeratorContent.add(frig)
 				}
 			}
 			
-			if(remove) {
-				frige.delete(flush: true)
+			for(frige in session.refrigeratorContent) {
+				boolean remove = true
+				for(ingredientType in ingredientList) {
+					if(frige.ingredient.name == ingredientType) {
+						remove = false
+					}
+				}
+				
+				if(remove) {
+					frige.delete(flush: true)
+				}
 			}
 		}
 		
@@ -78,7 +114,7 @@ class RefrigeratorController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
-		Refrigerator ingredient = new Refrigerator()
+		Refrigerator ingredient;
 		ingredient = Refrigerator.findWhere(id: params.id.toLong())
 			
 		if(ingredient == null) {
