@@ -2,6 +2,7 @@ package com.rec.refrigerator
 
 import com.rec.ingredient.IngredientType
 import com.rec.uom.UOM
+import com.rec.user.User;
 
 class RefrigeratorController {
 	static scope = "session"
@@ -99,7 +100,7 @@ class RefrigeratorController {
 	
 	boolean isInFrige(IngredientType ingredient) {
 		if(session.user){
-			if(Refrigerator.findWhere(ingredient: ingredient)) {
+			if(Refrigerator.findWhere(ingredient: ingredient, user: session.user)) {
 				return true;
 			} else {
 				return false;
@@ -128,15 +129,74 @@ class RefrigeratorController {
 	}
 
 	def editIngredient() {
+		if(session.foundError?.size() > 0) {
+			session.error = session.foundError
+			session.foundError = ""
+		} else {
+			session.error = ""
+		}
+		
 		if(!isLoggedIn()) {
 			redirect(controller: 'home', action: 'home')
 		}
+		
+		def refrigeratorId
+		def frige
+		
+		refrigeratorId = params?.id
+		frige = Refrigerator.findWhere(id: refrigeratorId.toLong())
+		
+		def amount
+		def currentUom
+		
+		if(params.uom && params.amount) {
+			currentUom = params.uom
+			amount = params.amount
+		} else {
+			amount = frige.ingredientAmount
+			currentUom = UOM.getCurrentUom(frige.baseUomType, frige.uomName)
+		}
+
+		def ingredientName = frige.ingredient.name
+		def baseUomTypeDescription = UOM.getBaseUomDescription(frige.baseUomType)
+		def possibleUoms = UOM.getPossibleUoms(frige.baseUomType)		
+		
+		return [
+			id: frige.id,
+			name: ingredientName,
+			baseUomType: frige.baseUomType,
+			uomType: baseUomTypeDescription,
+			currentUom: currentUom,
+			possibleUoms: possibleUoms,
+			amount: amount
+		]
+	}
+	
+	def updateAmount() {
+		def frigId = params.id.toLong()
+		def amount = Double.parseDouble(params.amount)
+		def newUom = params.uom
+		def origUom = params.origUom
+		def baseUomType = params.baseUomType.charAt(0)
+		
+		redirect(action: 'editIngredient', params: [id: frigId, uom: newUom, amount: UOM.getDisplayAmount(baseUomType, origUom, newUom, amount)])
 	}
 	
 	def doEditIngredient() {
 		if(!isLoggedIn()) {
 			redirect(controller: 'home', action: 'home')
 		}
+		
+		def refrigeratorID = params.id.toLong()
+		Refrigerator frig = Refrigerator.findWhere(id: refrigeratorID)
+		
+		frig.ingredientAmount = Double.parseDouble(params.amount)
+		frig.uomName = UOM.getUomName(params.baseUomType.charAt(0), params.uom)
+		frig.uomDisplay = UOM.getUomDisplay(params.baseUomType.charAt(0), params.uom)
+
+		frig.save(flush:true)
+		
+		redirect(controller: 'refrigerator', action: 'refrigerator')
 	}
 	
 	def isInRefrigerator() {

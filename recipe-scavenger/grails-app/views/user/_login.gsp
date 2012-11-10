@@ -1,8 +1,8 @@
-<div id="login-dialog">
+<div id="login-dialog" >
 	<g:form controller="user">
 		<div class="userForm">
 			<br/>
-			<table style='text-align:left; width:300px;'>
+			<table style="text-align:left; width:300px;">
 				<tr>
 					<td>
 						<label for='email'>Username or Email:</label>

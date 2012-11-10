@@ -10,7 +10,7 @@ $(document).ready(function() {
 	// login dialog
 	$("#login-dialog").dialog({ autoOpen: false, 
 								modal:true, 
-								height: 150,
+								height: 170,
 								width: 400,
 								resizable: false
 	});

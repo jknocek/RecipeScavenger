@@ -28,7 +28,7 @@
 							</thead>
 							<tbody>
 							<g:each in="${ ingredients }" var="ingredient">								
-									<tr>										
+									<tr>
 										<td>${ ingredient?.name }</td>
 										<td>${ ingredient?.baseUomType }</td>
 										<td style="text-align: center;">

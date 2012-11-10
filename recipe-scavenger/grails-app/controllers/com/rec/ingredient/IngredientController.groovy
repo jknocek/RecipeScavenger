@@ -52,7 +52,7 @@ class IngredientController {
 	
 	boolean isInFrige(IngredientType ingredient) {
 		if(session.user){
-			if(Refrigerator.findWhere(ingredient: ingredient)) {
+			if(Refrigerator.findWhere(ingredient: ingredient, user: session.user)) {
 				return true;
 			} else {
 				return false;
@@ -107,7 +107,7 @@ class IngredientController {
 			session.error = ""
 		}
 		
-		if(!IsUserAdmin()) {
+		if(!session.user) {
 			redirect(controller: 'home', action: 'home')
 		}
 

@@ -6,12 +6,55 @@ class VolumnUtil {
 	}
 	
 	static def getBaseUomDisplay() {
-		return Mass.GRAMS.getDisplay();
+		return Volumn.LITERS.getDisplay();
 	}
 	
-	static def getDisplayAmount(String displayUom, double amount) {
-		if(displayUom == Volumn.KILOLITERS.getDisplay()) {
-			return (amount * Volumn.KILOLITERS.getConvertionRatio())
+	static def getPossibleUoms() {
+		return Volumn.values()
+	}
+	
+	static def getUomName(String origUom) {
+		for(uom in Volumn.values()) {
+			if(uom.toString() == origUom) {
+				return uom.getName()
+			}
 		}
+	}
+	
+	static def getUomDisplay(String origUom) {
+		for(uom in Volumn.values()) {
+			if(uom.toString() == origUom) {
+				return uom.getDisplay()
+			}
+		}
+	}
+	
+	static def getCurrentUom(String uomName) {
+		for(uom in Volumn.values()) {
+			if(uom.getName() == uomName) {
+				return uom
+			}
+		}
+	}
+	
+	static double getDisplayAmount(String origUom, String displayUom, double amount) {
+		def orignalUom 
+		for(uom in Volumn.values()) {
+			if(uom.toString() == origUom) {
+				orignalUom = uom
+			}
+		}
+		
+		def newUom
+		for(uom in Volumn.values()) {
+			if(uom.toString() == displayUom) {
+				newUom = uom
+			}
+		}
+		
+		def baseAmount = amount / orignalUom.convertionRatio
+		def newAmount = newUom.convertionRatio * baseAmount
+		
+		return newAmount
 	}
 }
