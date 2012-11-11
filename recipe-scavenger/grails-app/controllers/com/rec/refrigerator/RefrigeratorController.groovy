@@ -26,7 +26,7 @@ class RefrigeratorController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
-		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
+		session.refrigeratorContent = Refrigerator.findAll("from Refrigerator as r where r.user=? order by ingredient.name", [session.user])
 		
 		def temp = ""
 	}
@@ -37,7 +37,7 @@ class RefrigeratorController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
-		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
+		session.refrigeratorContent =  Refrigerator.findAll("from Refrigerator as r where r.user=? order by ingredient.name", [session.user])
 		
 		def ingredientList = []
 		ingredientList = params.ing
@@ -101,7 +101,7 @@ class RefrigeratorController {
 			}
 		}
 		
-		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
+		session.refrigeratorContent =  Refrigerator.findAll("from Refrigerator as r where r.user=? order by ingredient.name", [session.user])
 		
 		redirect(controller: 'ingredient', action: 'index')
 	}
