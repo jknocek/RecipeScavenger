@@ -26,4 +26,14 @@ class IngredientTypeValidator {
 				return "*error*"
 		}
 	}
+	
+	static boolean validateQuantity(def quantity) {
+		try {
+			double value = Double.parseDouble(quantity)
+		} catch(Exception e) {
+			return false
+		}
+		
+		return true
+	}
 }

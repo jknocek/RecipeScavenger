@@ -53,7 +53,7 @@ class MassUtil {
 			}
 		}
 		
-		double baseAmount = orignalUom.convertionRatio * amount
+		double baseAmount = amount / orignalUom.convertionRatio
 		double newAmount = newUom.convertionRatio * baseAmount
 		
 		return newAmount

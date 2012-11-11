@@ -3,6 +3,7 @@ package com.rec.refrigerator
 import com.rec.ingredient.IngredientType
 import com.rec.uom.UOM
 import com.rec.user.User;
+import com.rec.validation.IngredientTypeValidator
 
 class RefrigeratorController {
 	static scope = "session"
@@ -14,6 +15,13 @@ class RefrigeratorController {
 	}
 	
 	def refrigerator() {
+		if(session.foundError?.size() > 0) {
+			session.error = session.foundError
+			session.foundError = ""
+		} else {
+			session.error = ""
+		}
+		
 		if(!isLoggedIn()) {
 			redirect(controller: 'home', action: 'home')
 		}
@@ -146,12 +154,12 @@ class RefrigeratorController {
 		refrigeratorId = params?.id
 		frige = Refrigerator.findWhere(id: refrigeratorId.toLong())
 		
-		def amount
+		double amount
 		def currentUom
 		
 		if(params.uom && params.amount) {
 			currentUom = params.uom
-			amount = params.amount
+			amount = Double.parseDouble(params.amount)
 		} else {
 			amount = frige.ingredientAmount
 			currentUom = UOM.getCurrentUom(frige.baseUomType, frige.uomName)
@@ -174,12 +182,18 @@ class RefrigeratorController {
 	
 	def updateAmount() {
 		def frigId = params.id.toLong()
-		def amount = Double.parseDouble(params.amount)
-		def newUom = params.uom
-		def origUom = params.origUom
-		def baseUomType = params.baseUomType.charAt(0)
 		
-		redirect(action: 'editIngredient', params: [id: frigId, uom: newUom, amount: UOM.getDisplayAmount(baseUomType, origUom, newUom, amount)])
+		if(IngredientTypeValidator.validateQuantity(params.amount)) {
+			def amount = Double.parseDouble(params.amount)
+			def newUom = params.uom
+			def origUom = params.origUom
+			def baseUomType = params.baseUomType.charAt(0)
+			
+			redirect(action: 'editIngredient', params: [id: frigId, uom: newUom, amount: UOM.getDisplayAmount(baseUomType, origUom, newUom, amount)])
+		} else {
+			session.foundError = "Error: Amount must be numerical!"
+			redirect(action: 'editIngredient', params: [id: frigId])
+		}
 	}
 	
 	def doEditIngredient() {
@@ -188,15 +202,22 @@ class RefrigeratorController {
 		}
 		
 		def refrigeratorID = params.id.toLong()
-		Refrigerator frig = Refrigerator.findWhere(id: refrigeratorID)
 		
-		frig.ingredientAmount = Double.parseDouble(params.amount)
-		frig.uomName = UOM.getUomName(params.baseUomType.charAt(0), params.uom)
-		frig.uomDisplay = UOM.getUomDisplay(params.baseUomType.charAt(0), params.uom)
-
-		frig.save(flush:true)
-		
-		redirect(controller: 'refrigerator', action: 'refrigerator')
+		if(IngredientTypeValidator.validateQuantity(params.amount)) {
+			
+			Refrigerator frig = Refrigerator.findWhere(id: refrigeratorID)
+			
+			frig.ingredientAmount = Double.parseDouble(params.amount)
+			frig.uomName = UOM.getUomName(params.baseUomType.charAt(0), params.uom)
+			frig.uomDisplay = UOM.getUomDisplay(params.baseUomType.charAt(0), params.uom)
+	
+			frig.save(flush:true)
+			
+			redirect(controller: 'refrigerator', action: 'refrigerator')
+		} else {
+			session.foundError = "Error: Amount must be numerical!"
+			redirect(action: 'editIngredient', params: [id: refrigeratorID])
+		}
 	}
 	
 	def isInRefrigerator() {

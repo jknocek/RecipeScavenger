@@ -47,7 +47,7 @@
 									<p><b>How much you have:</b></p>
 								</td>
 								<td>
-									<g:textField style="text-align: right; width: 50px;" name="amount" value="${amount}"/>
+									<g:textField style="text-align: right; width: 80px; text-overflow: ellipsis;" name="amount" value="${amount}"/>
 								</td>
 							</tr>
 						</table>

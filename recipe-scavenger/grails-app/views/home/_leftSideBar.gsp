@@ -16,11 +16,6 @@
 					</tr>
 					<tr>
 						<td>
-							<g:link class="sidebar-highlight" controller="recipe" action="topRecipes">Top Recipes</g:link>
-						</td>
-					</tr>
-					<tr>
-						<td>
 							Quick Search
 						</td>
 					</tr>
@@ -97,7 +92,7 @@
 								<th>
 									<b>Ingredient</b>
 								</th>
-								<th colspan=2>
+								<th colspan=2 style="text-align: right;">
 									<b>Quantity</b>
 								</th>
 							</tr>
@@ -111,7 +106,8 @@
 											${it.ingredient.name}
 										</td>
 										<td style="text-align: right;">
-											${it.ingredientAmount}
+											<g:textField name="amount" style="text-align: right; width: 40px; text-overflow: ellipsis;" 
+												value="${it.ingredientAmount}" disabled="disabled"/>
 										</td>
 										<td>
 											${it.uomDisplay}
@@ -126,7 +122,8 @@
 											${it.ingredient.name}
 										</td>
 										<td style="text-align: right;">
-											${it.ingredientAmount}
+											<g:textField name="amount" style="text-align: right; width: 40px; text-overflow: ellipsis;" 
+												value="${it.ingredientAmount}" disabled="disabled"/>
 										</td>
 										<td>
 											${it.uomDisplay}
@@ -148,15 +145,5 @@
 				</div>
 			</div>
 		</g:if>
-		<g:else>
-			<div class="accordion" style="width: 180px;">
-				<h3 style="text-align: center;"><a href="#">Refrigerator Content</a></h3>
-				<div style="width: 130px; margin-left: 0;">
-					<table>
-						
-					</table>
-				</div>
-			</div>
-		</g:else>
 	</div>
 </div>

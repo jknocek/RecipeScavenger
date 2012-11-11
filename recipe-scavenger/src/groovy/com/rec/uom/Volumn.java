@@ -1,6 +1,10 @@
 package com.rec.uom;
 
 public enum Volumn {
+	TEASPOONS("teaspoons","tsp", 202.884136),
+	FLUID_OUNCES("fluid ounces","fl oz", 33.8140227),
+	TABLESPOONS("tablespoons","tbsp", 67.6280454),
+	MILLILITERS("milliliters","ml", 1000),
 	LITERS("liters", "l", 1),
 	KILOLITERS("kiloliters", "kl", 0.001);
 	

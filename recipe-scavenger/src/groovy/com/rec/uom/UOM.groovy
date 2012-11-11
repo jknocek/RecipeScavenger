@@ -28,7 +28,7 @@ class UOM {
 		} else if(baseUom == 'm') {
 			return MassUtil.getUomName(uom)
 		} else if(baseUom == 'u') {
-			return null
+			return ""
 		}
 	}
 	
@@ -38,7 +38,7 @@ class UOM {
 		} else if(baseUom == 'm') {
 			return MassUtil.getUomDisplay(uom)
 		} else if(baseUom == 'u') {
-			return null
+			return ""
 		}
 	}
 	

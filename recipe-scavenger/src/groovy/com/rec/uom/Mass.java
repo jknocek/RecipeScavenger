@@ -2,7 +2,8 @@ package com.rec.uom;
 
 public enum Mass {
 	GRAMS("grams", "g", 1),
-	KILOGRAMS("kilograms", "kg", 0.001);
+	KILOGRAMS("kilograms", "kg", 0.001),
+	OUNCE("ounces", "oz", 0.03527396);
 	
 	private String name;
 	private String display;
