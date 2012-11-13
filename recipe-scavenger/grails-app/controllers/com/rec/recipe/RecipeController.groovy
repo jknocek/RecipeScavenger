@@ -70,6 +70,17 @@ class RecipeController {
 		redirect(action: 'recipeList')
 	}
 	
+	def selectIngredient() {
+		if(session.foundError?.size() > 0) {
+			session.error = session.foundError
+			session.foundError = ""
+		} else {
+			session.error = ""
+		}
+		
+		ingredients = IngredientType.findAll()
+	}
+	
 	def addRecipeContent() {
 		boolean valid = true
 		def selectedIngredient = params.selectedIngredient

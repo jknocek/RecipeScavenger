@@ -68,8 +68,9 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="button" id="ingredients-dialog-button" style="cursor:default; width:80px; font-size:1em;">Add Ingredient</div>
-	<g:selectIngredient/>
+	<g:form controller="recipe">
+		<g:actionSubmit value="Select Ingredient" class="button" controller="Recipe" action="selectIngredient"/>
+	</g:form>
 	<br/>
 	<table>
 		<g:each in="${newRecipeSteps}">
