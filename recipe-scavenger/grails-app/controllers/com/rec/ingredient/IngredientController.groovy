@@ -38,7 +38,9 @@ class IngredientController {
 		
 		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 
-		def ingredients = IngredientType.list(sort: "name", order: "asc")
+		def max = params.max ?: 15
+		def offset = params.offset ?: 0
+		def ingredients = IngredientType.list(sort: "name", order: "asc", max: max, offset: offset)
 		def displayIngredients = []
 		
 		ingredients.each {
@@ -47,8 +49,10 @@ class IngredientController {
 			displayIngredients.add([name: it.name, baseUomType: IngredientTypeValidator.getUserFriendlyUomType(it.baseUomType), id: it.id, ingredientInFrige: inFrige])
 		}
 		
-		return [ingredients: displayIngredients]
+		return [ingredients: displayIngredients, ingredientCount: ingredients.getTotalCount()]
 	}
+	
+	
 	
 	boolean isInFrige(IngredientType ingredient) {
 		if(session.user){
@@ -163,14 +167,19 @@ class IngredientController {
 			def frigeContents = Refrigerator.findAllWhere(ingredient: type)
 			if(frigeContents) {
 				for(content in frigeContents) {
-					content.delete(flush: true)
+					if(content.ingredient.id == type.id)
+					{
+						content.delete(flush: true)
+					}
 				}
+			} 
+			
+			def recipeContents = RecipeContent.findWhere(ingredient: type)
+			if(recipeContents) {
+				session.foundError = "Sorry, " + type.name + " is used in recipe '"+ recipeContents.recipe.name +"'. It can not be removed until '"+ recipeContents.recipe.name +"' is removed."
+			}
+			else {
 				type.delete(flush: true)
-			} else {
-				def recipeContents = RecipeContent.findWhere(ingredient: type)
-				if(recipeContents) {
-					session.foundError = "Sorry, " + type.name + " is used in recipe '"+ recipeContents.recipe.name +"'. It can not be removed until '"+ recipeContents.recipe.name +"' is removed."
-				}
 			}
 		} catch(Exception e) {
 			session.foundError = "Error, unable to remove ingredient!"

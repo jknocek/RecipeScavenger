@@ -16,33 +16,39 @@
 				</ul>
 				<div id="tabs-1">
 					<div><g:link controller="ingredient" action="add">Add Ingredient</g:link></div>
-					<g:form controller="refrigerator" action="doAddIngredient">
-						<table class="ingredient-list">
-							<thead>
-								<tr>
-									<th><b>Name</b></th>
-									<th><b>Usually measured by</b></th>
-									<th style="text-align: center;"><b>In Refrigerator</b></th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-							<g:each in="${ ingredients }" var="ingredient">								
+					
+					<div class="paginationWrapper">
+						<div class="pagination"><g:paginate controller="ingredient" action="index" total="${ ingredientCount }" /></div>
+							
+						<g:form controller="refrigerator" action="doAddIngredient">
+							<table class="ingredient-list">
+								<thead>
 									<tr>
-										<td>${ ingredient?.name }</td>
-										<td>${ ingredient?.baseUomType }</td>
-										<td style="text-align: center;">
-											<g:if test="${session.user}">
-												<g:checkBox name="ing" value="${ingredient?.name}" onchange="submit()" checked="${ingredient.ingredientInFrige}"/>
-											</g:if>
-										</td>
-										<td><g:link controller="ingredient" action="edit" params="[id: ingredient?.id]" class="sidebar-highlight">[edit]</g:link> <g:link controller="ingredient" action="delete" params="[id: ingredient?.id]" class="sidebar-highlight">[delete]</g:link></td>
+										<th><b>Name</b></th>
+										<th><b>Usually measured by</b></th>
+										<th style="text-align: center;"><b>In Refrigerator</b></th>
+										<th></th>
 									</tr>
-								
-							</g:each>
-							</tbody>
-						</table>
-					</g:form>
+								</thead>
+								<tbody>
+								<g:each in="${ ingredients }" var="ingredient">
+										<tr>
+											<td>${ ingredient?.name }</td>
+											<td>${ ingredient?.baseUomType }</td>
+											<td style="text-align: center;">
+												<g:if test="${session.user}">
+													<g:checkBox name="ing" value="${ingredient?.name}" onchange="submit()" checked="${ingredient.ingredientInFrige}"/>
+												</g:if>
+											</td>
+											<td><g:link controller="ingredient" action="edit" params="[id: ingredient?.id]" class="sidebar-highlight">[edit]</g:link> <g:link controller="ingredient" action="delete" params="[id: ingredient?.id]" class="sidebar-highlight">[delete]</g:link></td>
+										</tr>
+									
+								</g:each>
+								</tbody>
+							</table>
+						</g:form>
+						<div class="pagination"><g:paginate controller="ingredient" action="index" total="${ ingredientCount }" /></div>
+					</div>
 					<div><g:link controller="ingredient" action="add">Add Ingredient</g:link></div>
 					<g:form controller="refrigerator">
 						<g:actionSubmit value="My Refrigerator" style="margin-left: 85%;" class="button" controller="refrigerator" action="refrigerator"/>

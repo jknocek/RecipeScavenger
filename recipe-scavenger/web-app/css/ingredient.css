@@ -3,7 +3,6 @@ h1 {
 }
 
 table.ingredient-list {
-	margin: 8px;
 	width: 100%;
 	table-layout: fixed;
 }
@@ -29,3 +28,19 @@ input.ingredient-form, select.ingredient-form {
 	color: red;
 	margin: 0 0 10px 0;
 }
+
+.paginationWrapper {
+	margin: 8px;
+}
+
+.pagination {
+	font-size: 10pt;
+	
+}
+.pagination a, span {
+	margin-right: 6px;
+}
+.pagination span.currentStep {
+	font-weight: bold
+}
+
