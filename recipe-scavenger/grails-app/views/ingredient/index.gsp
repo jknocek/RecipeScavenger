@@ -31,6 +31,8 @@
 									</tr>
 								</thead>
 								<tbody>
+								<g:hiddenField name="ingredientPage" value="${ingredientList}"/>
+								<g:hiddenField name="offset" value="${offset}"/>
 								<g:each in="${ ingredients }" var="ingredient">
 										<tr>
 											<td>${ ingredient?.name }</td>
@@ -47,7 +49,7 @@
 								</tbody>
 							</table>
 						</g:form>
-						<div class="pagination"><g:paginate controller="ingredient" action="index" total="${ ingredientCount }" /></div>
+						<div class="pagination"><g:paginate controller="ingredient" max="10" action="index" total="${ ingredientCount }" /></div>
 					</div>
 					<div><g:link controller="ingredient" action="add">Add Ingredient</g:link></div>
 					<g:form controller="refrigerator">

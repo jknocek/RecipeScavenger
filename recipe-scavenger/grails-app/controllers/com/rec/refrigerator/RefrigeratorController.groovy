@@ -4,6 +4,8 @@ import com.rec.ingredient.IngredientType
 import com.rec.uom.UOM
 import com.rec.user.User;
 import com.rec.validation.IngredientTypeValidator
+import groovy.json.JsonSlurper
+import org.codehaus.groovy.grails.web.json.JSONObject
 
 class RefrigeratorController {
 	static scope = "session"
@@ -37,10 +39,12 @@ class RefrigeratorController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
-		session.refrigeratorContent =  Refrigerator.findAll("from Refrigerator as r where r.user=? order by ingredient.name", [session.user])
-		
+		def ingredientPage
 		def ingredientList = []
-		ingredientList = params.ing
+		
+		session.refrigeratorContent =  Refrigerator.findAll("from Refrigerator as r where r.user=? order by ingredient.name", [session.user]) // List of all ingredients in the user's refrigerator
+		ingredientPage = params.ingredientPage // List of all ingredients on the current page
+		ingredientList = params.ing // List of all selected ingredients on the current page
 		
 		def paramClass = params.ing.getClass()
 		
@@ -61,8 +65,12 @@ class RefrigeratorController {
 			
 			for(frige in session.refrigeratorContent) {
 				boolean remove = true
-
-				if(frige.ingredient.name == ingredientList) {
+				
+				if(ingredientPage.contains(frige.ingredient.id.toString())) {
+					if(frige.ingredient.name == ingredientList) {
+						remove = false
+					} 
+				} else {
 					remove = false
 				}
 
@@ -85,14 +93,18 @@ class RefrigeratorController {
 					frig.save(flush: true)
 					session.refrigeratorContent.add(frig)
 				}
-			}
+			}	
 			
 			for(frige in session.refrigeratorContent) {
 				boolean remove = true
-				for(ingredientType in ingredientList) {
-					if(frige.ingredient.name == ingredientType) {
-						remove = false
+				if(ingredientPage.contains(frige.ingredient.id.toString())) {
+					for(ingredientType in ingredientList) {
+						if(frige.ingredient.name == ingredientType) {
+							remove = false
+						}
 					}
+				} else {
+					remove = false
 				}
 				
 				if(remove) {

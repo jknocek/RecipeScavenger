@@ -38,18 +38,20 @@ class IngredientController {
 		
 		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 
-		def max = params.max ?: 15
+		def max = params.max ?: 10
 		def offset = params.offset ?: 0
 		def ingredients = IngredientType.list(sort: "name", order: "asc", max: max, offset: offset)
 		def displayIngredients = []
+		def ingredientIds = []
 		
 		ingredients.each {
 			boolean inFrige
 			inFrige = isInFrige(it)
 			displayIngredients.add([name: it.name, baseUomType: IngredientTypeValidator.getUserFriendlyUomType(it.baseUomType), id: it.id, ingredientInFrige: inFrige])
+			ingredientIds.add(it.id)
 		}
 		
-		return [ingredients: displayIngredients, ingredientCount: ingredients.getTotalCount()]
+		return [ingredients: displayIngredients, ingredientCount: ingredients.getTotalCount(), ingredientList: ingredientIds]
 	}
 	
 	
