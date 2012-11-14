@@ -19,7 +19,21 @@
 					
 					<div class="paginationWrapper">
 						<div class="pagination"><g:paginate controller="ingredient" action="index" total="${ ingredientCount }" /></div>
-							
+						<g:form>
+							<table>
+								<tr>
+									<td>
+										<p>Search by Name:&nbsp</p>
+									</td>
+									<td>
+										<g:textField name="searchBox"/>
+									</td>
+									<td>
+										<g:actionSubmit value="Search" controller="ingredient" action="index"/>
+									</td>
+								</tr>
+							</table>
+						</g:form>
 						<g:form controller="refrigerator" action="doAddIngredient">
 							<table class="ingredient-list">
 								<thead>

@@ -38,11 +38,20 @@ class IngredientController {
 		
 		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 
+		def searchBox = params?.searchBox
+		def temp = params
+		
 		def max = params.max ?: 10
 		def offset = params.offset ?: 0
-		def ingredients = IngredientType.list(sort: "name", order: "asc", max: max, offset: offset)
 		def displayIngredients = []
 		def ingredientIds = []
+		def ingredients = []
+		
+		if (!searchBox) {
+			ingredients = IngredientType.list(sort: "name", order: "asc", max: max, offset: offset)
+		} else {
+			ingredients = IngredientType.findAll("from IngredientType as i where i.name like ?", ["%"+searchBox+"%"])
+		}
 		
 		ingredients.each {
 			boolean inFrige
@@ -51,7 +60,7 @@ class IngredientController {
 			ingredientIds.add(it.id)
 		}
 		
-		return [ingredients: displayIngredients, ingredientCount: ingredients.getTotalCount(), ingredientList: ingredientIds]
+		return [ingredients: displayIngredients, ingredientCount: ingredients.size(), ingredientList: ingredientIds]
 	}
 	
 	
