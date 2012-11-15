@@ -46,11 +46,14 @@ class IngredientController {
 		def displayIngredients = []
 		def ingredientIds = []
 		def ingredients = []
+		def totalCount
 		
 		if (!searchBox) {
 			ingredients = IngredientType.list(sort: "name", order: "asc", max: max, offset: offset)
+			totalCount = ingredients.getTotalCount()
 		} else {
 			ingredients = IngredientType.findAll("from IngredientType as i where i.name like ?", ["%"+searchBox+"%"])
+			totalCount = ingredients.size()
 		}
 		
 		ingredients.each {
@@ -60,7 +63,7 @@ class IngredientController {
 			ingredientIds.add(it.id)
 		}
 		
-		return [ingredients: displayIngredients, ingredientCount: ingredients.size(), ingredientList: ingredientIds]
+		return [ingredients: displayIngredients, ingredientCount: totalCount, ingredientList: ingredientIds]
 	}
 	
 	
