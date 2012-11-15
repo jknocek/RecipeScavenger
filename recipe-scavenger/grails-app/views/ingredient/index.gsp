@@ -6,19 +6,52 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'contact.css')}" type="text/css" />
 		<link rel="stylesheet" href="${resource(dir: 'css/jquery-te', file: 'jquery-te-Style.css')}" type="text/css" />
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'ingredient.css')}" type="text/css" />
+		<g:javascript src="ingredient.js"/>
 		<title>Recipe Scavenger - Ingredient Database</title>
 	</head>
 	<body>
+		<div id="add-ingredient-dialog" >
+			<g:form controller="refrigerator" action="doAddIngredient">
+				<div class="userForm">
+					<br/>
+					<table style="text-align:left; width:300px;">
+						<tr>
+							<td colspan="2">
+								<p>Add '<span id="ingredient-name"></span>' to refrigerator</p>
+								<input type="hidden" id="ingredient-id" name="id" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<br/>
+							</td>
+						</tr>
+						<tr> 
+							<td>
+								<label for='amount'>Amount:</label>
+							</td>
+							<td>
+								<input 	id="ingredient-amount" type='text' name='amount'/>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<br/>
+				
+				<div style="float: right;">
+					<g:actionSubmit value="Add" class="button" controller="refrigerator" action="doAddIngredient" />
+				</div>
+			</g:form>
+		</div>
 		<div class="content">
 			<div id="tabs">
 				<ul>
 					<li><h3><a href="#tabs-1">Ingredients</a></h3></li>
 				</ul>
 				<div id="tabs-1">
-					<div><g:link controller="ingredient" action="add">Add Ingredient</g:link></div>
+					<div><g:link controller="ingredient" action="add">Create ingredient type</g:link></div>
 					
 					<div class="paginationWrapper">
-						<div class="pagination"><g:paginate controller="ingredient" action="index" total="${ ingredientCount }" /></div>
 						<g:form>
 							<table>
 								<tr>
@@ -34,38 +67,46 @@
 								</tr>
 							</table>
 						</g:form>
-						<g:form controller="refrigerator" action="doAddIngredient">
-							<table class="ingredient-list">
-								<thead>
-									<tr>
-										<th><b>Name</b></th>
-										<th><b>Usually measured by</b></th>
-										<th style="text-align: center;"><b>In Refrigerator</b></th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-								<g:hiddenField name="ingredientPage" value="${ingredientList}"/>
-								<g:hiddenField name="offset" value="${offset}"/>
-								<g:each in="${ ingredients }" var="ingredient">
-										<tr>
-											<td>${ ingredient?.name }</td>
-											<td>${ ingredient?.baseUomType }</td>
-											<td style="text-align: center;">
-												<g:if test="${session.user}">
-													<g:checkBox name="ing" value="${ingredient?.name}" onchange="submit()" checked="${ingredient.ingredientInFrige}"/>
-												</g:if>
-											</td>
-											<td><g:link controller="ingredient" action="edit" params="[id: ingredient?.id]" class="sidebar-highlight">[edit]</g:link> <g:link controller="ingredient" action="delete" params="[id: ingredient?.id]" class="sidebar-highlight">[delete]</g:link></td>
-										</tr>
-									
-								</g:each>
-								</tbody>
-							</table>
-						</g:form>
+						<div class="pagination"><g:paginate controller="ingredient" action="index" total="${ ingredientCount }" /></div>
+						<table class="ingredient-list">
+							<thead>
+								<tr>
+									<th><b>Name</b></th>
+									<th><b>Usually measured by</b></th>
+									<th style="text-align: center;"><b>My Refrigerator</b></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+							<g:hiddenField name="ingredientPage" value="${ingredientList}"/>
+							<g:hiddenField name="offset" value="${offset}"/>
+							<g:each in="${ ingredients }" var="ingredient">
+								<tr>
+									<td>${ ingredient?.name }</td>
+									<td>${ ingredient?.baseUomType }</td>
+									<td style="text-align: center;">
+										<g:if test="${session.user}">
+											<g:if test="${ingredient.ingredientInFrige }">
+												<g:link controller="refrigerator" action="doRemoveIngredient" params="[typeid: ingredient?.id, fromingredient: true]">Remove from refrigerator</g:link>
+											</g:if>
+											<g:if test="${!ingredient.ingredientInFrige && session.user}">
+												<a class="addLink" data-id="${ingredient?.id}" data-name="${ingredient?.name}" href="javascript: void(0);">Add to refrigerator</a>
+											</g:if>
+										</g:if>
+									</td>
+									<td>
+										<g:if test="${session.user?.admin}">
+											<g:link controller="ingredient" action="edit" params="[id: ingredient?.id]" class="sidebar-highlight">[edit]</g:link>
+											<g:link controller="ingredient" action="delete" params="[id: ingredient?.id]" class="sidebar-highlight">[delete]</g:link>
+										</g:if>
+									</td>
+								</tr>
+							</g:each>
+							</tbody>
+						</table>
 						<div class="pagination"><g:paginate controller="ingredient" max="10" action="index" total="${ ingredientCount }" /></div>
 					</div>
-					<div><g:link controller="ingredient" action="add">Add Ingredient</g:link></div>
+					<div><g:link controller="ingredient" action="add">Create ingredient type</g:link></div>
 					<g:form controller="refrigerator">
 						<g:actionSubmit value="My Refrigerator" style="margin-left: 85%;" class="button" controller="refrigerator" action="refrigerator"/>
 					</g:form>

@@ -39,81 +39,27 @@ class RefrigeratorController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
-		def ingredientPage
-		def ingredientList = []
-		
 		session.refrigeratorContent =  Refrigerator.findAll("from Refrigerator as r where r.user=? order by ingredient.name", [session.user]) // List of all ingredients in the user's refrigerator
-		ingredientPage = params.ingredientPage // List of all ingredients on the current page
-		ingredientList = params.ing // List of all selected ingredients on the current page
-		
-		def paramClass = params.ing.getClass()
-		
-		if(paramClass.name == "java.lang.String") {
-			IngredientType ingredient = IngredientType.findWhere(name: ingredientList)
-			
-			if(!isInFrige(ingredient)) {
-				Refrigerator frig = new Refrigerator()
-				frig.ingredient = ingredient
-				frig.ingredientAmount = 0
-				frig.user = session.user
-				frig.baseUomType = ingredient.baseUomType
-				frig.uomDisplay = UOM.getBaseUomDisplay(ingredient.baseUomType)
-				frig.uomName = UOM.getBaseUom(ingredient.baseUomType)
-				frig.save(flush: true)
-				session.refrigeratorContent.add(frig)
-			}
-			
-			for(frige in session.refrigeratorContent) {
-				boolean remove = true
-				
-				if(ingredientPage.contains(frige.ingredient.id.toString())) {
-					if(frige.ingredient.name == ingredientList) {
-						remove = false
-					} 
-				} else {
-					remove = false
-				}
 
-				if(remove) {
-					frige.delete(flush: true)
-				}
-			}
-		} else {			
-			for(ingredientType in ingredientList) {
-				IngredientType ingredient = IngredientType.findWhere(name: ingredientType)
-				
-				if(!isInFrige(ingredient)) {
-					Refrigerator frig = new Refrigerator()
-					frig.ingredient = ingredient
-					frig.ingredientAmount = 0
-					frig.user = session.user
-					frig.baseUomType = ingredient.baseUomType
-					frig.uomDisplay = UOM.getBaseUomDisplay(ingredient.baseUomType)
-					frig.uomName = UOM.getBaseUom(ingredient.baseUomType)
-					frig.save(flush: true)
-					session.refrigeratorContent.add(frig)
-				}
-			}	
-			
-			for(frige in session.refrigeratorContent) {
-				boolean remove = true
-				if(ingredientPage.contains(frige.ingredient.id.toString())) {
-					for(ingredientType in ingredientList) {
-						if(frige.ingredient.name == ingredientType) {
-							remove = false
-						}
-					}
-				} else {
-					remove = false
-				}
-				
-				if(remove) {
-					frige.delete(flush: true)
-				}
-			}
+		if(!params.id || !params.amount) {
+			response.status = 404
+			return
 		}
 		
-		session.refrigeratorContent =  Refrigerator.findAll("from Refrigerator as r where r.user=? order by ingredient.name", [session.user])
+		def ingredientType = IngredientType.findWhere(id: params.id.toLong());
+		def amount = params.amount.toDouble();
+		
+		if(!isInFrige(ingredientType)) {
+			Refrigerator frig = new Refrigerator()
+			frig.ingredient = ingredientType
+			frig.ingredientAmount = amount
+			frig.user = session.user
+			frig.baseUomType = ingredientType.baseUomType
+			frig.uomDisplay = UOM.getBaseUomDisplay(ingredientType.baseUomType)
+			frig.uomName = UOM.getBaseUom(ingredientType.baseUomType)
+			frig.save(flush: true)
+			session.refrigeratorContent.add(frig)
+		}
 		
 		redirect(controller: 'ingredient', action: 'index')
 	}
@@ -136,7 +82,14 @@ class RefrigeratorController {
 		}
 		
 		Refrigerator ingredient;
-		ingredient = Refrigerator.findWhere(id: params.id.toLong())
+
+		if(params.typeid)
+		{
+			def ingredientType = IngredientType.findWhere(id: params.typeid.toLong())
+			ingredient = Refrigerator.findWhere(ingredient: ingredientType)
+		}
+		else
+			ingredient = Refrigerator.findWhere(id: params.id.toLong())
 			
 		if(ingredient == null) {
 			response.status = 404
@@ -145,7 +98,10 @@ class RefrigeratorController {
 		
 		ingredient.delete()
 		
-		redirect(controller: 'refrigerator', action: 'refrigerator')
+		if(params.fromingredient)
+			redirect(controller: 'ingredient', action: 'index')
+		else
+			redirect(controller: 'refrigerator', action: 'refrigerator')
 	}
 
 	def editIngredient() {

@@ -8,11 +8,13 @@ class IngredientController {
 	static scope = "session"
 	
 	static allowedMethods = [
-		listIngredients: 'GET',
-		addIngredient: ['GET', 'POST']		
+		index: 'GET',
+		add: ['GET', 'POST']		
 	]
 	
 	def errorDictionary
+	def offset = null
+	def max = null
 		
 	
 	def IngredientController() {
@@ -60,10 +62,9 @@ class IngredientController {
 			boolean inFrige
 			inFrige = isInFrige(it)
 			displayIngredients.add([name: it.name, baseUomType: IngredientTypeValidator.getUserFriendlyUomType(it.baseUomType), id: it.id, ingredientInFrige: inFrige])
-			ingredientIds.add(it.id)
 		}
 		
-		return [ingredients: displayIngredients, ingredientCount: totalCount, ingredientList: ingredientIds]
+		return [ingredients: displayIngredients, ingredientCount: totalCount]
 	}
 	
 	

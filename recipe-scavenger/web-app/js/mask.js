@@ -1,8 +1,10 @@
 $(document).ready(function() {
-	$(".phone").mask("999-999-9999");
+	// Somtwo: this must use a library that isn't being included. Since this causes a javascript error and doesn't do anything anyway,
+	// I commented it out.
+	/*$(".phone").mask("999-999-9999");
 	$(".faxNumber").mask("999-999-9999");
 	$(".cardNumber").mask("9999-9999-9999-9999");
-	$(".date").mask("99/99/9999");
+	$(".date").mask("99/99/9999");*/
 	
 	$('[placeholder]').focus(function() {
 		  var input = $(this);
