@@ -3,6 +3,7 @@ package com.rec.ingredient
 import com.rec.validation.*
 import com.rec.refrigerator.Refrigerator
 import com.rec.recipe.*
+import com.rec.uom.*
 
 class IngredientController {
 	static scope = "session"
@@ -40,15 +41,17 @@ class IngredientController {
 		
 		session.refrigeratorContent = Refrigerator.findAllWhere(user: session.user)
 
+		def keepPage = params?.keepPage
 		def searchBox = params?.searchBox
 		def temp = params
 		
-		def max = params.max ?: 10
-		def offset = params.offset ?: 0
+		max = params.max ?: max && keepPage ? max : 10;
+		offset = params.offset ?: offset && keepPage ? offset : 0;
+
 		def displayIngredients = []
-		def ingredientIds = []
 		def ingredients = []
 		def totalCount
+		
 		
 		if (!searchBox) {
 			ingredients = IngredientType.list(sort: "name", order: "asc", max: max, offset: offset)
@@ -61,10 +64,23 @@ class IngredientController {
 		ingredients.each {
 			boolean inFrige
 			inFrige = isInFrige(it)
-			displayIngredients.add([name: it.name, baseUomType: IngredientTypeValidator.getUserFriendlyUomType(it.baseUomType), id: it.id, ingredientInFrige: inFrige])
+			displayIngredients.add([
+				name: it.name, 
+				baseUomType: it.baseUomType, 
+				baseUomName: IngredientTypeValidator.getUserFriendlyUomType(it.baseUomType), 
+				id: it.id, 
+				ingredientInFrige: inFrige
+			])
 		}
 		
-		return [ingredients: displayIngredients, ingredientCount: totalCount]
+		return [
+			ingredients: displayIngredients,
+			ingredientCount: totalCount,
+			volumeUoms: UOM.getPossibleUoms('v' as char),
+			massUoms: UOM.getPossibleUoms('m' as char),
+			pagemax: max,
+			pageoffset: offset
+		]
 	}
 	
 	
@@ -113,7 +129,7 @@ class IngredientController {
 			IngredientType newType = new IngredientType(name : params.name, baseUomType: params.uomType )
 			newType.save()
 			
-			redirect(controller: 'ingredient', action: '')
+			redirect(controller: 'ingredient', action: '', params: [keepPage: true])
 		}
 	}
 	
@@ -161,7 +177,7 @@ class IngredientController {
 			type.baseUomType = params.uomType
 			type.save()
 			
-			redirect(controller: 'ingredient', action: 'index')
+			redirect(controller: 'ingredient', action: 'index', params: [keepPage: true])
 		}
 	}
 	
@@ -200,6 +216,6 @@ class IngredientController {
 			session.foundError = "Error, unable to remove ingredient!"
 		}
 		
-		redirect(controller: 'ingredient', action: 'index')
+		redirect(controller: 'ingredient', action: 'index', params: [keepPage: true])
 	}
 }

@@ -52,7 +52,7 @@ class RefrigeratorController {
 		if(!isInFrige(ingredientType)) {
 			Refrigerator frig = new Refrigerator()
 			frig.ingredient = ingredientType
-			frig.ingredientAmount = amount
+			frig.ingredientAmount = amount 
 			frig.user = session.user
 			frig.baseUomType = ingredientType.baseUomType
 			frig.uomDisplay = UOM.getBaseUomDisplay(ingredientType.baseUomType)
@@ -61,7 +61,7 @@ class RefrigeratorController {
 			session.refrigeratorContent.add(frig)
 		}
 		
-		redirect(controller: 'ingredient', action: 'index')
+		redirect(controller: 'ingredient', action: 'index', params: [keepPage: true])
 	}
 	
 	boolean isInFrige(IngredientType ingredient) {
@@ -99,7 +99,7 @@ class RefrigeratorController {
 		ingredient.delete()
 		
 		if(params.fromingredient)
-			redirect(controller: 'ingredient', action: 'index')
+			redirect(controller: 'ingredient', action: 'index', params: [keepPage: true])
 		else
 			redirect(controller: 'refrigerator', action: 'refrigerator')
 	}

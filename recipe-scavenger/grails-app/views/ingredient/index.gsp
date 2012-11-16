@@ -16,7 +16,7 @@
 					<br/>
 					<table style="text-align:left; width:300px;">
 						<tr>
-							<td colspan="2">
+							<td colspan="3">
 								<p>Add '<span id="ingredient-name"></span>' to refrigerator</p>
 								<input type="hidden" id="ingredient-id" name="id" />
 							</td>
@@ -33,15 +33,30 @@
 							<td>
 								<input 	id="ingredient-amount" type='text' name='amount'/>
 							</td>
+							<td>
+								<select id="uomSelect"></select>
+								<p id="uomUnit">units</p>
+							</td>
 						</tr>
 					</table>
 				</div>
 				<br/>
-				
 				<div style="float: right;">
 					<g:actionSubmit value="Add" class="button" controller="refrigerator" action="doAddIngredient" />
 				</div>
 			</g:form>
+			<span style="visible: false" id="volumeUnits">
+				<g:each status="i" in="${volumeUoms}" var="uom">
+					<g:if test="${i == 0}"><option selected="selected" value="${uom.getName()}">${uom.getName()}</option></g:if>
+					<g:if test="${i != 0}"><option value="${uom.getName()}">${uom.getName()}</option></g:if>
+				</g:each>
+			</span>
+			<span style="visible: false" id="massUnits">
+				<g:each status="i" in="${massUoms}" var="uom">
+					<g:if test="${i == 0}"><option selected="selected" value="${uom.getName()}">${uom.getName()}</option></g:if>
+					<g:if test="${i != 0}"><option value="${uom.getName()}">${uom.getName()}</option></g:if>
+				</g:each>
+			</span>
 		</div>
 		<div class="content">
 			<div id="tabs">
@@ -67,7 +82,7 @@
 								</tr>
 							</table>
 						</g:form>
-						<div class="pagination"><g:paginate controller="ingredient" action="index" total="${ ingredientCount }" /></div>
+						<div class="pagination"><g:paginate controller="ingredient" action="index" total="${ ingredientCount }" max="${pagemax}" offset="${pageoffset }" /></div>
 						<table class="ingredient-list">
 							<thead>
 								<tr>
@@ -83,14 +98,14 @@
 							<g:each in="${ ingredients }" var="ingredient">
 								<tr>
 									<td>${ ingredient?.name }</td>
-									<td>${ ingredient?.baseUomType }</td>
+									<td>${ ingredient?.baseUomName }</td>
 									<td style="text-align: center;">
 										<g:if test="${session.user}">
 											<g:if test="${ingredient.ingredientInFrige }">
 												<g:link controller="refrigerator" action="doRemoveIngredient" params="[typeid: ingredient?.id, fromingredient: true]">Remove from refrigerator</g:link>
 											</g:if>
 											<g:if test="${!ingredient.ingredientInFrige && session.user}">
-												<a class="addLink" data-id="${ingredient?.id}" data-name="${ingredient?.name}" href="javascript: void(0);">Add to refrigerator</a>
+												<a class="addLink" data-id="${ingredient?.id}" data-name="${ingredient?.name}" data-uombase="${ingredient?.baseUomType}" href="javascript: void(0);">Add to refrigerator</a>
 											</g:if>
 										</g:if>
 									</td>
@@ -104,7 +119,7 @@
 							</g:each>
 							</tbody>
 						</table>
-						<div class="pagination"><g:paginate controller="ingredient" max="10" action="index" total="${ ingredientCount }" /></div>
+						<div class="pagination"><g:paginate controller="ingredient" action="index" total="${ ingredientCount }" max="${pagemax}" offset="${pageoffset }" /></div>
 					</div>
 					<div><g:link controller="ingredient" action="add">Create ingredient type</g:link></div>
 					<g:form controller="refrigerator">
