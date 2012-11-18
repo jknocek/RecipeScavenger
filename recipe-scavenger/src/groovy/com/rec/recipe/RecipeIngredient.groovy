@@ -3,6 +3,6 @@ package com.rec.recipe
 import com.rec.ingredient.IngredientType
 
 class RecipeIngredient {
-	IngredientType ingredient
+	RecipeContent recipeContentList
 	double quantity
 }

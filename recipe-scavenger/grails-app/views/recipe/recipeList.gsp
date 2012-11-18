@@ -30,7 +30,7 @@
 						</g:each>
 						</tbody>
 					</table>
-					<g:link controller="recipe" action="addRecipe">Add Recipe</g:link>
+					<g:link controller="recipe" action="toAddRecipe">Add Recipe</g:link>
 				</div>
 			</div>
 		</div>

@@ -22,5 +22,8 @@ class RecipeStep {
 		step blank: false, nullable: false
 		instruction blank: false, nullable: false
 		recipe blank: false, nullable: false
+		ingredient nullable: true
+		quantity nullable: true
+		uom nullable: true
     }
 }
