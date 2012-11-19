@@ -48,6 +48,7 @@ class RefrigeratorController {
 		
 		def ingredientType = IngredientType.findWhere(id: params.id.toLong());
 		def amount = params.amount.toDouble();
+		def uom = params.uomType ?: UOM.getBaseUom("u".charAt(0))
 		
 		if(!isInFrige(ingredientType)) {
 			Refrigerator frig = new Refrigerator()
@@ -55,8 +56,8 @@ class RefrigeratorController {
 			frig.ingredientAmount = amount 
 			frig.user = session.user
 			frig.baseUomType = ingredientType.baseUomType
-			frig.uomDisplay = UOM.getBaseUomDisplay(ingredientType.baseUomType)
-			frig.uomName = UOM.getBaseUom(ingredientType.baseUomType)
+			frig.uomName = UOM.getUomName(ingredientType.baseUomType, uom)
+			frig.uomDisplay = UOM.getUomDisplay(ingredientType.baseUomType, uom)
 			frig.save(flush: true)
 			session.refrigeratorContent.add(frig)
 		}

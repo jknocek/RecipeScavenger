@@ -34,7 +34,7 @@
 								<input 	id="ingredient-amount" type='text' name='amount'/>
 							</td>
 							<td>
-								<select id="uomSelect"></select>
+								<select id="uomSelect" name='uomType'></select>
 								<p id="uomUnit">units</p>
 							</td>
 						</tr>
@@ -47,14 +47,14 @@
 			</g:form>
 			<span style="visible: false" id="volumeUnits">
 				<g:each status="i" in="${volumeUoms}" var="uom">
-					<g:if test="${i == 0}"><option selected="selected" value="${uom.getName()}">${uom.getName()}</option></g:if>
-					<g:if test="${i != 0}"><option value="${uom.getName()}">${uom.getName()}</option></g:if>
+					<g:if test="${i == 0}"><option selected="selected" value="${uom}">${uom.getName()}</option></g:if>
+					<g:if test="${i != 0}"><option value="${uom}">${uom.getName()}</option></g:if>
 				</g:each>
 			</span>
 			<span style="visible: false" id="massUnits">
 				<g:each status="i" in="${massUoms}" var="uom">
-					<g:if test="${i == 0}"><option selected="selected" value="${uom.getName()}">${uom.getName()}</option></g:if>
-					<g:if test="${i != 0}"><option value="${uom.getName()}">${uom.getName()}</option></g:if>
+					<g:if test="${i == 0}"><option selected="selected" value="${uom}">${uom.getName()}</option></g:if>
+					<g:if test="${i != 0}"><option value="${uom}">${uom.getName()}</option></g:if>
 				</g:each>
 			</span>
 		</div>
