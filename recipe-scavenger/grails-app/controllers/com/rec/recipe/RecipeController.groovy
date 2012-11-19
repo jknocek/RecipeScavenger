@@ -2,12 +2,22 @@ package com.rec.recipe
 
 import com.rec.ingredient.IngredientType
 import com.rec.uom.UOM
+import com.rec.validation.ValidationResult
+import com.rec.validation.RecipeValidation
+import org.hibernate.Session
+import org.hibernate.SessionFactory
 
 class RecipeController {
 	static scope = "session"
 	
+	boolean newRecipe
+	def currentRecipe
+	
 	def newRecipeIngredients = []
 	def newRecipeIngredientNames = []
+	
+	def oldRecipeIngredients = []
+	def oldRecipeSteps = []
 	
 	def newRecipeSteps = []
 	def newRecipeTitle = ""
@@ -30,12 +40,105 @@ class RecipeController {
 		return recipeList
 	}
 	
+	def viewRecipe() {
+		Recipe recipe
+		def recipeContents
+		def recipeSteps
+		
+		recipe = Recipe.findWhere(id: params.id.toLong())
+		
+		if(recipe) {
+			recipeContents = RecipeContent.findAllWhere(recipe: recipe)
+			recipeSteps = RecipeStep.findAllWhere(recipe: recipe)
+		}
+		
+		return 	[recipe : recipe,
+				 recipeContents : recipeContents,
+				 recipeSteps : recipeSteps
+				]
+	}
+	
+	def editRecipe() {
+		def recipe
+		
+		recipe = Recipe.findWhere(id: params.id.toLong())
+		
+		currentRecipe = recipe
+		
+		if(recipe) {
+			oldRecipeSteps = []
+			oldRecipeIngredients = []
+			newRecipeIngredients = RecipeContent.findAllWhere(recipe: recipe)
+			newRecipeSteps = RecipeStep.findAllWhere(recipe: recipe)
+			
+			newRecipeTitle = recipe.name
+			newRecipeDescription = recipe.description
+			newRecipeIngredientNames = []
+			for(rc in newRecipeIngredients) {
+				newRecipeIngredientNames.add(rc.ingredient.name)
+			}
+			
+			newRecipe = false
+			
+			redirect(action: 'addRecipe')
+		} else {
+			redirect(action: 'recipeList')
+		}
+	}
+	
+	def doUpdateRecipe() {
+		ValidationResult result
+		
+		saveNewRecipeValuesNoRedirect()
+		
+		currentRecipe.name = newRecipeTitle
+		currentRecipe.description = newRecipeDescription
+		
+		result = RecipeValidation.validateRecipe(newRecipeTitle, newRecipeDescription, newRecipeIngredients, newRecipeSteps)
+		
+		if(result.success && session.user) {
+			currentRecipe.save(flush: true)
+			
+			for(rc in newRecipeIngredients) {
+				rc.recipe = currentRecipe
+				rc.save(flush: true)
+			}
+			
+			for(rs in newRecipeSteps) {
+				rs.recipe = currentRecipe
+				rs.save(flush: true)
+			}
+			
+			for(rc in oldRecipeIngredients) {
+				rc.delete(flush: true)
+			}
+			
+			oldRecipeIngredients = []
+			
+			for(rs in oldRecipeSteps) {
+				rs.delete(flush: true)
+			}
+			
+			oldRecipeSteps = []
+			
+			redirect(action: 'recipeList')
+		} else {
+			if(result.errorMessage)
+				session.foundError = result.errorMessage
+			else
+				session.foundError = "Must be logged in to create a recipe"
+				
+			redirect(action: 'addRecipe')
+		}
+	}
+	
 	def toAddRecipe() {
 		newRecipeIngredients = []
 		newRecipeIngredientNames = []
 		newRecipeSteps = []
 		newRecipeTitle = ""
 		newRecipeDescription = ""
+		newRecipe = true
 		redirect(action: 'addRecipe')
 	}
 	
@@ -52,25 +155,39 @@ class RecipeController {
 	}
 	
 	def doAddRecipe() {
-		Recipe recipe = new Recipe()
-		recipe.name = newRecipeTitle
-		recipe.description = newRecipeDescription
-		recipe.creator = session.user
+		ValidationResult result
 		
-		recipe.save(flush:true)
+		saveNewRecipeValuesNoRedirect()
 		
-		for(rc in newRecipeIngredients) {
-			rc.recipe = recipe
-			rc.save(flush:true)
+		result = RecipeValidation.validateRecipe(newRecipeTitle, newRecipeDescription, newRecipeIngredients, newRecipeSteps)
+		
+		if(result.success && session.user) {
+			Recipe recipe = new Recipe()
+			recipe.name = newRecipeTitle
+			recipe.description = newRecipeDescription
+			recipe.creator = session.user
+			
+			recipe.save(flush: true)
+			
+			for(rc in newRecipeIngredients) {
+				rc.recipe = recipe
+				rc.save(flush: true)
+			}
+			
+			for(rs in newRecipeSteps) {
+				rs.recipe = recipe
+				rs.save(flush: true)
+			}
+			
+			redirect(action: 'recipeList')
+		} else {
+			if(result.errorMessage)
+				session.foundError = result.errorMessage
+			else
+				session.foundError = "Must be logged in to create a recipe"
+				
+			redirect(action: 'addRecipe')
 		}
-		
-		for(rs in newRecipeIngredients) {
-			rs.recipe = recipe
-			rs.save(flush:true)
-		}
-		
-		
-		redirect(action: 'recipeList')
 	}
 	
 	def selectIngredient() {
@@ -87,6 +204,12 @@ class RecipeController {
 	}
 	
 	def addRecipeContent() {
+		for(rc in oldRecipeIngredients) {
+			if(rc.ingredient.name  ==  selectedIngredient?.toLong()) {
+				oldRecipeIngredients.remove(rc)
+			}
+		}
+		
 		boolean valid = true
 		def selectedIngredient = params.selectedIngredient
 		IngredientType newIngredient = IngredientType.findWhere(id: selectedIngredient?.toLong())
@@ -119,6 +242,9 @@ class RecipeController {
 		for(rc in newRecipeIngredients) {
 			if(rc.ingredient.id == params.recipieContentId.toLong()) {
 				newRecipeIngredients.remove(rc)
+				newRecipeIngredientNames.remove(rc.ingredient.name)
+				if(rc.id)
+					oldRecipeIngredients.add(rc)
 				break
 			}
 		}
@@ -133,7 +259,7 @@ class RecipeController {
 		recipeStep.instruction = ""
 		newRecipeSteps.add(recipeStep)
 		recipeStep.step = newRecipeSteps.size()
-		redirect(action: 'addRecipe')
+		redirect(action: 'addRecipe', fragment: 'step'+recipeStep.step)
 	}
 	
 	def deleteRecipeStep() {
@@ -142,6 +268,8 @@ class RecipeController {
 		for(rs in newRecipeSteps) {
 			if(rs.step == params.recipieStep.toLong()) {
 				newRecipeSteps.remove(rs)
+				if(rs.id)
+					oldRecipeSteps.add(rs)
 				break
 			}
 		}
@@ -159,15 +287,13 @@ class RecipeController {
 		def id = params.id
 		def recipeId = id.toLong()
 		Recipe recipe = Recipe.findWhere(id: recipeId)
-		def steps = RecipeStep.findWhere(recipe: recipe)
-		
-		saveNewRecipeValuesNoRedirect()
+		def steps = RecipeStep.findAllWhere(recipe: recipe)
 		
 		for(s in steps) {
 			s.delete(flush:true)
 		}
 		
-		def contents = RecipeContent.findWhere(recipe: recipe)
+		def contents = RecipeContent.findAllWhere(recipe: recipe)
 		
 		for(c in contents) {
 			c.delete(flush:true)
@@ -187,8 +313,10 @@ class RecipeController {
 	}
 	
 	def saveNewRecipeValuesNoRedirect() {
-		newRecipeTitle = params.title
-		newRecipeDescription = params.description
+		if(params.title)
+			newRecipeTitle = params.title
+		if(params.description)
+			newRecipeDescription = params.description
 		updateIngredientUoms(params.ingredientUom)
 		updateIngredientQuantities()
 		updateStepQuanity()
@@ -196,8 +324,6 @@ class RecipeController {
 	}
 	
 	def saveNewRecipeValues() {
-		def temp = params
-		
 		newRecipeTitle = params.title
 		newRecipeDescription = params.description
 		updateIngredientUoms(params.ingredientUom)
@@ -211,14 +337,22 @@ class RecipeController {
 	private def updateIngredientUoms(def uoms) {
 		String uomsClass = uoms.getClass()
 		
-		int index = 0
-		for(rc in newRecipeIngredients) {
-			if(rc.ingredient.baseUomType != 'u') {
-				if(uomsClass == "class java.lang.String")
-					rc.uom = UOM.getUomName(rc.ingredient.baseUomType, uoms)
-				else
-					rc.uom = UOM.getUomName(rc.ingredient.baseUomType, uoms.getAt(index))
-				index += 1
+		if(uoms) {
+			int index = 0
+			for(rc in newRecipeIngredients) {
+				if(rc.ingredient.baseUomType != 'u') {
+					if(uomsClass == "class java.lang.String")
+						rc.uom = uoms
+					else
+						rc.uom = uoms.getAt(index)
+						
+					for(rs in newRecipeSteps) {
+						if(rs.ingredient?.name == rc.ingredient?.name)
+							rs.uom = rc.uom
+					}
+						
+					index += 1
+				}
 			}
 		}
 	}

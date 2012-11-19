@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<title>Recipe Scavenger - Recipe Database</title>
+		<title>Recipe List</title>
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'recipe.css')}" type="text/css">
 	</head>
 	<body>
 		<div class="content">
@@ -15,8 +16,8 @@
 					<table class="recipe-list">
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>Description</th>
+								<th><b>Name</b></th>
+								<th><b>Description</b></th>
 								<th></th>
 							</tr>
 						</thead>
@@ -25,7 +26,11 @@
 							<tr>
 								<td>${ recipe?.name }</td>
 								<td>${recipe?.description}</td>
-								<td><g:link controller="ingredient" action="edit" params="[id: recipe?.id]">[edit]</g:link> <g:link controller="recipe" action="deleteRecipe" params="[id: recipe?.id]">[delete]</g:link></td>
+								<td>
+									<g:link controller="recipe" action="viewRecipe" params="[id: recipe?.id]">[View]</g:link>
+									<g:link controller="recipe" action="editRecipe" params="[id: recipe?.id]">[edit]</g:link>
+									<g:link controller="recipe" action="deleteRecipe" params="[id: recipe?.id]">[delete]</g:link>
+								</td>
 							</tr>
 						</g:each>
 						</tbody>

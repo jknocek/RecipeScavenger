@@ -1,10 +1,5 @@
 <%@ page import="com.rec.uom.UOM" %>
 <%@ page import="com.rec.recipe.RecipeController" %>
-<script type="text/javascript">
-    window.onload = function() {
-       scrollTo(0,0);
-    }
-</script>
 <div>
 	<g:form controller="recipe" action="saveNewRecipeValues">
 		<table class="recipeContentTable" style="width:100%;">
@@ -27,8 +22,8 @@
 				</td>
 				<td>
 					<g:textArea name="description" value="${newRecipeDescription}" 
-								style="height: 100px; width: 100%; resize: none; margin: 0 auto 0 auto;" 
-								maxlength="512">
+								style="height: 50px; width: 100%; resize: none; margin: 0 auto 0 auto;" 
+								maxlength="255">
 					</g:textArea>
 				</td>
 			</tr>
@@ -57,17 +52,18 @@
 						<g:each in="${newRecipeIngredients}">
 							<tr>
 								<td>
-									${it.ingredient.name}
+									${it.ingredient?.name}
 								</td>
 								<td>
-									<g:textField 	name="${it.ingredient.name}" value="${it.quantity}" 
+									<g:textField 	name="${it.ingredient?.name}" value="${it.quantity}" 
 													style="text-align: right; width: 80px;"/>
 								</td>
 								<td>
 									<g:if test="${it.ingredient?.baseUomType != 'u'}">
 										<g:select 	name="ingredientUom" 
-													from="${UOM.getPossibleUoms(it.ingredient?.baseUomType)}" 
-													value="${UOM.getCurrentUom(it.ingredient?.baseUomType, it.uom)}" 
+													from="${UOM.getPossibleUomsByName(it.ingredient?.baseUomType)}" 
+													value="${it.uom}"
+													onChange="submit()" 
 													style="width: 100px; text-align:right;"/>
 									</g:if>
 								</td>
@@ -88,7 +84,7 @@
 			<g:each in="${newRecipeSteps}">
 				<tr>
 					<td>
-						<p>Step: ${it.step}</p>
+						<p id="step${it.step}">Step: ${it.step}</p>
 					</td>
 				</tr>
 				<tr  style="width: 100%;">
@@ -120,7 +116,12 @@
 		</table>
 		<g:actionSubmit value="Add Step" class="button" controller="Recipe" action="addStep"/>
 		<br/><br/><hr/><br/>
-		<g:actionSubmit value="Create" class="button" controller="Recipe" action="doAddRecipe"/>
+		<g:if test="${newRecipe}">
+			<g:actionSubmit value="Create" class="button" controller="Recipe" action="doAddRecipe"/>
+		</g:if>
+		<g:else>
+			<g:actionSubmit value="Update" class="button" controller="Recipe" action="doUpdateRecipe"/>
+		</g:else>
 		<g:actionSubmit value="Back" class="button" controller="Recipe" action="recipeList"/>
 	</g:form>
 </div>

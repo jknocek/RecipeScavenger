@@ -22,6 +22,17 @@ class UOM {
 		}
 	}
 	
+	
+	static def getPossibleUomsByName(char baseUom) {
+		if(baseUom == 'v') {
+			return VolumnUtil.getPossibleUomsByName()
+		} else if(baseUom == 'm') {
+			return MassUtil.getPossibleUomsByName()
+		} else if(baseUom == 'u') {
+			return null
+		}
+	}
+	
 	static def getUomName(char baseUom, String uom) {
 		if(baseUom == 'v') {
 			return VolumnUtil.getUomName(uom)
