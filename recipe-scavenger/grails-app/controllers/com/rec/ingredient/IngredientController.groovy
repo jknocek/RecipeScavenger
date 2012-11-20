@@ -9,7 +9,7 @@ class IngredientController {
 	static scope = "session"
 	
 	static allowedMethods = [
-		index: 'GET',
+		index: ['GET', 'POST'],
 		add: ['GET', 'POST']		
 	]
 	

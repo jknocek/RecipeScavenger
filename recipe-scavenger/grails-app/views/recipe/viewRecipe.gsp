@@ -17,8 +17,8 @@
 						<div>
 							<table class="recipeContentTable" style="width:100%;">
 								<tr>
-									<td class="segment" style="width:100px;">
-										Title:
+									<td style="width:100px;">
+										<b>Title:</b>
 									</td>
 									<td>
 										${recipe.name}
@@ -30,8 +30,8 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="segment"  style="width:100px;" valign="top">
-										Description:
+									<td style="width:100px;" valign="top">
+										<b>Description:</b>
 									</td>
 									<td>
 										${recipe.description}
