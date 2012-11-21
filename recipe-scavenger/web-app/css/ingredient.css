@@ -5,6 +5,8 @@ h1 {
 table.ingredient-list {
 	width: 100%;
 	table-layout: fixed;
+	border-collapse: collapse;
+	cellpadding: 0;
 }
 
 table.ingredient-list td {
@@ -13,7 +15,7 @@ table.ingredient-list td {
 
 table.ingredient-list th {
 	padding: 2px 0;
-	font-size: 12pt
+	font-size: 12pt;
 }
 
 .ingredient-form label {

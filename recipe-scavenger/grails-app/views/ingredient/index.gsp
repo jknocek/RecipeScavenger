@@ -2,9 +2,6 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'news.css')}" type="text/css" />
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'contact.css')}" type="text/css" />
-		<link rel="stylesheet" href="${resource(dir: 'css/jquery-te', file: 'jquery-te-Style.css')}" type="text/css" />
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'ingredient.css')}" type="text/css" />
 		<g:javascript src="ingredient.js"/>
 		<title>Recipe Scavenger - Ingredient Database</title>
@@ -83,6 +80,8 @@
 							</table>
 						</g:form>
 						<div class="pagination"><g:paginate controller="ingredient" action="index" total="${ ingredientCount }" max="${pagemax}" offset="${pageoffset }" /></div>
+						<g:hiddenField name="ingredientPage" value="${ingredientList}"/>
+						<g:hiddenField name="offset" value="${offset}"/>
 						<table class="ingredient-list">
 							<thead>
 								<tr>
@@ -93,30 +92,28 @@
 								</tr>
 							</thead>
 							<tbody>
-							<g:hiddenField name="ingredientPage" value="${ingredientList}"/>
-							<g:hiddenField name="offset" value="${offset}"/>
-							<g:each in="${ ingredients }" var="ingredient">
-								<tr>
-									<td>${ ingredient?.name }</td>
-									<td>${ ingredient?.baseUomName }</td>
-									<td style="text-align: center;">
-										<g:if test="${session.user}">
-											<g:if test="${ingredient.ingredientInFrige }">
-												<g:link controller="refrigerator" action="doRemoveIngredient" params="[typeid: ingredient?.id, fromingredient: true]">Remove from refrigerator</g:link>
+								<g:each in="${ ingredients }" var="ingredient">
+									<tr class="hightlight-row">
+										<td>${ ingredient?.name }</td>
+										<td>${ ingredient?.baseUomName }</td>
+										<td style="text-align: center;">
+											<g:if test="${session.user}">
+												<g:if test="${ingredient.ingredientInFrige }">
+													<g:link controller="refrigerator" action="doRemoveIngredient" params="[typeid: ingredient?.id, fromingredient: true]">Remove from refrigerator</g:link>
+												</g:if>
+												<g:if test="${!ingredient.ingredientInFrige && session.user}">
+													<a class="addLink" data-id="${ingredient?.id}" data-name="${ingredient?.name}" data-uombase="${ingredient?.baseUomType}" href="javascript: void(0);">Add to refrigerator</a>
+												</g:if>
 											</g:if>
-											<g:if test="${!ingredient.ingredientInFrige && session.user}">
-												<a class="addLink" data-id="${ingredient?.id}" data-name="${ingredient?.name}" data-uombase="${ingredient?.baseUomType}" href="javascript: void(0);">Add to refrigerator</a>
+										</td>
+										<td>
+											<g:if test="${session.user?.admin}">
+												<g:link controller="ingredient" action="edit" params="[id: ingredient?.id]" class="sidebar-highlight">[edit]</g:link>
+												<g:link controller="ingredient" action="delete" params="[id: ingredient?.id]" class="sidebar-highlight">[delete]</g:link>
 											</g:if>
-										</g:if>
-									</td>
-									<td>
-										<g:if test="${session.user?.admin}">
-											<g:link controller="ingredient" action="edit" params="[id: ingredient?.id]" class="sidebar-highlight">[edit]</g:link>
-											<g:link controller="ingredient" action="delete" params="[id: ingredient?.id]" class="sidebar-highlight">[delete]</g:link>
-										</g:if>
-									</td>
-								</tr>
-							</g:each>
+										</td>
+									</tr>
+								</g:each>
 							</tbody>
 						</table>
 						<div class="pagination"><g:paginate controller="ingredient" action="index" total="${ ingredientCount }" max="${pagemax}" offset="${pageoffset }" /></div>

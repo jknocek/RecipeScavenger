@@ -32,7 +32,7 @@
 						</thead>
 						<tbody>
 							<g:each in="${ session.refrigeratorContent }" var="item">
-								<tr>
+								<tr class="hightlight-row">
 									<td>${ item?.ingredient.name }</td>
 									<td style="text-align: right;"><g:textField name="amount" value="${ item?.ingredientAmount }" 
 										style="text-align: right; width: 80px; text-overflow: ellipsis;" disabled="disabled"/>

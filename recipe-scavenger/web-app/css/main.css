@@ -96,3 +96,7 @@ body {
     border-top: 1px #969696;
     border-style: inset;
 }
+
+.hightlight-row:hover td {background-color: #FFDD57; border-top: 1px double #454140; border-bottom: 1px double #454140; font-weight: bold;}
+.hightlight-row:hover td:first-child {border-left: 1px double #454140;}
+.hightlight-row:hover td:last-child {border-right: 1px double #454140;}

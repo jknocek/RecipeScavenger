@@ -57,3 +57,19 @@
 	font-weight: bold;
 	font-size: 1.2em;
 }
+
+.recipe-segment {
+	background-color: #EAEADE;
+	color: #454140;
+	border: 1px solid #454140;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	padding: 10px;
+}
+
+
+
+
+
+
+
