@@ -106,7 +106,7 @@ class IngredientController {
 			session.error = ""
 		}
 		
-		if(!IsUserAdmin()) {
+		if(!session.user) {
 			redirect(controller: 'home', action: 'home')
 		}
 		

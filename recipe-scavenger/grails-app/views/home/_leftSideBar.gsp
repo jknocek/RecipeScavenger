@@ -1,9 +1,9 @@
 <div id="left-side-bar" class="stickbox">
 	<div id="left-side-bar-content">
 		<div class="openAccordion" style="width: 180px;">
-			<h3 style="text-align: center;"><a href="#">General</a></h3>
-			<div style="width: 130px; margin-left: 0;">
-				<table>
+			<h3 class="sidebar-segment-title"><a href="#">General</a></h3>
+			<div class="sidebar-segment-content">
+				<table class="sidebar-links">
 					<tr>
 						<td>
 							<g:link controller="home" action="home" class="sidebar-highlight">Home</g:link>
@@ -11,7 +11,7 @@
 					</tr>
 					<tr>
 						<td>
-							<g:link controller="recipe" action="recipeList">Recipes</g:link>
+							<g:link controller="recipe" action="recipeList" class="sidebar-highlight">Recipes</g:link>
 						</td>
 					</tr>
 					<tr>
@@ -24,33 +24,28 @@
 		</div>
 		<g:if test="${session.user}">
 			<div class="openAccordion" style="width: 180px;">
-				<h3 style="text-align: center;"><a href="#">Account</a></h3>
-				<div style="width: 130px; margin-left: 0;">
-					<table>
+				<h3 class="sidebar-segment-title"><a href="#">Account</a></h3>
+				<div class="sidebar-segment-content">
+					<table class="sidebar-links">
 						<tr>
-							<td style="padding-left:10px;">
-								<table>
-									<tr>
-										<td>
-											<g:link class="sidebar-highlight" controller="refrigerator" action="refrigerator">My Refrigerator</g:link>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											My Recipes
-										</td>
-									</tr>
-									<tr>
-										<td>
-											Add Ingredients
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<g:link controller="recipe" action="toAddRecipe">Add Recipes</g:link>
-										</td>
-									</tr>
-								</table>
+							<td>
+								<g:link class="sidebar-highlight" controller="refrigerator" 
+										action="refrigerator" class="sidebar-highlight">My Refrigerator</g:link>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<g:link controller="ingredient" action="index" class="sidebar-highlight">View Ingredients</g:link>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<g:link controller="ingredient" action="add" class="sidebar-highlight">Add Ingredients</g:link>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<g:link controller="recipe" action="toAddRecipe" class="sidebar-highlight">Add Recipes</g:link>
 							</td>
 						</tr>
 					</table>
@@ -59,23 +54,12 @@
 		</g:if>
 		<g:if test="${session.user?.admin == true}">
 			<div class="openAccordion" style="width: 180px;">
-				<h3 style="text-align: center;"><a href="#">Admin</a></h3>
-				<div style="width: 130px; margin-left: 0;">
-					<table>
+				<h3 class="sidebar-segment-title"><a href="#">Admin</a></h3>
+				<div class="sidebar-segment-content">
+					<table class="sidebar-links">
 						<tr>
-							<td style="padding-left:10px;">
-								<table>
-									<tr>
-										<td>
-											<g:link controller="news" action="addNews" class="sidebar-highlight">Add News Article</g:link>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<g:link controller="ingredient" action="" class="sidebar-highlight">Manage Ingredients</g:link>
-										</td>
-									</tr>
-								</table>
+							<td>
+								<g:link controller="news" action="addNews" class="sidebar-highlight">Add News Article</g:link>
 							</td>
 						</tr>
 					</table>
@@ -85,7 +69,7 @@
 		<g:if test="${session.user}">
 			<div class="openAccordion" style="width: 180px;">
 				<h3 style="text-align: center;"><a href="#">Refrigerator Content</a></h3>
-				<div style="width: 130px; margin-left: 0;">
+				<div class="sidebar-segment-content">
 					<table style="width: 100%;">
 						<thead>
 							<tr>
