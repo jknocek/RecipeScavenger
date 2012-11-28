@@ -14,6 +14,18 @@ class MassUtil {
 		return Mass.values()
 	}
 	
+	static def getPossibleUomsByName() {
+		def values = Mass.values()
+		
+		def rtn = []
+		
+		for(val in values) {
+			rtn.add(val.getName())
+		}
+		
+		return rtn
+	}
+	
 	static def getUomName(String origUom) {
 		for(uom in Mass.values()) {
 			if(uom.toString() == origUom) {

@@ -33,18 +33,6 @@ class GeneralTagLib {
 		out<<render(template:"/home/home")
 	}
 	
-	def selectRatedRecipes = {attrs,body ->
-		out<<render(template:"/recipe/ratedRecipes")
-	}
-	
-	def selectRatedRecipesMonth = {attrs,body ->
-		out<<render(template:"/recipe/ratedRecipesMonth")
-	}
-	
-	def selectRatedRecipesWeek = {attrs,body ->
-		out<<render(template:"/recipe/ratedRecipesWeek")
-	}
-	
 	def selectNews = {attrs,body ->
 		out<<render(template:"/home/news")
 	}

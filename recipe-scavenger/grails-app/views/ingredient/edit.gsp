@@ -20,7 +20,8 @@
 						<br/>
 						<input type="submit" class="button" value="Submit" />
 						<input type="reset" class="button" value="Reset" />
-						<g:actionSubmit value="Back" class="button" controller="Ingredient" action="index"/>
+						<g:link class="button" controller="ingredient" action="index" 
+							style="color: #fff; font-size: 11px;">Back</g:link>
 					</form>
 				</div>
 			</div>

@@ -9,7 +9,7 @@ class IngredientController {
 	static scope = "session"
 	
 	static allowedMethods = [
-		index: 'GET',
+		index: ['GET', 'POST'],
 		add: ['GET', 'POST']		
 	]
 	
@@ -106,7 +106,7 @@ class IngredientController {
 			session.error = ""
 		}
 		
-		if(!IsUserAdmin()) {
+		if(!session.user) {
 			redirect(controller: 'home', action: 'home')
 		}
 		
