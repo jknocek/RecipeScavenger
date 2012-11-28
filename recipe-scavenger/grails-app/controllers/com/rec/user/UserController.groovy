@@ -108,34 +108,43 @@ class UserController {
 	}
 	
 	def doUpdateAccount = {
-		def user;
+		def user
 		def result
 		
+		def oldUsername = session.user?.username
+		def oldEmail = session.user?.email
+		
 		def confPassword = params.confPassword
-		def username = params.username
-		def email = params.email
+		def newUsername = params.username
+		def newEmail = params.email
 		def password = params.password
 		
-		result = UserValidation.validateUpdatedAccountInfo(session.user, username, email, password, confPassword)
+		result = UserValidation.validateUpdatedAccountInfo(oldUsername, oldEmail, newUsername, newEmail, password, confPassword)
 		
-		if(result.success) {
+		if(result.success) {		
+			session.foundError = ""
+			session.user.username = newUsername
+			session.user.email = newEmail
+			if(password?.size() > 0) {
+				session.user.password = password
+			}
+			
 			try {
 				sendMail {
-					to newUser.email
+					to session.user.email
 					subject "Recipe Scavenger Account Update"
-					body 'Hello  ' + user.username + ', your account detail have been updated'
+					body 'Hello  ' + session.user.username + ', your account detail have been updated'
 				  }
-				
-				session.foundError = ""
-				session.user.username = username
-				session.user.email = email
-				session.user.password = password
-				session.user.save(flush:true)
-				redirect(controller:'home', action:'home')
 			} catch(Exception e) {
 				session.foundError = "Not a valid email!"
 				redirect(action:'accountSettings')
 			}
+			
+			session.user = session.user.merge()
+			session.user.save(flush:true)
+						
+			redirect(controller:'home', action:'home')
+
 		} else {
 			session.foundError = result.errorMessage
 			redirect(action:'accountSettings')
