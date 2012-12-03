@@ -7,6 +7,7 @@ class RecipeContent {
 	Recipe recipe
 	IngredientType ingredient
 	double quantity
+	double baseQuantity
 	String uom
 	
 	static mapping = {
@@ -15,6 +16,7 @@ class RecipeContent {
 		table 'recipe_content'
 		recipe column: 'recipe_id'
 		ingredient column: 'ingredient_id'
+		baseQuantity column: 'base_quantity'
 	}
 
     static constraints = {
@@ -22,5 +24,6 @@ class RecipeContent {
 		ingredient blank: false, nullable: false
 		quantity blank: false, nullable: false
 		uom blank: false, nullable: false
+		baseQuantity blank: false, nullable: false
     }
 }

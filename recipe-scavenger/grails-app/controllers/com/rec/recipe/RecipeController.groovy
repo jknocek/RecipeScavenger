@@ -362,6 +362,15 @@ class RecipeController {
 		for(ri in newRecipeIngredients) {
 			if(params.get(ri.ingredient.name))	{
 				ri.quantity = params.get(ri.ingredient.name)?.toDouble()
+				def baseUomType = ri.ingredient.baseUomType
+				def currentUom = UOM.getCurrentUom(baseUomType, ri.uom).toString()
+				if(baseUomType == 'v')
+					ri.baseQuantity = UOM.getDisplayAmount(baseUomType, currentUom, "LITERS", ri.quantity)
+				else if(baseUomType == 'm')
+					ri.baseQuantity = UOM.getDisplayAmount(baseUomType, currentUom, "GRAMS", ri.quantity)
+				else
+					ri.baseQuantity = ri.quantity
+				
 			}
 		}
 	}
