@@ -8,7 +8,7 @@
 	margin-right: auto;
 	padding: 0 0 0 0;
 	background-color: #ffdd57;
-	border-bottom: 5px solid #454140;
+	background-image: url('../images/header-main-yellow.gif');
 }
 
 #header-background-extender {
@@ -27,8 +27,10 @@
 }
 
 #header-divider {
+	top: 70px;
 	position: fixed;
 	background-color: #2646FF;
+	background-image: url('../images/header-main-gray.gif');
 	width: 100%;
 	height: 5px;
 	z-index:100;
@@ -37,6 +39,7 @@
 #header-info {
 	float: right;
 	background-color: #454140;
+	background-image: url('../images/header-main-gray.gif');
 	height: 70px;
 	min-width: 300px;
 	padding-left: 20px;

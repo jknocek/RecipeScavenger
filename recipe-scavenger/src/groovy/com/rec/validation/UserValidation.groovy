@@ -62,7 +62,7 @@ class UserValidation {
 		return result
 	}
 	
-	public static ValidationResult validateUpdatedAccountInfo(def sessionUser, def userName, def email, def password, def confPassword) {
+	public static ValidationResult validateUpdatedAccountInfo(def oldUsername, def oldEmail, def newUsername, def newEmail, def password, def confPassword) {
 		def user
 		def result
 		def errors = []
@@ -71,37 +71,37 @@ class UserValidation {
 		result.success = true
 		result.errorMessage = ""
 		
-		user = User.findWhere(email:email)
-		if(user && user != sessionUser) {
-			result.success = false
-			result.errorMessage = "This email already has an account with Recipe Scavenger!"
-			return result
-		} else if(email?.size() < 1) {
-			result.success = false
-			errors.add("Invalid Email, an email is required.")
-		}
 		
-		user = User.findWhere(username:userName)
-		if(user && user != sessionUser) {
-			result.success = false
-			result.errorMessage = "This Username has already been selected, please try again."
-			return result
-		}else if(userName?.size() < 1) {
-			result.success = false
-			errors.add("Invalid Username, a Username is required.")
-		}
 		
-		if(password == null || password?.size() < 1) {
-			if(confPassword) {
+		if(!newEmail.equalsIgnoreCase(oldEmail)) {
+			user = User.findWhere(username:newEmail)
+			if(user) {
 				result.success = false
-				errors.add("Invalid Password")
+				result.errorMessage = "This Email has already been selected, please try a new one."
+				return result
+			}else if(newEmail?.size() < 1) {
+				result.success = false
+				errors.add("Invalid Email, a Email is required.")
 			}
 		}
 		
-		if(password != confPassword) {
-			result.success = false
-			result.errorMessage = "Confirmation Password does not match!"
-			return result
+		if(newUsername != oldUsername) {
+			user = User.findWhere(username:newUsername)
+			if(user) {
+				result.success = false
+				result.errorMessage = "This Username has already been selected, please try a new one."
+				return result
+			}else if(newUsername?.size() < 1) {
+				result.success = false
+				errors.add("Invalid Username, a Username is required.")
+			}
+		}
+		
+		if(password?.size() > 0) {
+			if(confPassword != password) {
+				result.success = false
+				errors.add("Your password and confirmations do not match.")
+			}
 		}
 		
 		if(errors.size() > 0) {

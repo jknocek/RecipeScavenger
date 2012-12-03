@@ -53,3 +53,4 @@
 		</g:if>
 	</div>
 </div>
+<div id="header-divider"></div>
