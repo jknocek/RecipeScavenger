@@ -3,6 +3,8 @@ package com.rec.recipe
 import com.rec.ingredient.IngredientType
 
 class RecipeIngredient {
-	RecipeContent recipeContentList
+	long ingredientId
 	double quantity
+	char baseUomType
+	String uom
 }
