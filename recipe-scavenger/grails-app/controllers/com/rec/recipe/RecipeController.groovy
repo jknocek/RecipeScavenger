@@ -4,6 +4,7 @@ import com.rec.ingredient.IngredientType
 import com.rec.uom.UOM
 import com.rec.validation.ValidationResult
 import com.rec.validation.RecipeValidation
+import com.rec.refrigerator.Refrigerator
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 
@@ -35,7 +36,28 @@ class RecipeController {
 			session.error = ""
 		}
 		
-		recipeList = Recipe.findAll()
+		def recipes = params.recipes
+		def recipeIds = []
+		
+		if(recipes) {
+			boolean first = true
+			String query = "from Recipe as r where"
+			
+			for(recipeId in recipes) {
+				if(first) {
+					query += " r.id=?"
+					first = false
+				} else {
+					query += " OR r.id=?"
+				}
+				
+				recipeIds.add(Long.parseLong(recipeId))
+			}
+			
+			recipeList = Recipe.findAll(query, recipeIds)	
+		} else {
+			recipeList = Recipe.findAll()
+		}
 		
 		return recipeList
 	}
@@ -84,6 +106,31 @@ class RecipeController {
 		} else {
 			redirect(action: 'recipeList')
 		}
+	}
+	
+	def findByRefrigerator() {
+		def recipeIngredients = []
+		
+		session.refrigeratorContent = Refrigerator.findAll("from Refrigerator as r where r.user=? order by ingredient.name", [session.user])
+		
+		for(content in session.refrigeratorContent) {
+			RecipeIngredient ingredient = new RecipeIngredient()
+			
+			ingredient.ingredientId = content.ingredient.id
+			ingredient.quantity = content.ingredientAmount
+			ingredient.baseUomType = content.ingredient.baseUomType
+			ingredient.uom = content.uomName
+			
+			recipeIngredients.add(ingredient)
+		}
+		
+		def recipes = RecipeUtil.findRecipesByIngredients(recipeIngredients)
+		
+		if(!recipes) {
+			recipes.add(0)
+		}
+		
+		redirect(action:'recipeList', params: [recipes: recipes])
 	}
 	
 	def doUpdateRecipe() {

@@ -35,6 +35,12 @@
 						</tr>
 						<tr>
 							<td>
+								<g:link class="sidebar-highlight" controller="recipe" 
+										action="findByRefrigerator" class="sidebar-highlight">What can I make?</g:link>
+							</td>
+						</tr>
+						<tr>
+							<td>
 								<g:link controller="ingredient" action="index" class="sidebar-highlight">View Ingredients</g:link>
 							</td>
 						</tr>

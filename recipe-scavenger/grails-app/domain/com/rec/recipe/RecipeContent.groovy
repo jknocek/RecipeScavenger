@@ -23,7 +23,6 @@ class RecipeContent {
 		recipe blank: false, nullable: false
 		ingredient blank: false, nullable: false
 		quantity blank: false, nullable: false
-		uom blank: false, nullable: false
 		baseQuantity blank: false, nullable: false
     }
 }
