@@ -16,7 +16,7 @@
 					</tr>
 					<tr>
 						<td>
-							Quick Search
+							<g:link controller="search" action="quick" class="sidebar-highlight">Quick Search</g:link>
 						</td>
 					</tr>
 				</table>

@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'create-account.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.9.1.custom.min.css')}" type="text/css">
 		<g:javascript src="jquery/ui/jquery-1.8.2.min.js" />
+		<g:javascript src="jquery/tmpl/jquery.tmpl.min.js" />
 		<g:javascript src="jquery/ui/jquery-ui-1.9.1.custom.min.js"/>
 		<g:javascript src="jquery/ui/jquery.ui.dialog.min.js" />
 		<g:javascript src="jquery/ui/jquery.ui.core.min.js" />
