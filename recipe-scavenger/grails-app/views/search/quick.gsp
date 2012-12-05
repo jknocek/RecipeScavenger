@@ -9,25 +9,7 @@
 		<title>Recipe Scavenger - Recipe Quick Search</title>
 	</head>
 	<body>
-		<div id="add-ingredient-dialog">
-			<form>
-				<label for="ing-search-text">Search by name:</label>
-				<input id="ingredient-search-box" name="ing-search-text" value="" />
-				<span id="img-dialog-spinner"><g:img file="spinner.gif" /></span><br />
-				<table style="width: 100%">
-					<thead>
-						<tr>
-							<th width="33%">Name</th>
-							<th width="33%">Base UOM</th>
-							<th width="33%"></th>
-						</tr>
-					</thead>
-					<tbody id="ing-results">
-					</tbody>
-				</table>
-			</form>
-		</div>
-		
+		<g:render template="ingredientSearchDialog" />		
 		<div class="content">
 			<div id="tabs">
 				<ul>

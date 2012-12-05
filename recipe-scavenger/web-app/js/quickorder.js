@@ -9,6 +9,15 @@ $(document).ready(function() {
 	var throttler = null;
 
 	// Member functions
+	var GetIngredientForId = function(id) {
+		for(var i = 0; i < ingredients.length; i++) {
+			if(id == ingredients[i].id)
+				return ingredients[i];
+		}
+	
+		return undefined;
+	}
+	
 	var UpdateIngFormState = function UpdateIngFormState() {
 		var hasIngredients = ingredients.length > 0;
 		var canSearch = hasIngredients;
@@ -16,35 +25,40 @@ $(document).ready(function() {
 		$("#ingredient-table").toggle(hasIngredients)
 		$("#please-add-ingredient").toggle(!hasIngredients)
 		$("#ingredient-search-button").button({disabled: !canSearch})
-		/*if(canSearch)
-			$("#ingredient-search-button").removeAttr('disabled')
-		else
-			$("#ingredient-search-button").attr('disabled','disabled')*/
 	}
-	
-	
-	var ReadQuantites = function() {
-		$(".quantity").each(function(index, el) {
-			ingredients[index].quantity = $(el).val();
-		});
-	}
-	
+		
 	
 	var RemoveIngredient = function(e) {
 		var id = $(this).data('id');
+		var i;
 		
-		for(var i = 0; i < ingredients.length; i++) {
+		for(i = 0; i < ingredients.length; i++) {
 			if(id == ingredients[i].id)
 				break;
 		}
 		
 		if(i >= ingredients.length)
-			return;
-		
-		ReadQuantites();
+			return
+
 		ingredients.splice(i, 1);
 		
 		RenderIngredients();
+	}
+	
+	
+	var QuantityChange = function(e) {
+		var id = $(this).data('id')
+		var ingredient = GetIngredientForId(id)
+		
+		if(ingredient === undefined)
+			return;
+		
+		// Validate the value
+		var newValue = /\d*\.?\d{0,9}/.exec($(this).val())
+		
+		$(this).val(newValue)
+		
+		ingredient.quantity = newValue
 	}
 	
 	
@@ -61,37 +75,31 @@ $(document).ready(function() {
 		
 		for(var i = 0; i < ingredients.length; i++) {
 			var ingr = ingredients[i];
-			var uom = ingr.uom == "v" ? "litres" : ingr.uom == "m" ? "killograms" : "";
+			var uom = ingr.uom == "v" ? "litres" : ingr.uom == "m" ? "grams" : "";
 			
 			selector.append(template.format(ingr.name, uom, ingr.id, ingr.quantity));
 			selector.find(".removelink").click(RemoveIngredient);
+			selector.find(".quantity").change(QuantityChange);
 		}
 		
 		UpdateIngFormState();
 	}
 	
 	var IngredientAdded = function IngredientAdded(ingredient) {
-		var present = false;
+		if(GetIngredientForId(ingredient.id) !== undefined)
+			return;
 		
-		for(var i = 0; i < ingredients.length; i++) {
-			if(ingredient.id == ingredients[i].id)
-				present = true;
-		}
-		
-		if(!present) {
-			ReadQuantites();
-			ingredients.push({
-				id: ingredient.id,
-				name: ingredient.name,
-				uom: ingredient.uom,
-				quantity: 0.0
-			});
-		}
+		ingredients.push({
+			id: ingredient.id,
+			name: ingredient.name,
+			uom: ingredient.uom,
+			quantity: 0.0
+		});
 		
 		RenderIngredients();
 	}
 	
-	var dialog = new IngredientSearchDialog({ element: $("#add-ingredient-dialog"), callback: IngredientAdded});
+	var dialog = new IngredientSearchDialog({ callback: IngredientAdded});
 
 	// Setup and bootstrapping code
 	$("#add-ingredient-anchor").click(function() {
