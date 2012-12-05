@@ -90,8 +90,8 @@ class UserController {
 			try {
 				sendMail {
 					to newUser.email
-					subject "Welcome to Recipe Scavenger"
-					body 'Welcome ' + newUser.username + ', please bla bla bla'
+					subject "Welcome to Recipe Scavenger!"
+					html g.render(template:"newAccountMessage")
 				  }
 				
 				session.foundError = ""
@@ -134,6 +134,7 @@ class UserController {
 					to session.user.email
 					subject "Recipe Scavenger Account Update"
 					body 'Hello  ' + session.user.username + ', your account detail have been updated'
+					body 'Hello  ' + user.username + ', your account details have been updated'
 				  }
 			} catch(Exception e) {
 				session.foundError = "Not a valid email!"
