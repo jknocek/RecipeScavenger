@@ -52,14 +52,22 @@ class SearchController {
 			def type = IngredientType.findWhere(id: params.ingredientId.toLong())
 			
 			if(type != null) {
-				def ing = [
-					id: type.id,
-					baseUomType: type.baseUomType.toString(),
-					name: type.name,
-					quantity: 0.0
-				]
-				
-				currentIngredients.add(ing)
+				def found = false
+				for(def i in currentIngredients) {
+					if(i.id == type.id)
+						found = true
+				}
+
+				if(!found) {
+					def ing = [
+						id: type.id,
+						baseUomType: type.baseUomType.toString(),
+						name: type.name,
+						quantity: 0.0
+					]
+					
+					currentIngredients.add(ing)
+				}
 				
 				results.success = true
 				render results as JSON

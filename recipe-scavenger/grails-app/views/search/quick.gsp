@@ -13,13 +13,13 @@
 		<span style="display: none" id="volumeUnits">
 			<g:each status="i" in="${volumeUoms}" var="uom">
 				<g:if test="${i == 0}"><option selected="selected" value="${uom.getName()}">${uom.getName()}</option></g:if>
-				<g:if test="${i != 0}"><option value="${uom}">${uom.getName()}</option></g:if>
+				<g:if test="${i != 0}"><option value="${uom.getName()}">${uom.getName()}</option></g:if>
 			</g:each>
 		</span>
 		<span style="display: none" id="massUnits">
 			<g:each status="i" in="${massUoms}" var="uom">
 				<g:if test="${i == 0}"><option selected="selected" value="${uom.getName()}">${uom.getName()}</option></g:if>
-				<g:if test="${i != 0}"><option value="${uom}">${uom.getName()}</option></g:if>
+				<g:if test="${i != 0}"><option value="${uom.getName()}">${uom.getName()}</option></g:if>
 			</g:each>
 		</span>
 		<div class="content">
