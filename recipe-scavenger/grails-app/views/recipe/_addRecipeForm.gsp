@@ -29,6 +29,25 @@
 			</tr>
 		</table>
 		<br/>
+		<g:if test="${newRecipeTags}">
+			<b>Tags:</b><br/>
+			<table style="margin-left: 40px;">
+				<g:each in="${newRecipeTags}">
+					<tr>
+						<td style="width: 100px;">
+							${it.name}<br/>
+						</td>
+						<td>
+							<g:link controller="recipe" action="removeTag" params="[removeTagName: it.name]">Delete</g:link>
+						</td>
+					</tr>
+				</g:each>
+			</table>
+			<br/>
+		</g:if>
+		<b>New Tag:</b> <g:textField name="newTag"/><br/><br/>
+		<g:actionSubmit class="button" value="Add Tag" action="addTag"/>
+		<br/><br/><hr/><br/>
 		<g:if test="${newRecipeIngredients}">
 			<b>Ingredients:</b>
 			<div class="recipeIngredientBox">
