@@ -40,9 +40,20 @@ $(document).ready(function() {
 		if(i >= ingredients.length)
 			return
 
-		ingredients.splice(i, 1);
+		var success = function(data, textStatus, jqXHR) {
+			if(!data.success)
+				return;
+			
+			ingredients.splice(i, 1);
+			RenderIngredients();
+		}
 		
-		RenderIngredients();
+		$.ajax({
+			url: "/recipe-scavenger/search/removeSearchIngredientJson",
+			data: { ingredientId: id },
+			dataType: 'json',
+			success: success
+		})
 	}
 	
 	
@@ -54,52 +65,78 @@ $(document).ready(function() {
 			return;
 		
 		// Validate the value
-		var newValue = /\d*\.?\d{0,9}/.exec($(this).val())
+		var newValue = /\d*\.?\d{0,9}/.exec($(this).val())[0]
 		
 		$(this).val(newValue)
 		
 		ingredient.quantity = newValue
+		
+		$.ajax({
+			url: "/recipe-scavenger/search/setSearchIngredientQuantityJson",
+			data: { ingredientId: ingredient.id, quantity: ingredient.quantity},
+			dataType: 'json'
+		})
 	}
-	
 	
 	var RenderIngredients = function() {
 		var selector = $("#ingredient-body");
 		selector.html("");
 		
+		var selectTemplate = '<select name="[{1}].uom">{0}</select>'
 		var template = 
 		'<tr>' +
-			'<td><input type="hidden" name="{2}.id" value="{2}" />{0}</td>'+
-			'<td><input name="{2}.quantity" type="number" max="20" data-id="{2}" class="quantity" value="{3}"/> {1}</td>'+
+			'<td>{0}</td>'+
+			'<td><input name="[{2}].quantity" max="20" data-id="{2}" class="quantity" value="{3}"/> {1}</td>'+
 			'<td><a href="javascript: void(0)" data-id="{2}" class="removelink">remove</td>'+
 		'</tr>';
 		
 		for(var i = 0; i < ingredients.length; i++) {
 			var ingr = ingredients[i];
-			var uom = ingr.uom == "v" ? "litres" : ingr.uom == "m" ? "grams" : "";
+			var uoms;
 			
-			selector.append(template.format(ingr.name, uom, ingr.id, ingr.quantity));
-			selector.find(".removelink").click(RemoveIngredient);
-			selector.find(".quantity").change(QuantityChange);
+			if(ingr.baseUomType == "v")
+				uoms = selectTemplate.format($("#volumeUnits").html(), ingr.id)
+			else if(ingr.baseUomType == "m")
+				uoms = selectTemplate.format($("#massUnits").html(), ingr.id)
+			else
+				uoms = "units";
+			
+			selector.append(template.format(ingr.name, uoms, ingr.id, ingr.quantity));
 		}
+		
+		selector.find(".removelink").click(RemoveIngredient);
+		selector.find(".quantity").change(QuantityChange);
 		
 		UpdateIngFormState();
 	}
 	
 	var IngredientAdded = function IngredientAdded(ingredient) {
-		if(GetIngredientForId(ingredient.id) !== undefined)
+		if(GetIngredientForId(ingredient.id) !== undefined) {
+			dialog.close()
 			return;
+		}
 		
-		ingredients.push({
-			id: ingredient.id,
-			name: ingredient.name,
-			uom: ingredient.uom,
-			quantity: 0.0
-		});
-		
-		RenderIngredients();
+		$.ajax({
+			url: "/recipe-scavenger/search/addSearchIngredientJson",
+			data: { ingredientId: ingredient.id },
+			dataType: 'json',
+			success: function(data, textStatus, jqXHR) {
+				if(!data.success)
+					return;
+				
+				ingredients.push({
+					id: ingredient.id,
+					name: ingredient.name,
+					baseUomType: ingredient.baseUomType,
+					quantity: 0.0
+				});
+
+				RenderIngredients();
+			}
+		})
 	}
 	
-	var dialog = new IngredientSearchDialog({ callback: IngredientAdded});
+	var dialog = new IngredientSearchDialog({ callback: IngredientAdded });
 
 	// Setup and bootstrapping code
 	$("#add-ingredient-anchor").click(function() {
@@ -107,6 +144,15 @@ $(document).ready(function() {
 	});
 	
 	$(".button").button();
+	
+	$.ajax({
+		url: "/recipe-scavenger/search/getExistingIngredientsJson",
+		dataType: 'json',
+		success: function(data) {
+			ingredients = data
+			RenderIngredients()
+		}
+	})
 	
 	UpdateIngFormState();
 });

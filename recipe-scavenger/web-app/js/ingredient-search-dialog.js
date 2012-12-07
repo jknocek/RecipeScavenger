@@ -14,7 +14,7 @@
 				params.callback({
 					id: $(this).data('id'),
 					name: $(this).data('name'),
-					uom: $(this).data('uom')
+					baseUomType: $(this).data('uom')
 				});
 			dialogElement.dialog('close');
 		}
@@ -29,7 +29,7 @@
 				'</tr>'
 					
 			for(var x = 0; x < data.length; x++) {
-				resultsElement.append(template.format(data[x].name, data[x].uom, data[x].id));
+				resultsElement.append(template.format(data[x].name, data[x].baseUomType, data[x].id));
 			}
 			
 			resultsElement.find("a").click(IngredientClick);
@@ -69,7 +69,7 @@
 		dialogElement.dialog({ 
 			autoOpen: false, 
 			modal:true, 
-			height: 170,
+			height: 200,
 			width: 400,
 			resizable: false
 		});
@@ -83,6 +83,9 @@
 				ThrottleRequest();
 				resultsElement.html("");
 				dialogElement.dialog('open');
+			},
+			close: function() {
+				dialogElement.dialog('close');
 			}
 		}
 	};
