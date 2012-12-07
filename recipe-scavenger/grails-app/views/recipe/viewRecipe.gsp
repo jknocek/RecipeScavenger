@@ -38,6 +38,27 @@
 											${recipe.description}
 										</td>
 									</tr>
+									<tr>
+										<td colspan="2">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<b>Tags:</b>
+										</td>
+										<td>
+											<table>
+												<g:each in="${recipeTags}">
+													<tr>
+														<td>
+															${it.name}
+														</td>
+													</tr>
+												</g:each>
+											</table>
+										</td>
+									</tr>
 								</table>
 							</div>
 						</div>

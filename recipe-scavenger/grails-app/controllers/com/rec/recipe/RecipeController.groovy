@@ -16,9 +16,11 @@ class RecipeController {
 	
 	def newRecipeIngredients = []
 	def newRecipeIngredientNames = []
+	def newRecipeTags = []
 	
 	def oldRecipeIngredients = []
 	def oldRecipeSteps = []
+	def oldRecipeTags = []
 	
 	def newRecipeSteps = []
 	def newRecipeTitle = ""
@@ -66,17 +68,20 @@ class RecipeController {
 		Recipe recipe
 		def recipeContents
 		def recipeSteps
+		def recipeTags
 		
 		recipe = Recipe.findWhere(id: params.id.toLong())
 		
 		if(recipe) {
 			recipeContents = RecipeContent.findAllWhere(recipe: recipe)
 			recipeSteps = RecipeStep.findAllWhere(recipe: recipe)
+			recipeTags = RecipeTag.findAllWhere(recipe: recipe)
 		}
 		
 		return 	[recipe : recipe,
 				 recipeContents : recipeContents,
-				 recipeSteps : recipeSteps
+				 recipeSteps : recipeSteps,
+				 recipeTags: recipeTags
 				]
 	}
 	
@@ -92,6 +97,7 @@ class RecipeController {
 			oldRecipeIngredients = []
 			newRecipeIngredients = RecipeContent.findAllWhere(recipe: recipe)
 			newRecipeSteps = RecipeStep.findAllWhere(recipe: recipe)
+			newRecipeTags = RecipeTag.findAllWhere(recipe: recipe)
 			
 			newRecipeTitle = recipe.name
 			newRecipeDescription = recipe.description
@@ -156,6 +162,15 @@ class RecipeController {
 				rs.save(flush: true)
 			}
 			
+			for(tag in newRecipeTags) {
+				tag.recipe = currentRecipe
+				tag.save(flush: true)
+			}
+			
+			for(tag in oldRecipeTags) {
+				tag.delete(flush: true)
+			}
+			
 			for(rc in oldRecipeIngredients) {
 				rc.delete(flush: true)
 			}
@@ -183,6 +198,7 @@ class RecipeController {
 		newRecipeIngredients = []
 		newRecipeIngredientNames = []
 		newRecipeSteps = []
+		newRecipeTags = []
 		newRecipeTitle = ""
 		newRecipeDescription = ""
 		newRecipe = true
@@ -224,6 +240,11 @@ class RecipeController {
 			for(rs in newRecipeSteps) {
 				rs.recipe = recipe
 				rs.save(flush: true)
+			}
+			
+			for(tag in newRecipeTags) {
+				tag.recipe = recipe
+				tag.save(flush: true)
 			}
 			
 			redirect(action: 'recipeList')
@@ -283,6 +304,37 @@ class RecipeController {
 		redirect(action: 'addRecipe')
 	}
 	
+	def addTag() {
+		String newTag = params.newTag
+		
+		saveNewRecipeValuesNoRedirect()
+		
+		RecipeTag tag = new RecipeTag()
+		tag.name = newTag
+		
+		newRecipeTags.add(tag)
+		
+		redirect(action: 'addRecipe')
+	}
+	
+	def removeTag() {
+		String name = params?.removeTagName
+		
+		saveNewRecipeValuesNoRedirect()
+		
+		for(tag in newRecipeTags) {
+			if(tag?.name == name) {
+				newRecipeTags.remove(tag)
+				
+				if(tag.id)
+					oldRecipeTags.add(tag)
+				break
+			}
+		}
+		
+		redirect(action: 'addRecipe')
+	}
+	
 	def deleteRecipeContent() {
 		saveNewRecipeValuesNoRedirect()
 		
@@ -335,9 +387,14 @@ class RecipeController {
 		def recipeId = id.toLong()
 		Recipe recipe = Recipe.findWhere(id: recipeId)
 		def steps = RecipeStep.findAllWhere(recipe: recipe)
+		def tags = RecipeTag.findAllWhere(recipe: recipe)
 		
 		for(s in steps) {
 			s.delete(flush:true)
+		}
+		
+		for(tag in tags) {
+			tag.delete(flush: true)
 		}
 		
 		def contents = RecipeContent.findAllWhere(recipe: recipe)
