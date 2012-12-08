@@ -9,6 +9,7 @@ class User {
 	String email
 	String password
 	boolean admin = false
+	Boolean active
 	
 	String toString() { 
 		"$email" 
@@ -25,6 +26,7 @@ class User {
 		username blank: false, nullable: false, unique: true
 		email blank: false, nullable: false, unique: true
 		password blank: false, nullable: false
+		active blank: true, nullable: true
 	}
 
 }

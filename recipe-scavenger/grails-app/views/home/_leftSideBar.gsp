@@ -68,6 +68,11 @@
 								<g:link controller="news" action="addNews" class="sidebar-highlight">Add News Article</g:link>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<g:link controller="user" action="userList" class="sidebar-highlight">User List</g:link>
+							</td>
+						</tr>
 					</table>
 				</div>
 			</div>

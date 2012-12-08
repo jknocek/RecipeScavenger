@@ -5,6 +5,10 @@ import com.rec.validation.UserValidation
 
 class UserController {
 	def static scope = "session"
+	def userList = []
+	def currentUser
+	
+	boolean adminEdit = false
 	
 	/*
 	 * Redirects the user to the create account page.
@@ -23,6 +27,25 @@ class UserController {
 		}
 	}
 	
+	def toAccountSettings() {
+		currentUser = session.user
+		adminEdit = false
+		redirect(action: 'accountSettings')
+	}
+	
+	def editAccount() {
+		long userId = Long.parseLong(params.id)
+		
+		if(userId) {
+			currentUser = User.findWhere(id: userId)
+			adminEdit = true
+			redirect(action: 'accountSettings')
+		} else {
+			session.foundError = 'Invalid User'
+			redirect(action: 'userList')
+		}	
+	}
+	
 	/*
 	 * Redirects the user to the account settings page.
 	 */
@@ -35,9 +58,23 @@ class UserController {
 			} else {
 				session.error = ""
 			}
+			
+			
 		} else {
 		redirect(controller: 'home', action: 'home')
 		}
+	}
+	
+	def userList() {
+		if(session.foundError?.size() > 0) {
+			
+			session.error = session.foundError
+			session.foundError = ""
+		} else {
+			session.error = ""
+		}
+		
+		userList = User.findAll()
 	}
 	
 	/*
@@ -68,6 +105,30 @@ class UserController {
 		}
 		
 		redirect(url: targetUrl)
+	}
+	
+	def doDeleteUser() {
+		long userId = Long.parseLong(params.id)
+		
+		if(userId) {
+			for(user in userList) {
+				if(user.id == userId) {
+					try {
+						user.active = false
+						user=user.merge()
+						user.save(flush:true)
+					} catch(Exception e) {
+					
+						session.foundError = 'Unknown Error'
+					}
+					break
+				}
+			}
+		} else {
+			session.foundError = "Invalid User"
+		}
+		
+		redirect(action: 'userList')
 	}
 	
 	/*
@@ -111,8 +172,8 @@ class UserController {
 		def user
 		def result
 		
-		def oldUsername = session.user?.username
-		def oldEmail = session.user?.email
+		def oldUsername = currentUser?.username
+		def oldEmail = currentUser?.email
 		
 		def confPassword = params.confPassword
 		def newUsername = params.username
@@ -123,29 +184,34 @@ class UserController {
 		
 		if(result.success) {		
 			session.foundError = ""
-			session.user.username = newUsername
-			session.user.email = newEmail
+			currentUser.username = newUsername
+			currentUser.email = newEmail
+			
 			if(password?.size() > 0) {
-				session.user.password = password
+				currentUser.password = password
 			}
 			
 			try {
 				sendMail {
-					to session.user.email
+					to currentUser.email
 					subject "Recipe Scavenger Account Update"
-					body 'Hello  ' + session.user.username + ', your account detail have been updated'
-					body 'Hello  ' + user.username + ', your account details have been updated'
+					body 'Hello  ' + currentUser.username + ', your account detail have been updated'
+					body 'Hello  ' + currentUser.username + ', your account details have been updated'
 				  }
-			} catch(Exception e) {
-				session.foundError = "Not a valid email!"
-				redirect(action:'accountSettings')
-			}
+				
+				currentUser = currentUser.merge()
+				currentUser.save(flush:true)
+				
+				if(!adminEdit) {
+					session.user = currentUser
+					session.user = session.user.merge()
+					session.user.save(flush:true)
+				}
+							
+				
+			} catch(Exception e) {}
 			
-			session.user = session.user.merge()
-			session.user.save(flush:true)
-						
 			redirect(controller:'home', action:'home')
-
 		} else {
 			session.foundError = result.errorMessage
 			redirect(action:'accountSettings')

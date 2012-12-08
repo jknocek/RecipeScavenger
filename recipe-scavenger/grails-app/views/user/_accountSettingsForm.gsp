@@ -6,7 +6,7 @@
 					<h4>Username</h4>
 				</td>
 				<td>
-					<g:textField name="username" id="username" value="${session?.user?.username }"/>
+					<g:textField name="username" id="username" value="${currentUser?.username }"/>
 				</td>
 			</tr>
 			<tr>
@@ -14,7 +14,7 @@
 					<h4>Email</h4>
 				</td>
 				<td>
-					<g:textField name="email" id="email" value="${session?.user?.email }"/>
+					<g:textField name="email" id="email" value="${currentUser?.email }"/>
 				</td>
 			</tr>
 			<tr>

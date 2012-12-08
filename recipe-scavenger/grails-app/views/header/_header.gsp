@@ -29,7 +29,7 @@
 				<table style="margin-top: 15px;">
 					<tr>
 						<td>
-							<g:link controller="user" action="accountSettings" 
+							<g:link controller="user" action="toAccountSettings" 
 								style="padding: 3px 3px 3px 3px;" 
 								class="header-highlight">Account Settings</g:link>
 						</td>
