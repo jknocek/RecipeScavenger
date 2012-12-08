@@ -45,7 +45,7 @@
 									</tr>
 									<tr>
 										<td>
-											<b>Tags:</b>
+											<b>Categories:</b>
 										</td>
 										<td>
 											<table>

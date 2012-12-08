@@ -30,7 +30,7 @@
 		</table>
 		<br/>
 		<g:if test="${newRecipeTags}">
-			<b>Tags:</b><br/>
+			<b>Categories:</b><br/>
 			<table style="margin-left: 40px;">
 				<g:each in="${newRecipeTags}">
 					<tr>
@@ -45,8 +45,8 @@
 			</table>
 			<br/>
 		</g:if>
-		<b>New Tag:</b> <g:textField name="newTag"/><br/><br/>
-		<g:actionSubmit class="button" value="Add Tag" action="addTag"/>
+		<b>New Category:</b> <g:textField name="newTag"/><br/><br/>
+		<g:actionSubmit class="button" value="Add Category" action="addTag"/>
 		<br/><br/><hr/><br/>
 		<g:if test="${newRecipeIngredients}">
 			<b>Ingredients:</b>

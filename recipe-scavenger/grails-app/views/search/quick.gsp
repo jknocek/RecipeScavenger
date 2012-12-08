@@ -50,8 +50,8 @@
 					</g:form>
 				</div>
 				<div id="tabs-2">
-					<g:form controller="search">
-						<label for="tags">Search by recipe categories:</label><br />
+					<g:form controller="search" action="byCategory">
+						<label for="tags">Search by recipe categories (separate multiple categories with commas):</label><br />
 						<input class="ingredient-form" style="width: 350px" type="text" name="tags" /><br />
 
 						<g:actionSubmit value="Search" style="margin-top: 10px" class="button" controller="search" action="byCategory"/>

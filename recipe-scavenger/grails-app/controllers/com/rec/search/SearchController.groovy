@@ -6,6 +6,7 @@ import grails.converters.*;
 import com.rec.recipe.*;
 import com.rec.ingredient.*;
 import com.rec.uom.UOM;
+import java.util.regex.Pattern;
 
 class SearchController {
 	static scope = "session"
@@ -148,6 +149,17 @@ class SearchController {
 		currentIngredients = []
 
 		redirect(controller: 'recipe', action:'recipeList', params: [recipes: recipes])
+	}
+	
+	def byCategory() {
+		def tags = params.tags ?: ""
+		
+		def pattern = Pattern.compile(/(,|, )/)
+		def tagArray = pattern.split(tags)
+		
+		def results = RecipeUtil.findRecipesByTags(tagArray)
+		
+		redirect(controller: 'recipe', action:'recipeList', params: [recipes: results])
 	}
 	
 }

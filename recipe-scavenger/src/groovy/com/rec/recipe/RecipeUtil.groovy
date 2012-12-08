@@ -60,4 +60,53 @@ class RecipeUtil {
 		}
 		
 	}
+	
+	
+	static def findRecipesByTags(String[] tags) {
+		String query
+		def queryList = []
+		boolean firstTag = true
+		
+		if(tags) {
+			query = "select recipe.id, count(*) from RecipeTag as t where"
+		} else {
+			query = null
+		}
+			
+		if(query) {
+			for(tag in tags) {
+				
+				if(firstTag) {
+					query += ' (t.name LIKE ?)'
+					firstTag = false
+				} else {
+					query += ' OR (t.name LIKE ?)'
+				}
+				
+				queryList.add(tag)
+			}
+			query += ' group by recipe'
+			
+			def recipeContentGroups = RecipeContent.executeQuery(query, queryList)
+			def recipes = []
+			
+			for(row in recipeContentGroups) {
+				def tagsInRecipe = RecipeTag.findAllWhere('recipe.id': row.getAt(0))
+				
+				if(tagsInRecipe == null)
+					continue;
+				
+				// The strength of the result is determined by how many categories in the recipe were matched
+				def delta = Math.abs(tagsInRecipe.size() - row.getAt(1))
+				
+				recipes.add([recipeId: row.getAt(0), delta: delta])
+			}
+			
+			recipes.sort {it.delta}
+			
+			return recipes.collect { recipe -> recipe.recipeId }
+		}
+		
+		return []
+	}
 }
