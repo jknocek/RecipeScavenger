@@ -24,12 +24,16 @@
 						<tbody>
 						<g:each in="${ recipeList }" var="recipe">
 							<tr>
-								<td>${ recipe?.name }</td>
+								<td><g:link controller="recipe" action="viewRecipe" params="[id: recipe?.id]">${ recipe?.name }</g:link></td>
 								<td>${recipe?.description}</td>
 								<td>
 									<g:link controller="recipe" action="viewRecipe" params="[id: recipe?.id]">[View]</g:link>
-									<g:link controller="recipe" action="editRecipe" params="[id: recipe?.id]">[edit]</g:link>
-									<g:link controller="recipe" action="deleteRecipe" params="[id: recipe?.id]">[delete]</g:link>
+									<g:if test="${session.user}">
+										<g:link controller="recipe" action="editRecipe" params="[id: recipe?.id]">[edit]</g:link>
+									</g:if>
+									<g:if test="${session.user?.admin}">
+										<g:link controller="recipe" action="deleteRecipe" params="[id: recipe?.id]">[delete]</g:link>
+									</g:if>
 								</td>
 							</tr>
 						</g:each>
