@@ -13,7 +13,7 @@
 					<li><h3><a href="#tabs-1">User Accounts</a></h3></li>
 				</ul>
 				<div id="tabs-1">
-					<g:link controller="recipe" action="toAddRecipe">Add User</g:link>
+					<g:link controller="user" action="adminCreateAccount">Add User</g:link>
 					<table class="ingredient-list" cellpadding=2 >
 						<thead>
 							<tr>
@@ -38,7 +38,7 @@
 						</g:each>
 						</tbody>
 					</table>
-					<g:link controller="recipe" action="toAddRecipe">Add User</g:link>
+					<g:link controller="user" action="adminCreateAccount">Add User</g:link>
 				</div>
 			</div>
 		</div>

@@ -9,12 +9,13 @@ class UserController {
 	def currentUser
 	
 	boolean adminEdit = false
+	boolean adminCreate = false
 	
 	/*
 	 * Redirects the user to the create account page.
 	 */
 	def createAccount() {
-		if(!session.user) {
+		if(!session.user || adminCreate) {
 			if(session.foundError?.size() > 0) {
 				
 				session.error = session.foundError
@@ -25,6 +26,11 @@ class UserController {
 		} else {
 			redirect(controller: 'home', action: 'home')
 		}
+	}
+	
+	def adminCreateAccount() {
+		adminCreate = true
+		redirect(action: 'createAccount')
 	}
 	
 	def toAccountSettings() {
@@ -138,9 +144,9 @@ class UserController {
 	def doCreateAccount = {
 		def newUser = new User();
 		def result
-		
-		def confPassword = params.confPassword
-		
+		def confPassword
+				
+		confPassword = params.confPassword
 		newUser.username = params.newUsername
 		newUser.email = params.newEmail
 		newUser.password = params.newPassword
@@ -157,7 +163,11 @@ class UserController {
 				
 				session.foundError = ""
 				newUser.save(flush:true)
-				redirect(controller:'home', action:'home')
+				
+				if(!adminCreate)
+					redirect(controller:'home', action:'home')
+				else
+					redirect(action: 'userList')
 			} catch(Exception e) {
 				session.foundError = "Not a valid email!"
 				redirect(action:'createAccount')
