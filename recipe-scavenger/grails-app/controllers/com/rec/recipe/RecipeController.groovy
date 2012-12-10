@@ -30,6 +30,9 @@ class RecipeController {
 	def ingredients
 	def recipeList = []
 	
+	//def offset = null
+	//def max = null
+	
 	def recipeList() {
 		if(session.foundError?.size() > 0) {
 			
@@ -39,6 +42,7 @@ class RecipeController {
 			session.error = ""
 		}
 		
+		def searchBox = params?.searchBox
 		def recipes = params.recipes
 		def recipeIds = []
 		
@@ -59,7 +63,12 @@ class RecipeController {
 			
 			recipeList = Recipe.findAll(query, recipeIds)	
 		} else {
-			recipeList = Recipe.findAll()
+			//recipeList = Recipe.findAll()
+			if (!searchBox) {
+				recipeList = Recipe.findAll()
+			} else {
+				recipeList = Recipe.findAll("from Recipe as i where i.name like ?", ["%"+searchBox+"%"])
+			}
 		}
 		
 		return recipeList
@@ -271,9 +280,21 @@ class RecipeController {
 		
 		//ingredients = IngredientType.findAll()
 		
+		def keepPage = params?.keepPage
+		def searchBox = params?.searchBox
 		def tmpIngredients = []
+		def totalCount
 		
-		ingredients = IngredientType.findAll()
+		//max = params.max ?: max && keepPage ? max : 10;
+		//offset = params.offset ?: offset && keepPage ? offset : 0;
+		
+		if (!searchBox) {
+			ingredients = IngredientType.list(sort: "name", order: "asc")//, max: max, offset: offset)
+			//totalCount = ingredients.getTotalCount()
+		} else {
+			ingredients = IngredientType.findAll("from IngredientType as i where i.name like ?", ["%"+searchBox+"%"])
+			//totalCount = ingredients.size()
+		}
 		
 		ingredients.each {
 			tmpIngredients.add([
@@ -285,6 +306,14 @@ class RecipeController {
 		}
 		
 		ingredients = tmpIngredients
+		
+		/*
+		return [
+			ingredientCount: totalCount,
+			pagemax: max,
+			pageoffset: offset
+		]
+		*/
 	}
 	
 	def addRecipeContent() {

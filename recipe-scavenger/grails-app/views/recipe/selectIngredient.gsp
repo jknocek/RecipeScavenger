@@ -14,6 +14,19 @@
 				</ul>
 				<div id="tabs-1">
 						<g:form controller="recipe">
+								<table>
+									<tr>
+										<td>
+											<p>Search by Name:&nbsp</p>
+										</td>
+										<td>
+											<g:textField name="searchBox"/>
+										</td>
+										<td>
+											<g:actionSubmit value="Search" controller="recipe" action="selectIngredient"/>
+										</td>
+									</tr>
+								</table>
 							<table class="ingredient-list">
 								<thead>
 									<tr>
@@ -26,7 +39,6 @@
 									<g:each in="${ ingredients }" var="ingredient">
 										<tr class="hightlight-row">
 											<td>${ ingredient?.name }</td>
-											<!--<td>${ ingredient?.baseUomType }</td>-->
 											<td>${ ingredient?.baseUomName }</td>
 											<td><g:radio name="selectedIngredient" value="${ingredient?.id}"/></td>
 										</tr>

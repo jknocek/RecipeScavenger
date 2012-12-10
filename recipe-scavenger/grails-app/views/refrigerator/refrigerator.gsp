@@ -16,6 +16,21 @@
 				</ul>
 				<div id="tabs-1">
 					<div><g:link controller="ingredient" action="index">Add Item</g:link></div>
+					<g:form>
+						<table>
+							<tr>
+								<td>
+									<p>Search by Name:&nbsp</p>
+								</td>
+								<td>
+									<g:textField name="searchBox"/>
+								</td>
+								<td>
+									<g:actionSubmit value="Search" controller="refrigerator" action="refrigerator"/>
+								</td>
+							</tr>
+						</table>
+					</g:form>
 					<table class="ingredient-list" cellpadding=2 >
 						<thead>
 							<tr>

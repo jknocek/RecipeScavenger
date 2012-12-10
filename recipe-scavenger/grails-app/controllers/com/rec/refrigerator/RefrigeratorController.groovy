@@ -28,7 +28,15 @@ class RefrigeratorController {
 			redirect(controller: 'home', action: 'home')
 		}
 		
-		session.refrigeratorContent = Refrigerator.findAll("from Refrigerator as r where r.user=? order by ingredient.name", [session.user])
+		//session.refrigeratorContent = Refrigerator.findAll("from Refrigerator as r where r.user=? order by ingredient.name", [session.user])
+		
+		def searchBox = params?.searchBox
+		
+		if (!searchBox) {
+			session.refrigeratorContent = Refrigerator.findAll("from Refrigerator as r where r.user=? order by ingredient.name", [session.user])
+		} else {
+			session.refrigeratorContent = Refrigerator.findAll("from Refrigerator where user=? and ingredient.name like ?", [session.user, "%"+searchBox+"%"])
+		}
 		
 		def temp = ""
 	}

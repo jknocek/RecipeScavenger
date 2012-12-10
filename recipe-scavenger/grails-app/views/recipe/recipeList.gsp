@@ -15,6 +15,21 @@
 					<g:if test="${session.user}">
 						<g:link controller="recipe" action="toAddRecipe">Add Recipe</g:link>
 					</g:if>
+					<g:form>
+						<table>
+							<tr>
+								<td>
+									<p>Search by Name:&nbsp</p>
+								</td>
+								<td>
+									<g:textField name="searchBox"/>
+								</td>
+								<td>
+									<g:actionSubmit value="Search" controller="recipe" action="recipeList"/>
+								</td>
+							</tr>
+						</table>
+					</g:form>
 					<table class="recipe-list">
 						<thead>
 							<tr>
