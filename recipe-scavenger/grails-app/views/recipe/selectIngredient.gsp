@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'recipe.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'ingredient.css')}" type="text/css">
+		<g:javascript src="ingredient.js"/>
 		<title>Recipe Scavenger - Add New Recipe</title>
 	</head>
 	<body>
@@ -16,16 +17,17 @@
 							<table class="ingredient-list">
 								<thead>
 									<tr>
-										<th>Name</th>
-										<th>Usually measured by</th>
+										<th><b>Name</b></th>
+										<th><b>Usually measured by</b></th>
 										<th>
 									</tr>
 								</thead>
 								<tbody>
 									<g:each in="${ ingredients }" var="ingredient">
-										<tr>
+										<tr class="hightlight-row">
 											<td>${ ingredient?.name }</td>
-											<td>${ ingredient?.baseUomType }</td>
+											<!--<td>${ ingredient?.baseUomType }</td>-->
+											<td>${ ingredient?.baseUomName }</td>
 											<td><g:radio name="selectedIngredient" value="${ingredient?.id}"/></td>
 										</tr>
 									</g:each>

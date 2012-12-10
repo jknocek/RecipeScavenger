@@ -2,8 +2,9 @@ package com.rec.recipe
 
 import com.rec.ingredient.IngredientType
 import com.rec.uom.UOM
-import com.rec.validation.ValidationResult
-import com.rec.validation.RecipeValidation
+import com.rec.validation.*
+//import com.rec.validation.ValidationResult
+//import com.rec.validation.RecipeValidation
 import com.rec.refrigerator.Refrigerator
 import org.hibernate.Session
 import org.hibernate.SessionFactory
@@ -268,7 +269,22 @@ class RecipeController {
 
 		saveNewRecipeValuesNoRedirect()
 		
+		//ingredients = IngredientType.findAll()
+		
+		def tmpIngredients = []
+		
 		ingredients = IngredientType.findAll()
+		
+		ingredients.each {
+			tmpIngredients.add([
+				name: it.name,
+				baseUomType: it.baseUomType,
+				baseUomName: IngredientTypeValidator.getUserFriendlyUomType(it.baseUomType),
+				id: it.id,
+			])
+		}
+		
+		ingredients = tmpIngredients
 	}
 	
 	def addRecipeContent() {

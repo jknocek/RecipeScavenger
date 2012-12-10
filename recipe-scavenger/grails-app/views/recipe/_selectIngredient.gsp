@@ -10,7 +10,7 @@
 			</thead>
 			<tbody>
 				<g:each in="${ ingredients }" var="ingredient">
-					<tr>
+					<tr class="hightlight-row">
 						<td>${ ingredient?.name }</td>
 						<td>${ ingredient?.baseUomType }</td>
 						<td><g:radio name="selectedIngredient" value="${ingredient?.id}"/></td>

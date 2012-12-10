@@ -12,7 +12,9 @@
 					<li><h3><a href="#tabs-1">Recipes</a></h3></li>
 				</ul>
 				<div id="tabs-1">
-					<g:link controller="recipe" action="toAddRecipe">Add Recipe</g:link>
+					<g:if test="${session.user}">
+						<g:link controller="recipe" action="toAddRecipe">Add Recipe</g:link>
+					</g:if>
 					<table class="recipe-list">
 						<thead>
 							<tr>
@@ -23,7 +25,7 @@
 						</thead>
 						<tbody>
 						<g:each in="${ recipeList }" var="recipe">
-							<tr>
+							<tr class="hightlight-row">
 								<td><g:link controller="recipe" action="viewRecipe" params="[id: recipe?.id]">${ recipe?.name }</g:link></td>
 								<td>${recipe?.description}</td>
 								<td>
@@ -39,7 +41,9 @@
 						</g:each>
 						</tbody>
 					</table>
-					<g:link controller="recipe" action="toAddRecipe">Add Recipe</g:link>
+					<g:if test="${session.user}">
+						<g:link controller="recipe" action="toAddRecipe">Add Recipe</g:link>
+					</g:if>
 				</div>
 			</div>
 		</div>
